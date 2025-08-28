@@ -1,0 +1,166 @@
+"use client";
+import { Trophy, Dumbbell } from "lucide-react";
+
+export default function AboutSection() {
+  return (
+    <section id="about" className="py-24 bg-black">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Coluna esquerda - Conteúdo */}
+          <div>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6">
+              <Trophy className="w-4 h-4 text-green-400" />
+              <span className="text-green-400 font-medium">
+                Educador Físico
+              </span>
+            </div>
+
+            {/* Título */}
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
+              Conheça o
+              <span className="block bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">
+                Lucas Maia
+              </span>
+            </h2>
+
+            {/* Descrições */}
+            <div className="space-y-6">
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Formado em{" "}
+                <strong className="text-white">Educação Física</strong> pela
+                Universidade Federal Rural do Rio de Janeiro e{" "}
+                <strong className="text-green-400">
+                  atleta de fisiculturismo
+                </strong>
+                , sendo campeão Overall 3 vezes da minha categoria.
+              </p>
+
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Já atendi{" "}
+                <strong className="text-green-400 animate-pulse">
+                  mais de 100 mulheres
+                </strong>{" "}
+                dentro da minha consultoria, que atualmente possui{" "}
+                <strong className="text-white">75 alunas ativas</strong>.
+              </p>
+
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Meu objetivo com esse protocolo é ofertar um treino
+                individualizado e direcionado para seus objetivos com um{" "}
+                <strong className="text-green-400">valor acessível</strong>,
+                pois sei que muitas pessoas ainda não podem investir em uma
+                consultoria completa.
+              </p>
+            </div>
+
+            {/* Estatísticas */}
+            <div className="grid grid-cols-3 gap-4 mt-8 p-6 bg-gradient-to-br from-gray-700/50 to-black/50 rounded-2xl border border-green-500/20">
+              {[
+                { number: "100+", label: "Transformações" },
+                { number: "75", label: "Alunas Ativas" },
+                { number: "3x", label: "Campeão" },
+              ].map((stat, index) => (
+                <div key={stat.label} className="text-center">
+                  <div
+                    className="text-3xl font-bold text-green-400 animate-pulse"
+                    style={{
+                      animationDelay: `${index * 0.3}s`,
+                    }}
+                  >
+                    {stat.number}
+                  </div>
+                  <div className="text-sm text-gray-400">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Coluna direita - Card do Lucas */}
+          <div className="flex justify-center">
+            <div className="relative">
+              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl flex items-center justify-center backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
+                <div className="text-center">
+                  <div
+                    className="w-24 h-24 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-spin"
+                    style={{ animationDuration: "15s" }}
+                  >
+                    <Dumbbell className="w-12 h-12 text-green-400" />
+                  </div>
+                  <p className="text-green-400 font-bold text-xl">Lucas Maia</p>
+                  <p className="text-gray-400 text-sm">Seu Personal Coach</p>
+                </div>
+              </div>
+
+              {/* Badge flutuante */}
+              <div className="absolute -top-6 -right-6 bg-green-400 rounded-lg w-15 h-15 flex items-center justify-center animate-bounce">
+                <Trophy className="w-7 h-7 text-black" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes glow {
+          0% {
+            box-shadow: 0 0 40px rgba(74, 222, 128, 0.2);
+          }
+          100% {
+            box-shadow: 0 0 80px rgba(74, 222, 128, 0.4);
+          }
+        }
+
+        @keyframes rotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(-10px);
+          }
+          50% {
+            transform: translateY(10px);
+          }
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.8;
+            transform: scale(1.05);
+          }
+        }
+
+        @media (max-width: 1024px) {
+          div[style*="gridTemplateColumns: repeat(3, 1fr)"] {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+
+          div[style*="gridTemplateColumns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+            text-align: center;
+          }
+        }
+
+        @media (max-width: 640px) {
+          div[style*="320px"] {
+            width: 280px !important;
+            height: 280px !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
