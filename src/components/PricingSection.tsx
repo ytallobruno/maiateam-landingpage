@@ -32,7 +32,7 @@ export default function PricingSection() {
                 </span>
               </div>
               <div className="text-5xl font-bold text-green-400 mb-2">
-                R$ 139,90
+                R$ 149,90
               </div>
               <div className="text-gray-300 mb-6">
                 Pagamento único • Acesso vitalício

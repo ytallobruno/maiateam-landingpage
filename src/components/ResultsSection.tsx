@@ -1,25 +1,30 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function ResultsSection() {
   const results = [
     {
+      image: "/result1.webp",
       name: "Ana Silva",
       result: "Perdeu 10kg em 4 meses",
       quote: "Nunca me senti melhor na minha vida!",
     },
     {
+      image: "/result2.webp",
       name: "Carla Santos",
       result: "Ganhou 3kg de massa magra",
       quote: "Treinos inteligentes e acompanhamento real.",
     },
     {
+      image: "/result3.webp",
       name: "Maria Costa",
       result: "Reduziu 8cm de cintura",
       quote: "O protocolo mudou minha relação com o treino.",
     },
     {
+      image: "/result4.webp",
       name: "Julia Lima",
       result: "Perdeu 15kg em 6 meses",
       quote: "Metodologia que realmente funciona!",
@@ -45,24 +50,34 @@ export default function ResultsSection() {
           {results.map((result, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-gray-700 to-black border border-green-500/20 rounded-2xl p-6 transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-[0_20px_40px_rgba(74,222,128,0.1)]"
+              className="bg-gradient-to-br from-gray-800 to-gray-900 border border-green-500/20 rounded-3xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(74,222,128,0.08)] group"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-black font-bold text-xl">
-                  {result.name.charAt(0)}
-                </span>
+              {/* Imagem de transformação */}
+              <div className="relative h-[28rem] overflow-hidden">
+                <Image
+                  src={result.image}
+                  alt={`Transformação de ${result.name}`}
+                  width={300}
+                  height={448}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="bg-green-400 text-black font-bold py-2 px-3 rounded-full text-center text-xs">
+                    {result.result}
+                  </div>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-center mb-2 text-white">
-                {result.name}
-              </h3>
-              <div className="bg-green-500/10 rounded-lg p-3 mb-4">
-                <p className="text-green-400 font-bold text-center">
-                  {result.result}
+
+              {/* Conteúdo do card */}
+              <div className="p-4">
+                <h3 className="text-lg font-bold mb-2 text-white text-center">
+                  {result.name}
+                </h3>
+                <p className="text-gray-300 text-xs leading-relaxed italic text-center">
+                  &ldquo;{result.quote}&rdquo;
                 </p>
               </div>
-              <p className="text-gray-300 text-center text-sm italic">
-                {result.quote}
-              </p>
             </div>
           ))}
         </div>

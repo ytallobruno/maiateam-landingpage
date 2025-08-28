@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 export default function FAQSection() {
@@ -41,7 +41,7 @@ export default function FAQSection() {
   return (
     <section id="faq" className="py-24 bg-black">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
             Perguntas <span className="text-green-400">Frequentes</span>
           </h2>
@@ -54,9 +54,9 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div key={index} className="mb-4">
               <button
-                className={`w-full bg-gradient-to-br from-gray-700 to-black border rounded-2xl p-6 text-left transition-all duration-300 cursor-pointer ${
+                className={`w-full bg-gradient-to-br from-gray-700 to-black border rounded-2xl p-6 text-left transition-all duration-300 cursor-pointer transform hover:scale-[1.02] ${
                   openFaq === index
-                    ? "border-green-500/40"
+                    ? "border-green-500/40 shadow-lg shadow-green-500/20"
                     : "border-green-500/20 hover:border-green-500/40"
                 }`}
                 onClick={() => setOpenFaq(openFaq === index ? null : index)}
@@ -65,17 +65,25 @@ export default function FAQSection() {
                   <h3 className="text-xl font-bold text-white pr-4">
                     {faq.question}
                   </h3>
-                  {openFaq === index ? (
-                    <ChevronUp className="w-6 h-6 text-green-400 flex-shrink-0" />
-                  ) : (
+                  <div
+                    className={`transition-transform duration-300 ease-in-out ${
+                      openFaq === index ? "rotate-180" : "rotate-0"
+                    }`}
+                  >
                     <ChevronDown className="w-6 h-6 text-green-400 flex-shrink-0" />
-                  )}
+                  </div>
                 </div>
-                {openFaq === index && (
-                  <div className="mt-4 text-gray-300 leading-relaxed">
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    openFaq === index
+                      ? "max-h-96 opacity-100 mt-4"
+                      : "max-h-0 opacity-0 mt-0"
+                  }`}
+                >
+                  <div className="text-gray-300 leading-relaxed pb-1">
                     {faq.answer}
                   </div>
-                )}
+                </div>
               </button>
             </div>
           ))}

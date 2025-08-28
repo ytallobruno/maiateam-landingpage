@@ -13,13 +13,18 @@ import { useEffect } from "react";
 
 export default function Home() {
   useEffect(() => {
-    // Smooth scrolling for anchor links
+    // Smooth scrolling for internal anchor links only
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach((link) => {
       link.addEventListener("click", (e) => {
-        e.preventDefault();
         const href = link.getAttribute("href");
-        if (!href) return;
+        if (!href || !href.startsWith("#") || href.includes("://")) {
+          // Se é link externo, não interceptar - deixar comportamento nativo
+          return;
+        }
+
+        // Só prevenir comportamento padrão para links internos
+        e.preventDefault();
         const element = document.querySelector(href);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });

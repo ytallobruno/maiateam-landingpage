@@ -14,15 +14,15 @@ export default function FinalCTASection() {
         </p>
 
         <div className="flex flex-col items-center gap-2">
-          <a 
+          <a
             href="https://pay.kiwify.com.br/Xcq6j4S"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-black text-green-400 font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] text-lg border-none cursor-pointer hover:scale-105 no-underline"
           >
-            COMEÇAR AGORA - R$ 139,90
+            COMEÇAR AGORA - R$ 149,90
           </a>
-          <a 
+          <a
             href="https://wa.me/5521972179585"
             target="_blank"
             rel="noopener noreferrer"

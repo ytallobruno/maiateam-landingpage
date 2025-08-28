@@ -83,7 +83,7 @@ export default function MethodSection() {
           </p>
           <div className="flex justify-center">
             <div className="bg-green-400 text-black font-bold py-3 px-6 rounded-full text-lg">
-              Valor normal: R$ 300+ → Seu preço: R$ 139,90
+              Valor normal: R$ 300+ → Seu preço: R$ 149,90
             </div>
           </div>
         </div>

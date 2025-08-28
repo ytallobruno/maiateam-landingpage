@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -24,14 +25,17 @@ export default function Header() {
   }, []);
 
   const handleMenuClick = () => {
-    setMobileMenuOpen(false);
+    // Simplesmente fechar o menu após um delay
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+    }, 1500);
   };
 
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-300 ${
         scrolled
-          ? "bg-black/90 backdrop-blur-lg border-b border-green-400/20"
+          ? "bg-black/40 backdrop-blur-lg border-b border-green-400/20"
           : "bg-transparent"
       }`}
     >
@@ -83,28 +87,39 @@ export default function Header() {
       </div>
 
       {/* Menu Mobile */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-black/95 backdrop-blur-lg border-t border-green-400/20">
-          <nav className="px-6 py-4 space-y-4">
-            {menuItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={handleMenuClick}
-                className="block text-white/90 font-medium py-2 transition-colors duration-200 hover:text-green-400"
-              >
-                {item.text}
-              </a>
-            ))}
-            <a
-              onClick={handleMenuClick}
-              className="block w-full text-center bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-6 py-3 rounded-full mt-4"
-            >
-              Começar Agora
-            </a>
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className={`md:hidden backdrop-blur-lg border-t border-green-400/20 overflow-hidden ${
+              scrolled ? "" : "bg-black/40"
+            }`}
+          >
+            <nav className="px-6 py-4 space-y-4">
+              {menuItems.map((item, index) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={handleMenuClick}
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{
+                    delay: index * 0.1,
+                    duration: 0.4,
+                    ease: "easeOut",
+                  }}
+                  className="block text-white/90 font-medium py-2 transition-colors duration-200 hover:text-green-400 text-right"
+                >
+                  {item.text}
+                </motion.a>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

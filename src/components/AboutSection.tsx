@@ -1,5 +1,6 @@
 "use client";
-import { Trophy, Dumbbell } from "lucide-react";
+import { Trophy } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutSection() {
   return (
@@ -79,22 +80,29 @@ export default function AboutSection() {
           {/* Coluna direita - Card do Lucas */}
           <div className="flex justify-center">
             <div className="relative">
-              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl flex items-center justify-center backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
-                <div className="text-center">
-                  <div
-                    className="w-24 h-24 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-spin"
-                    style={{ animationDuration: "15s" }}
-                  >
-                    <Dumbbell className="w-12 h-12 text-green-400" />
+              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/LucasMaiaPersonal.webp"
+                    alt="Lucas Maia - Personal Coach"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 640px) 280px, 320px"
+                  />
+                  {/* Overlay gradiente para melhor legibilidade do texto */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+                  {/* Texto sobre a imagem */}
+                  <div className="absolute bottom-4 left-4 right-4 text-center">
+                    {/* <p className="text-white font-bold text-xl drop-shadow-lg">Lucas Maia</p> */}
+                    {/* <p className="text-green-400 text-sm font-medium drop-shadow-lg">Seu Personal Coach</p> */}
                   </div>
-                  <p className="text-green-400 font-bold text-xl">Lucas Maia</p>
-                  <p className="text-gray-400 text-sm">Seu Personal Coach</p>
                 </div>
               </div>
 
               {/* Badge flutuante */}
-              <div className="absolute -top-6 -right-6 bg-green-400 rounded-lg w-15 h-15 flex items-center justify-center animate-bounce">
-                <Trophy className="w-7 h-7 text-black" />
+              <div className="absolute -top-6 -right-6 bg-gradient-to-br animate-bounce rounded-lg w-15 h-15 flex items-center justify-center  shadow-lg">
+                <Trophy className="w-7 h-7 text-green-400" />
               </div>
             </div>
           </div>

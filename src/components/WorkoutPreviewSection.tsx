@@ -57,7 +57,9 @@ export default function WorkoutPreviewSection() {
 
             <div className="text-center">
               <a
-                href="#preview"
+                href="https://youtu.be/rBELaV0ovl0"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-gradient-to-r from-green-400 to-green-600 text-black font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(74,222,128,0.25)] inline-flex items-center gap-2 hover:scale-105 no-underline"
               >
                 <Play className="w-5 h-5" />

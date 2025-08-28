@@ -20,7 +20,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black flex items-center relative overflow-hidden pt-20"
+      className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black flex items-center relative overflow-hidden pt-28 md:mt-0"
     >
       {/* Animated background grid */}
       <div
@@ -110,7 +110,7 @@ export default function HeroSection() {
           </div>
 
           {/* Coluna direita - Card do Lucas */}
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-8 lg:mb-0">
             <div className="relative">
               {/* Card principal */}
               <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl flex items-center justify-center backdrop-blur-sm shadow-2xl shadow-green-400/20 ">
