@@ -24,12 +24,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleMenuClick = () => {
-    // Simplesmente fechar o menu após um delay
-    setTimeout(() => {
-      setMobileMenuOpen(false);
-    }, 1500);
-  };
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target as Element;
+
+      if (mobileMenuOpen && !target.closest("header")) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -107,7 +113,6 @@ export default function Header() {
                 <motion.a
                   key={item.href}
                   href={item.href}
-                  onClick={handleMenuClick}
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{
