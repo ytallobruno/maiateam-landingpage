@@ -78,7 +78,7 @@ export default function PricingSection() {
 
               <div className="text-center">
                 <a
-                  href="https://wa.me/5521972179585"
+                  href="https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso%20e%20queria%20saber%20qual%20o%20valor%20dele%20no%20pix"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 text-sm hover:text-green-400 transition-colors duration-200 underline"
@@ -92,7 +92,7 @@ export default function PricingSection() {
 
         <div className="text-center mt-12">
           <a
-            href="https://wa.me/5521972179585"
+            href="https://wa.me/5521972179585?text=Oii+Lucas%2C+como+funciona+sua+consultoria+online%3F+Pode+me+passar+mais+informa%C3%A7%C3%B5es%3F+"
             target="_blank"
             className="inline-flex items-center gap-3 bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(22,163,74,0.25)] no-underline hover:scale-105"
           >

@@ -23,7 +23,7 @@ export default function FinalCTASection() {
             COMEÇAR AGORA - R$ 149,90
           </a>
           <a
-            href="https://wa.me/5521972179585"
+            href="https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso%20e%20queria%20saber%20qual%20o%20valor%20dele%20no%20pix"
             target="_blank"
             rel="noopener noreferrer"
             className="text-black/70 text-sm font-medium hover:text-black transition-colors duration-200 underline"
