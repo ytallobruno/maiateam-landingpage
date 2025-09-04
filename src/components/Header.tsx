@@ -41,7 +41,11 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <a
+          href="#hero"
+          className="flex items-center gap-3 cursor-pointer transition-transform duration-200 hover:scale-105"
+          aria-label="Voltar ao topo"
+        >
           <Image
             src="/MaiaTeamLogo.webp"
             alt="MaiaTeam Logo"
@@ -49,7 +53,7 @@ export default function Header() {
             height={40}
             className="h-10 w-auto"
           />
-        </div>
+        </a>
 
         {/* Navegação Desktop */}
         <nav className="hidden md:flex gap-8 text-white/90">

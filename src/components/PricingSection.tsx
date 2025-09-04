@@ -1,8 +1,128 @@
 "use client";
 
-import { CheckCircle, Phone } from "lucide-react";
+import { CheckCircle, Phone, Star } from "lucide-react";
 
 export default function PricingSection() {
+  const plans = [
+    {
+      id: "prata",
+      name: "PLANO PRATA",
+      badge: "INICIAL",
+      priceCredit: "R$ 320,00",
+      priceVista: "R$ 299,90",
+      description: "2 protocolos de treino com duração de 6 semanas cada um",
+      features: [
+        "Planilha com vídeos de TODOS os exercícios",
+        "Planilha de controle de carga",
+        "Alongamentos específicos",
+        "Ajustes periódicos nos treinos",
+      ],
+      paymentLink: "#",
+      whatsappLink:
+        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata%20e%20queria%20mais%20informações",
+      highlighted: false,
+      theme: "gray",
+    },
+    {
+      id: "avulso",
+      name: "PROTOCOLO AVULSO",
+      badge: "MAIS VENDIDO",
+      priceCredit: "R$ 160,00",
+      priceVista: "R$ 149,90",
+      description: "Treino personalizado sem acompanhamento completo",
+      features: [
+        "1 planilha de treino permanente",
+        "Alongamentos específicos",
+        "Diretrizes de execução",
+        "Acesso vitalício",
+      ],
+      paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
+      whatsappLink:
+        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso%20e%20queria%20saber%20qual%20o%20valor%20dele%20no%20pix",
+      highlighted: true,
+      theme: "green",
+    },
+    {
+      id: "ouro",
+      name: "PLANO OURO",
+      badge: "RECOMENDADO",
+      priceCredit: "R$ 400,00",
+      priceVista: "R$ 385,90",
+      description: "3 protocolos de treino com duração de 6 semanas cada um",
+      features: [
+        "Planilha com vídeos de TODOS os exercícios",
+        "Planilha de controle de carga",
+        "Chamada no Meet",
+        "Alongamentos específicos",
+      ],
+      paymentLink: "#",
+      whatsappLink:
+        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro%20e%20queria%20mais%20informações",
+      highlighted: false,
+      theme: "yellow",
+    },
+    {
+      id: "platinum",
+      name: "PLANO PLATINUM",
+      badge: "PREMIUM",
+      priceCredit: "R$ 600,00",
+      priceVista: "R$ 585,90",
+      description: "4 protocolos de treino com duração de 6 semanas cada um",
+      features: [
+        "Planilha com vídeos de TODOS os exercícios",
+        "Planilha de controle de carga",
+        "Alongamentos específicos",
+        "24 semanas de acompanhamento",
+      ],
+      paymentLink: "#",
+      whatsappLink:
+        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum%20e%20queria%20mais%20informações",
+      highlighted: false,
+      theme: "purple",
+    },
+  ];
+
+  const getThemeClasses = (theme: string, highlighted: boolean) => {
+    const themes = {
+      gray: {
+        border: "border-gray-600",
+        badgeBg: "bg-gradient-to-r from-gray-600 to-gray-700",
+        badgeText: "text-white",
+        price: "text-green-400",
+        icon: "text-green-400",
+        button: "bg-gray-700 hover:bg-gray-500",
+        hover: "hover:border-gray-400",
+      },
+      green: {
+        border: highlighted ? "border-green-400/50" : "border-gray-600/50",
+        badgeBg: "bg-gradient-to-r from-green-400 to-green-600",
+        badgeText: "text-black",
+        price: "text-green-400",
+        icon: "text-green-400",
+        button: "bg-green-500 text-black hover:bg-green-400",
+        hover: "hover:border-green-500",
+      },
+      yellow: {
+        border: "border-yellow-600/50",
+        badgeBg: "bg-gradient-to-r from-yellow-600 to-yellow-700",
+        badgeText: "text-white",
+        price: "text-yellow-400",
+        icon: "text-yellow-400",
+        button: "bg-yellow-700 hover:bg-yellow-600",
+        hover: "hover:border-yellow-500",
+      },
+      purple: {
+        border: "border-purple-500/50",
+        badgeBg: "bg-gradient-to-r from-purple-600 to-purple-700",
+        badgeText: "text-white",
+        price: "text-purple-400",
+        icon: "text-purple-400",
+        button: "bg-purple-700 hover:bg-purple-600",
+        hover: "hover:border-purple-400",
+      },
+    };
+    return themes[theme as keyof typeof themes];
+  };
   return (
     <section
       id="purchase"
@@ -19,75 +139,88 @@ export default function PricingSection() {
           </p>
         </div>
 
-        <div className="max-w-md mx-auto">
-          <div className="bg-gradient-to-br from-gray-700 to-black border-2 border-green-400 rounded-3xl p-8 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-green-400 to-green-600 text-black text-center py-2 font-bold">
-              OFERTA LIMITADA
-            </div>
+        {/* Grid de planos */}
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 max-w-6xl mx-auto items-stretch">
+          {plans.map((plan) => {
+            const themeClasses = getThemeClasses(plan.theme, plan.highlighted);
 
-            <div className="text-center mt-6">
-              <div className="mb-4">
-                <span className="text-gray-400 text-xl line-through">
-                  De R$ 300,00
-                </span>
-              </div>
-              <div className="text-5xl font-bold text-green-400 mb-2">
-                R$ 149,90
-              </div>
-              <div className="text-gray-300 mb-6">
-                Pagamento único • Acesso vitalício
-              </div>
-
-              <div className="space-y-3 mb-8 text-left">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <span className="text-gray-300">
-                    Treino 100% personalizado
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <span className="text-gray-300">
-                    Vídeos de todos os exercícios
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <span className="text-gray-300">
-                    Métodos avançados explicados
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <span className="text-gray-300">Suporte para dúvidas</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <span className="text-gray-300">Entrega em 5 dias</span>
-                </div>
-              </div>
-
-              <a
-                href="https://pay.kiwify.com.br/Xcq6j4S"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-gradient-to-r from-green-400 to-green-600 text-black font-bold py-4 rounded-full text-lg transition-all duration-300 shadow-[0_10px_25px_rgba(74,222,128,0.25)] mb-4 border-none cursor-pointer hover:scale-105 text-center no-underline"
+            return (
+              <div
+                key={plan.id}
+                className={`bg-gradient-to-br from-gray-800 to-gray-900 border-2 ${themeClasses.border} rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:scale-105 ${themeClasses.hover}`}
               >
-                QUERO MEU PROTOCOLO
-              </a>
+                {/* Badge superior */}
+                {plan.badge && (
+                  <div
+                    className={`absolute top-0 left-0 right-0 ${themeClasses.badgeBg} ${themeClasses.badgeText} text-center py-2 font-bold text-xs flex items-center justify-center gap-1`}
+                  >
+                    {plan.id === "avulso" && <Star className="w-3 h-3" />}
+                    {plan.badge}
+                    {plan.id === "avulso" && <Star className="w-3 h-3" />}
+                  </div>
+                )}
 
-              <div className="text-center">
-                <a
-                  href="https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso%20e%20queria%20saber%20qual%20o%20valor%20dele%20no%20pix"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 text-sm hover:text-green-400 transition-colors duration-200 underline"
-                >
-                  Ou pague via PIX com desconto
-                </a>
+                <div className="text-center mt-6">
+                  <h3 className="text-lg font-bold text-white mb-3">
+                    {plan.name}
+                  </h3>
+
+                  <div className="mb-2">
+                    <span className="text-gray-400 text-sm line-through">
+                      {plan.priceCredit}
+                    </span>
+                  </div>
+                  <div
+                    className={`text-2xl font-bold ${themeClasses.price} mb-3`}
+                  >
+                    {plan.priceVista}
+                  </div>
+
+                  <div className="space-y-2 mb-6 text-left">
+                    {plan.features.map((feature, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <CheckCircle
+                          className={`w-4 h-4 ${themeClasses.icon} flex-shrink-0 mt-0.5`}
+                        />
+                        <span className="text-gray-300 text-xs">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Botão principal para o protocolo avulso */}
+                  {plan.highlighted ? (
+                    <>
+                      <a
+                        href={plan.paymentLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`block w-full ${themeClasses.button} font-bold py-3 rounded-full text-sm transition-all duration-300 mb-2 border-none cursor-pointer text-center no-underline`}
+                      >
+                        QUERO MEU PROTOCOLO
+                      </a>
+                      <a
+                        href={plan.whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 text-xs hover:text-green-400 transition-colors duration-200 underline"
+                      >
+                        Ou pague via PIX
+                      </a>
+                    </>
+                  ) : (
+                    <a
+                      href={plan.whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`block w-full ${themeClasses.button} text-white font-bold py-3 rounded-full text-sm transition-all duration-300 text-center no-underline`}
+                    >
+                      SABER MAIS
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
         <div className="text-center mt-12">

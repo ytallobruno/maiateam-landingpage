@@ -1,6 +1,7 @@
 "use client";
-import { ArrowRight, Dumbbell, Play, Star, Trophy, Users } from "lucide-react";
+import { ArrowRight, Play, Star, Trophy, Users } from "lucide-react";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function HeroSection() {
   const [particles, setParticles] = useState<
@@ -113,18 +114,27 @@ export default function HeroSection() {
 
           {/* Coluna direita - Card do Lucas */}
           <div className="flex justify-center mb-8 lg:mb-0">
-            <div className="relative">
-              {/* Card principal */}
-              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl flex items-center justify-center backdrop-blur-sm shadow-2xl shadow-green-400/20 ">
-                <div className="text-center">
-                  {/* Ícone do haltere rotativo */}
-                  <div className="w-20 h-20 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Dumbbell className="w-10 h-10 text-green-400" />
-                  </div>
-                  <p className="text-green-400 font-semibold text-lg">
+            <div className="relative group">
+              {/* Card principal com foto do Lucas */}
+              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl shadow-green-400/20 relative">
+                {/* Imagem de perfil do Lucas */}
+                <Image
+                  src="/LucasMaiaPerfil.webp"
+                  alt="Lucas Maia - Educador Físico"
+                  width={320}
+                  height={320}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+
+                {/* Gradiente preto de baixo para cima */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                {/* Textos sobrepostos */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
+                  <p className="text-green-400 font-semibold text-lg mb-1">
                     Lucas Maia
                   </p>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-gray-300 text-sm">
                     Educador Físico & Coach
                   </p>
                 </div>
