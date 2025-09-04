@@ -1,7 +1,8 @@
 "use client";
 import { ArrowRight, Play, Star, Trophy, Users } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion, useInView } from "framer-motion";
 
 export default function HeroSection() {
   const [particles, setParticles] = useState<
@@ -18,10 +19,20 @@ export default function HeroSection() {
     setParticles(newParticles);
   }, []);
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-10% 0px -10% 0px",
+  });
+
   return (
-    <section
+    <motion.section
+      ref={ref}
       id="hero"
-      className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black flex items-center relative overflow-hidden pt-28 md:mt-0"
+      className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black flex items-center relative overflow-hidden pt-28 md:mt-0 pb-12 md:pb-20"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.8 }}
     >
       {/* Animated background grid */}
       <div
@@ -50,7 +61,15 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           {/* Coluna esquerda - Conteúdo */}
-          <div>
+          <motion.div
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: isInView ? 0 : -100, opacity: isInView ? 1 : 0 }}
+            transition={{
+              duration: 0.8,
+              delay: isInView ? 0.4 : 0,
+              ease: "easeOut",
+            }}
+          >
             {/* Badge do troféu */}
             <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6 cursor-pointer transition-transform duration-200 hover:scale-105">
               <Trophy className="w-4 h-4 text-green-400" />
@@ -81,7 +100,16 @@ export default function HeroSection() {
             </p>
 
             {/* Botões */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 mb-12"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+              transition={{
+                duration: 0.6,
+                delay: isInView ? 0.6 : 0,
+                ease: "easeOut",
+              }}
+            >
               <a
                 href="#purchase"
                 className="bg-gradient-to-r from-green-400 to-green-600 text-black font-bold px-8 py-4 rounded-full flex items-center gap-2 shadow-lg shadow-green-400/25 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-green-400/40 justify-center"
@@ -97,10 +125,19 @@ export default function HeroSection() {
                 <Play className="w-5 h-5" />
                 <span>Ver Como Funciona</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* Estatísticas */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 text-gray-400">
+            <motion.div
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-6 text-gray-400"
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: isInView ? 0 : 30, opacity: isInView ? 1 : 0 }}
+              transition={{
+                duration: 0.6,
+                delay: isInView ? 0.8 : 0,
+                ease: "easeOut",
+              }}
+            >
               <div className="flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:text-green-400">
                 <Users className="w-5 h-5 text-green-400" />
                 <span>100+ Transformações</span>
@@ -109,11 +146,20 @@ export default function HeroSection() {
                 <Star className="w-5 h-5 text-green-400" />
                 <span>Avaliação 5.0</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Coluna direita - Card do Lucas */}
-          <div className="flex justify-center mb-8 lg:mb-0">
+          <motion.div
+            className="flex justify-center mb-8 lg:mb-0"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: isInView ? 0 : 100, opacity: isInView ? 1 : 0 }}
+            transition={{
+              duration: 0.8,
+              delay: isInView ? 0.5 : 0,
+              ease: "easeOut",
+            }}
+          >
             <div className="relative group">
               {/* Card principal com foto do Lucas */}
               <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl shadow-green-400/20 relative">
@@ -147,7 +193,7 @@ export default function HeroSection() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -177,6 +223,6 @@ export default function HeroSection() {
           }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 }

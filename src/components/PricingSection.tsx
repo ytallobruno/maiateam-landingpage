@@ -1,6 +1,8 @@
 "use client";
 
 import { CheckCircle, Phone, Star } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function PricingSection() {
   const plans = [
@@ -91,7 +93,8 @@ export default function PricingSection() {
         price: "text-green-400",
         icon: "text-green-400",
         button: "bg-gray-700 hover:bg-gray-500",
-        hover: "hover:border-gray-400",
+        hover:
+          "hover:border-gray-400 hover:shadow-[0_20px_40px_rgba(156,163,175,0.1)]",
       },
       green: {
         border: highlighted ? "border-green-400/50" : "border-gray-600/50",
@@ -100,7 +103,9 @@ export default function PricingSection() {
         price: "text-green-400",
         icon: "text-green-400",
         button: "bg-green-500 text-black hover:bg-green-400",
-        hover: "hover:border-green-500",
+        hover: highlighted
+          ? "hover:border-green-400 hover:shadow-[0_25px_50px_rgba(74,222,128,0.15)]"
+          : "hover:border-green-500",
       },
       yellow: {
         border: "border-yellow-600/50",
@@ -109,7 +114,8 @@ export default function PricingSection() {
         price: "text-yellow-400",
         icon: "text-yellow-400",
         button: "bg-yellow-700 hover:bg-yellow-600",
-        hover: "hover:border-yellow-500",
+        hover:
+          "hover:border-yellow-500 hover:shadow-[0_20px_40px_rgba(251,191,36,0.1)]",
       },
       purple: {
         border: "border-purple-500/50",
@@ -118,18 +124,35 @@ export default function PricingSection() {
         price: "text-purple-400",
         icon: "text-purple-400",
         button: "bg-purple-700 hover:bg-purple-600",
-        hover: "hover:border-purple-400",
+        hover:
+          "hover:border-purple-400 hover:shadow-[0_20px_40px_rgba(147,51,234,0.1)]",
       },
     };
     return themes[theme as keyof typeof themes];
   };
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false, // Para animar toda vez que entrar/sair
+    margin: "-20% 0px -20% 0px", // Margem para controlar quando ativar
+  });
+
   return (
-    <section
+    <motion.section
+      ref={ref}
       id="purchase"
       className="py-24 bg-gradient-to-b from-black to-gray-900"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.6 }}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
             Quanto vai <span className="text-green-400">investir?</span>
           </h2>
@@ -137,17 +160,24 @@ export default function PricingSection() {
             Pode parecer mentira, mas você receberá o melhor treino da sua vida,
             com explicação de métodos avançados e vídeos de cada exercício.
           </p>
-        </div>
+        </motion.div>
 
         {/* Grid de planos */}
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 max-w-6xl mx-auto items-stretch">
-          {plans.map((plan) => {
+          {plans.map((plan, index) => {
             const themeClasses = getThemeClasses(plan.theme, plan.highlighted);
 
             return (
-              <div
+              <motion.div
                 key={plan.id}
-                className={`bg-gradient-to-br from-gray-800 to-gray-900 border-2 ${themeClasses.border} rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:scale-105 ${themeClasses.hover}`}
+                className={`bg-gradient-to-br from-gray-800 to-gray-900 border-2 ${themeClasses.border} rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] ${themeClasses.hover}`}
+                initial={{ y: 80, opacity: 0 }}
+                animate={{ y: isInView ? 0 : 80, opacity: isInView ? 1 : 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: isInView ? 0.4 + index * 0.1 : 0,
+                  ease: "easeOut",
+                }}
               >
                 {/* Badge superior */}
                 {plan.badge && (
@@ -218,12 +248,20 @@ export default function PricingSection() {
                     </a>
                   )}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        <div className="text-center mt-12">
+        <motion.div
+          className="text-center mt-12"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+          transition={{
+            duration: 0.6,
+            delay: isInView ? 1.2 : 0,
+          }}
+        >
           <a
             href="https://wa.me/5521972179585?text=Oii+Lucas%2C+como+funciona+sua+consultoria+online%3F+Pode+me+passar+mais+informa%C3%A7%C3%B5es%3F+"
             target="_blank"
@@ -232,8 +270,8 @@ export default function PricingSection() {
             <Phone className="w-5 h-5" />
             Falar no WhatsApp
           </a>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

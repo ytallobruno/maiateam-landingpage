@@ -1,12 +1,32 @@
 "use client";
 
 import { CheckCircle, Play } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function WorkoutPreviewSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-20% 0px -20% 0px",
+  });
+
   return (
-    <section id="preview" className="py-24 bg-black">
+    <motion.section
+      ref={ref}
+      id="preview"
+      className="py-24 bg-black"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: isInView ? 0.2 : 0 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
             Quer ver como é a{" "}
             <span className="text-green-400">planilha completa?</span>
@@ -15,11 +35,26 @@ export default function WorkoutPreviewSection() {
             Clique no botão abaixo para visualizar um exemplo da planilha que
             você receberá
           </p>
-        </div>
+        </motion.div>
 
-        <div className="bg-gradient-to-br from-gray-700 to-black border border-green-500/20 rounded-3xl p-8 max-w-4xl mx-auto">
+        <motion.div
+          className="bg-gradient-to-br from-gray-700 to-black border border-green-500/20 rounded-3xl p-8 max-w-4xl mx-auto"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{
+            scale: isInView ? 1 : 0.9,
+            opacity: isInView ? 1 : 0,
+          }}
+          transition={{ duration: 0.8, delay: isInView ? 0.4 : 0 }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              animate={{
+                x: isInView ? 0 : -50,
+                opacity: isInView ? 1 : 0,
+              }}
+              transition={{ duration: 0.6, delay: isInView ? 0.6 : 0 }}
+            >
               <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
                 O que está incluído:
               </h3>
@@ -53,9 +88,17 @@ export default function WorkoutPreviewSection() {
                   <span className="text-gray-300">Acesso vitalício</span>
                 </li>
               </ul>
-            </div>
+            </motion.div>
 
-            <div className="text-center">
+            <motion.div
+              className="text-center"
+              initial={{ x: 50, opacity: 0 }}
+              animate={{
+                x: isInView ? 0 : 50,
+                opacity: isInView ? 1 : 0,
+              }}
+              transition={{ duration: 0.6, delay: isInView ? 0.8 : 0 }}
+            >
               <a
                 href="https://youtu.be/rBELaV0ovl0"
                 target="_blank"
@@ -68,10 +111,10 @@ export default function WorkoutPreviewSection() {
               <p className="text-sm text-gray-400 mt-4">
                 Mais completa que essa, você não vai encontrar!
               </p>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

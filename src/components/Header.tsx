@@ -14,7 +14,7 @@ export default function Header() {
     { href: "#about", text: "Sobre" },
     { href: "#results", text: "Resultados" },
     { href: "#preview", text: "Planilha" },
-    { href: "#purchase", text: "Preços" },
+    { href: "#purchase", text: "Planos" },
     { href: "#faq", text: "FAQ" },
   ];
 

@@ -1,9 +1,16 @@
 "use client";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function FAQSection() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-20% 0px -20% 0px",
+  });
 
   const faqs = [
     {
@@ -14,7 +21,7 @@ export default function FAQSection() {
     {
       question: "Tenho acesso por quanto tempo?",
       answer:
-        "Seu acesso é vitalício! Assim que adquirir, você terá o treino por tempo ilimitado e poderá permanecer com ele por quanto tempo desejar.",
+        "Depende do plano que você adquirir. No plano avulso você terá o treino de forma permanente e poderá adquirir outro protocolo avulso quando quiser. Em todos os outros planos, cada treino tem duração de 6 semanas. E após esse período eu reavalio o seu físico para enviar a continuação dos treinos.",
     },
     {
       question: "Irei receber uma ficha genérica?",
@@ -24,7 +31,7 @@ export default function FAQSection() {
     {
       question: "Posso enviar vídeos para correção?",
       answer:
-        "Infelizmente, não. O protocolo é uma forma acessível de ter um treino prescrito por mim, mas não inclui correção de vídeos e feedbacks semanais, pois esse serviço é prestado na consultoria premium.",
+        "Ao adquirir qualquer plano COM EXCEÇÃO do avulso, você poderá enviar quantos vídeos quiser de TODOS os exercícios. A consultoria só fará sentido caso haja também a sua participação com o envio dos vídeos.",
     },
     {
       question: "Como funciona após o pagamento?",
@@ -34,25 +41,54 @@ export default function FAQSection() {
     {
       question: "Terei suporte?",
       answer:
-        "Sim! Você terá suporte para retirada de dúvidas referente à organização e execução do seu treino personalizado.",
+        "Você terá todo suporte necessário de segunda à sexta e também em alguns fins de semana, ajustes no seu treino caso haja mudanças bruscas em sua rotina, retirada de dúvidas e até mesmo se necessário eu gravo vídeos explicativos para você em uma academia para te enviar.",
     },
   ];
 
   return (
-    <section id="faq" className="py-24 bg-black">
+    <motion.section
+      ref={ref}
+      id="faq"
+      className="py-24 bg-black"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-14">
+        <motion.div
+          className="text-center mb-14"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: isInView ? 0.2 : 0 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
             Perguntas <span className="text-green-400">Frequentes</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
             Tire todas suas dúvidas sobre o protocolo personalizado
           </p>
-        </div>
+        </motion.div>
 
-        <div className="max-w-3xl mx-auto">
+        <motion.div
+          className="max-w-3xl mx-auto"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 30, opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: isInView ? 0.4 : 0 }}
+        >
           {faqs.map((faq, index) => (
-            <div key={index} className="mb-4">
+            <motion.div
+              key={index}
+              className="mb-4"
+              initial={{ x: -30, opacity: 0 }}
+              animate={{
+                x: isInView ? 0 : -30,
+                opacity: isInView ? 1 : 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: isInView ? 0.6 + index * 0.1 : 0,
+              }}
+            >
               <button
                 className={`w-full bg-gradient-to-br from-gray-700 to-black border rounded-2xl p-6 text-left transition-all duration-300 cursor-pointer transform hover:scale-[1.02] ${
                   openFaq === index
@@ -85,10 +121,10 @@ export default function FAQSection() {
                   </div>
                 </div>
               </button>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

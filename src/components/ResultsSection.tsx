@@ -2,9 +2,16 @@
 
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function ResultsSection() {
-  // Card de destaque da Catarina
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-20% 0px -20% 0px",
+  });
+
   const featuredResult = {
     beforeImage: "/resultado0.webp",
     afterImage: "/resultado01.webp",
@@ -13,62 +20,78 @@ export default function ResultsSection() {
     quote: "Não faço dieta, apenas treino",
   };
 
-  // Demais resultados
   const results = [
+    {
+      image: "/result3.webp",
+      name: "Andresa",
+      result: "Mais volume em 6 semanas",
+      quote:
+        "Depois de um período secando, em 6 semanas comi um pouco mais e foquei nos treinos; ganhei mais volume e um aspecto mais redondo.",
+    },
+    {
+      image: "/result4.webp",
+      name: "Maria Eduarda",
+      result: "Físico volumoso em 8 semanas",
+      quote:
+        "Com um protocolo de 8 semanas aumentei o volume dos meus glúteos e deixei meu físico com aspecto mais cheio.",
+    },
+    {
+      image: "/resultado5.webp",
+      name: "Vanessa",
+      result: "Mudança corporal em 3 meses",
+      quote:
+        "Em processo de emagrecimento, em 3 meses melhorei cortes, o detalhamento e o volume dos meus quadríceps.",
+    },
     {
       image: "/result2.webp",
       name: "Giovana",
-      result: "Físico construído do zero em 2 anos",
+      result: "Construída do zero em 2 anos",
       quote:
-        "Era falsa magra, pouquíssima massa e MUITA gordura. Em 2 anos aprendemos a treinar e construímos um físico do zero.",
+        "Eu era falsa magra, com pouquíssima massa e muita gordura. Em 2 anos aprendi a treinar e construí um físico do zero.",
     },
     {
       image: "/result1.webp",
       name: "Luisa",
       result: "Glúteos transformados em 1 ano",
       quote:
-        "Nunca me senti bem de biquíni/shorts; em 1 ano enfatizamos os glúteos e transformamos 'bunda' em glúteos de verdade.",
-    },
-    {
-      image: "/resultado5.webp",
-      name: "Vanessa",
-      result: "Corte, detalhamento e volume em 3 meses",
-      quote:
-        "Aluna em processo de emagrecimento; em 3 meses melhoramos cortes, detalhamento e volume de quadríceps.",
-    },
-    {
-      image: "/result3.webp",
-      name: "Andresa",
-      result: "Mais volume em 6 semanas",
-      quote:
-        "Após um período secando, em 6 semanas, comendo um pouco mais e focando no treino, trouxemos mais volume e um aspecto mais redondo.",
-    },
-    {
-      image: "/result4.webp",
-      name: "Maria Eduarda",
-      result: "Mais volume e físico mais cheio em 8 semanas",
-      quote:
-        "Com um protocolo de 8 semanas aumentamos o volume dos glúteos e deixamos o físico com aspecto mais cheio.",
+        "Nunca me senti bem de biquíni/shorts; em 1 ano foquei nos glúteos e transformei minha 'bunda' em glúteos de verdade.",
     },
   ];
 
   return (
-    <section
+    <motion.section
+      ref={ref}
       id="results"
       className="py-24 bg-gradient-to-b from-gray-900 to-black"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.6 }}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: isInView ? 0.2 : 0 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
             <span className="text-green-400">Transformações</span> Reais
           </h2>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Conheça algumas das histórias de sucesso das minhas alunas
           </p>
-        </div>
+        </motion.div>
 
         {/* Card de Destaque da Catarina */}
-        <div className="mb-16">
+        <motion.div
+          className="mb-16"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{
+            scale: isInView ? 1 : 0.8,
+            opacity: isInView ? 1 : 0,
+          }}
+          transition={{ duration: 0.8, delay: isInView ? 0.4 : 0 }}
+        >
           <div className="bg-gradient-to-br from-green-400/20 to-green-600/20 border-2 border-green-400/40 rounded-3xl p-10 max-w-5xl mx-auto relative overflow-hidden">
             {/* Efeito de brilho */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent"></div>
@@ -129,45 +152,65 @@ export default function ResultsSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-12 mb-12 max-w-4xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-8 mb-12 max-w-6xl mx-auto">
           {results.map((result, index) => (
-            <div
+            <motion.div
               key={index}
-              className="cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border border-green-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_10px_25px_rgba(74,222,128,0.08)] group w-full max-w-[216px] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+              className="cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border border-green-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_10px_25px_rgba(74,222,128,0.08)] group w-full max-w-[280px] sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-21px)]"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{
+                y: isInView ? 0 : 50,
+                opacity: isInView ? 1 : 0,
+              }}
+              transition={{
+                duration: 0.6,
+                delay: isInView ? 0.6 + index * 0.1 : 0,
+              }}
             >
               {/* Imagem de transformação */}
               <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src={result.image}
                   alt={`Transformação de ${result.name}`}
-                  width={216}
-                  height={288}
+                  width={280}
+                  height={373}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                <div className="absolute bottom-2 left-2 right-2">
-                  <div className="bg-green-400 text-black font-bold py-1 px-2 rounded-full text-center text-xs">
+                <div className="absolute bottom-3 left-3 right-3">
+                  <div className="bg-green-400 text-black font-bold py-2 px-3 rounded-full text-center text-sm">
                     {result.result}
                   </div>
                 </div>
               </div>
 
               {/* Conteúdo do card */}
-              <div className="p-2">
-                <h3 className="text-sm font-bold mb-1 text-white text-center">
+              <div className="p-4">
+                <h3 className="text-base font-bold mb-2 text-white text-center">
                   {result.name}
                 </h3>
-                <p className="text-gray-300 text-xs leading-relaxed italic text-center">
+                <p className="text-gray-300 text-sm leading-relaxed italic text-center">
                   &ldquo;{result.quote}&rdquo;
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{
+            y: isInView ? 0 : 30,
+            opacity: isInView ? 1 : 0,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: isInView ? 1.1 : 0,
+          }}
+        >
           <div className="bg-gradient-to-r from-green-400/10 to-green-600/10 border border-green-500/30 rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
               Você terá acesso à{" "}
@@ -182,8 +225,8 @@ export default function ResultsSection() {
               Metodologia Comprovada
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

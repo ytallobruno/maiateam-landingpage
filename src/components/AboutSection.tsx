@@ -1,21 +1,57 @@
 "use client";
 import { Trophy } from "lucide-react";
 import Image from "next/image";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function AboutSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-20% 0px -20% 0px",
+  });
+
   return (
-    <section id="about" className="min-h-screen bg-black flex items-center">
+    <motion.section
+      ref={ref}
+      id="about"
+      className="min-h-screen bg-black flex items-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="max-w-7xl mx-auto px-6 py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Coluna esquerda - Conteúdo */}
-          <div>
+          <motion.div
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: isInView ? 0 : -100, opacity: isInView ? 1 : 0 }}
+            transition={{
+              duration: 0.8,
+              delay: isInView ? 0.2 : 0,
+              ease: "easeOut",
+            }}
+          >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6">
+            <motion.div
+              className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6"
+              initial={{ y: -50, opacity: 0, scale: 0.8 }}
+              animate={{
+                y: isInView ? 0 : -50,
+                opacity: isInView ? 1 : 0,
+                scale: isInView ? 1 : 0.8,
+              }}
+              transition={{
+                duration: 0.6,
+                delay: isInView ? 0.6 : 0,
+                ease: "easeOut",
+              }}
+            >
               <Trophy className="w-4 h-4 text-green-400" />
               <span className="text-green-400 font-medium">
                 Educador Físico
               </span>
-            </div>
+            </motion.div>
 
             {/* Título */}
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
@@ -75,10 +111,19 @@ export default function AboutSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Coluna direita - Card do Lucas */}
-          <div className="flex justify-center">
+          <motion.div
+            className="flex justify-center"
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: isInView ? 0 : 100, opacity: isInView ? 1 : 0 }}
+            transition={{
+              duration: 0.8,
+              delay: isInView ? 0.4 : 0,
+              ease: "easeOut",
+            }}
+          >
             <div className="relative">
               <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
                 <div className="relative w-full h-full">
@@ -105,11 +150,24 @@ export default function AboutSection() {
               </div>
 
               {/* Badge flutuante */}
-              <div className="absolute -top-6 -right-6 bg-gradient-to-br animate-bounce rounded-lg w-15 h-15 flex items-center justify-center  shadow-lg">
+              <motion.div
+                className="absolute -top-6 -right-6 bg-gradient-to-br animate-bounce rounded-lg w-15 h-15 flex items-center justify-center  shadow-lg"
+                initial={{ y: -80, opacity: 0, scale: 0 }}
+                animate={{
+                  y: isInView ? 0 : -80,
+                  opacity: isInView ? 1 : 0,
+                  scale: isInView ? 1 : 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: isInView ? 0.8 : 0,
+                  ease: "easeOut",
+                }}
+              >
                 <Trophy className="w-7 h-7 text-green-400" />
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -173,6 +231,6 @@ export default function AboutSection() {
           }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 }

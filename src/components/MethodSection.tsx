@@ -1,5 +1,7 @@
 "use client";
 import { FileText, Camera, Calendar, Activity, ArrowRight } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function MethodSection() {
   const steps = [
@@ -29,13 +31,28 @@ export default function MethodSection() {
     },
   ];
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-20% 0px -20% 0px",
+  });
+
   return (
-    <section
+    <motion.section
+      ref={ref}
       id="method"
       className="py-24 bg-gradient-to-b from-black to-gray-900"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isInView ? 1 : 0 }}
+      transition={{ duration: 0.6 }}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: isInView ? 0.2 : 0 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
             O que é o{" "}
             <span className="text-green-400">Protocolo Personalizado?</span>
@@ -44,13 +61,25 @@ export default function MethodSection() {
             Acesso a um treino exclusivo e sob medida por um valor acessível.
             Você passará pelo mesmo processo das minhas consultorias premium.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={index} className="relative">
+              <motion.div
+                key={index}
+                className="relative"
+                initial={{ x: -50, opacity: 0 }}
+                animate={{
+                  x: isInView ? 0 : -50,
+                  opacity: isInView ? 1 : 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: isInView ? 0.4 + index * 0.2 : 0,
+                }}
+              >
                 <div className="bg-gradient-to-br from-gray-700 to-black border border-green-500/20 rounded-2xl p-6 h-full transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-[0_20px_40px_rgba(74,222,128,0.1)]">
                   <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-4">
                     <Icon className="w-8 h-8 text-black" />
@@ -63,16 +92,38 @@ export default function MethodSection() {
                   </p>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className="absolute top-1/2 -right-4 transform -translate-y-1/2 hidden lg:block">
+                  <motion.div
+                    className="absolute top-1/2 -right-4 transform -translate-y-1/2 hidden lg:block"
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{
+                      x: isInView ? 0 : -20,
+                      opacity: isInView ? 1 : 0,
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      delay: isInView ? 0.6 + index * 0.2 : 0,
+                    }}
+                  >
                     <ArrowRight className="w-6 h-6 text-green-400" />
-                  </div>
+                  </motion.div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        <div className="bg-gradient-to-r from-green-400/10 to-green-600/10 border border-green-500/30 rounded-3xl p-8 text-center">
+        <motion.div
+          className="bg-gradient-to-r from-green-400/10 to-green-600/10 border border-green-500/30 rounded-3xl p-8 text-center"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{
+            y: isInView ? 0 : 30,
+            opacity: isInView ? 1 : 0,
+          }}
+          transition={{
+            duration: 0.6,
+            delay: isInView ? 1.2 : 0,
+          }}
+        >
           <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
             <span className="text-green-400">Metodologia comprovada</span> que
             transformou 100+ mulheres
@@ -86,8 +137,8 @@ export default function MethodSection() {
               Valor normal: R$ 300+ → A partir de: R$ 149,90
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

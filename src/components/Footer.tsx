@@ -26,17 +26,18 @@ export default function Footer() {
 
           <div className="text-center">
             <p className="text-gray-400 mb-2">
-              © {new Date().getFullYear()} Lucas Maia. Todos os direitos
-              reservados.
+              © {new Date().getFullYear()} Lucas Maia. <br />
+              Todos os direitos reservados.
             </p>
-            <p className="text-sm text-gray-500">
+            {/* <p className="text-sm text-gray-500">
               Educador Físico • CREF: XXX-X/RJ
-            </p>
+            </p> */}
           </div>
 
           <div className="flex gap-4">
             <a
-              href="#instagram"
+              href="https://instagram.com/smaia.lucas"
+              target="_blank"
               className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-lg flex items-center justify-center transition-transform duration-300 hover:scale-110 no-underline"
               aria-label="Instagram"
             >
