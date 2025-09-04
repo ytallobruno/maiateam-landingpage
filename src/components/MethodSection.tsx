@@ -42,7 +42,7 @@ export default function MethodSection() {
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Acesso a um treino exclusivo e sob medida por um valor acessível.
-            Você passará pelo mesmo processo das minhas consultoras premium.
+            Você passará pelo mesmo processo das minhas consultorias premium.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export default function MethodSection() {
           </p>
           <div className="flex justify-center">
             <div className="bg-green-400 text-black font-bold py-3 px-6 rounded-full text-lg">
-              Valor normal: R$ 300+ → Seu preço: R$ 149,90
+              Valor normal: R$ 300+ → A partir de: R$ 149,90
             </div>
           </div>
         </div>

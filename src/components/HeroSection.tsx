@@ -71,7 +71,9 @@ export default function HeroSection() {
             {/* Subtítulo */}
             <p className="text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
               Protocolo de treino personalizado que já transformou mais de 100
-              mulheres. Metodologia comprovada por apenas{" "}
+              mulheres.
+              <br />
+              Metodologia comprovada a partir de{" "}
               <strong className="text-green-400 animate-pulse">
                 R$ 149,90
               </strong>
@@ -131,7 +133,7 @@ export default function HeroSection() {
               {/* Badge de alunas ativas */}
               <div className="absolute -bottom-4 -left-4 bg-black/80 border border-green-400/30 rounded-xl px-4 py-2 backdrop-blur-sm cursor-pointer transition-transform duration-200 hover:scale-110">
                 <p className="text-green-400 font-bold text-sm m-0">
-                  75 alunas ativas
+                  50+ alunas ativas
                 </p>
               </div>
             </div>

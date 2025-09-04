@@ -4,15 +4,18 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-export const metadataBase = new URL("https://seudominio.com");
+// export const metadataBase = new URL("https://TODO.com");
 
 export const metadata: Metadata = {
   title: "Lucas Maia | Consultoria Online",
   description:
     "Transforme seu corpo com treinos personalizados. Seu novo físico começa aqui.",
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/MaiaTeamLogo.png", type: "image/png" },
+    ],
+    apple: [{ url: "/MaiaTeamLogo.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/favicon.ico",
   },
 };

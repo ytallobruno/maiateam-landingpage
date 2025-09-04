@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24 bg-black">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="min-h-screen bg-black flex items-center">
+      <div className="max-w-7xl mx-auto px-6 py-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Coluna esquerda - Conteúdo */}
           <div>
@@ -42,8 +42,8 @@ export default function AboutSection() {
                 <strong className="text-green-400 animate-pulse">
                   mais de 100 mulheres
                 </strong>{" "}
-                dentro da minha consultoria, que atualmente possui{" "}
-                <strong className="text-white">75 alunas ativas</strong>.
+                dentro da minha consultoria, que atualmente possui mais de{" "}
+                <strong className="text-white">50 alunas ativas</strong>.
               </p>
 
               <p className="text-gray-300 text-lg leading-relaxed">
@@ -59,7 +59,7 @@ export default function AboutSection() {
             <div className="grid grid-cols-3 gap-4 mt-8 p-6 bg-gradient-to-br from-gray-700/50 to-black/50 rounded-2xl border border-green-500/20">
               {[
                 { number: "100+", label: "Transformações" },
-                { number: "75", label: "Alunas Ativas" },
+                { number: "50+", label: "Alunas Ativas" },
                 { number: "3x", label: "Campeão" },
               ].map((stat, index) => (
                 <div key={stat.label} className="text-center">
@@ -94,8 +94,12 @@ export default function AboutSection() {
 
                   {/* Texto sobre a imagem */}
                   <div className="absolute bottom-4 left-4 right-4 text-center">
-                    {/* <p className="text-white font-bold text-xl drop-shadow-lg">Lucas Maia</p> */}
-                    {/* <p className="text-green-400 text-sm font-medium drop-shadow-lg">Seu Personal Coach</p> */}
+                    {/* <p className="text-white font-bold text-xl drop-shadow-lg">
+                      Lucas Maia
+                    </p>
+                    <p className="text-green-400 text-sm font-medium drop-shadow-lg">
+                      Seu Personal Coach
+                    </p> */}
                   </div>
                 </div>
               </div>
