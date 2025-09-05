@@ -107,7 +107,7 @@ export default function ResultsSection() {
                     height={280}
                     className="rounded-2xl object-cover h-64 w-52 md:h-72 md:w-56"
                   />
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-full border border-green-400/30">
+                  <div className="absolute -bottom-3 md:top-auto md:-bottom-3 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-full border border-green-400/30">
                     Antes/Depois
                   </div>
                 </div>
@@ -124,7 +124,7 @@ export default function ResultsSection() {
                     height={280}
                     className="rounded-2xl object-cover h-64 w-52 md:h-72 md:w-56"
                   />
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-3 py-1 rounded-full font-bold">
+                  <div className="absolute -top-3 md:top-auto md:-bottom-3 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-3 py-1 rounded-full font-bold">
                     Antes/Depois
                   </div>
                 </div>
