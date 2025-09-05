@@ -31,7 +31,7 @@ export default function PricingSection() {
       badge: "MAIS VENDIDO",
       priceCredit: "R$ 160,00",
       priceVista: "R$ 149,90",
-      description: "Treino personalizado sem acompanhamento completo",
+      description: "1 treino único personalizado, mas sem o acompanhamento",
       features: [
         "1 planilha de treino permanente",
         "Alongamentos específicos",
@@ -54,8 +54,8 @@ export default function PricingSection() {
       features: [
         "Planilha com vídeos de TODOS os exercícios",
         "Planilha de controle de carga",
+        "Todos os benefícios anteriores",
         "Chamada no Meet",
-        "Alongamentos específicos",
       ],
       paymentLink: "#",
       whatsappLink:
@@ -73,7 +73,7 @@ export default function PricingSection() {
       features: [
         "Planilha com vídeos de TODOS os exercícios",
         "Planilha de controle de carga",
-        "Alongamentos específicos",
+        "Todos os benefícios anteriores",
         "24 semanas de acompanhamento",
       ],
       paymentLink: "#",
@@ -88,7 +88,8 @@ export default function PricingSection() {
     const themes = {
       gray: {
         border: "border-gray-600",
-        badgeBg: "bg-gradient-to-r from-gray-600 to-gray-700",
+        badgeBg:
+          "bg-gradient-to-r from-gray-600 to-gray-700 group-hover:from-gray-200",
         badgeText: "text-white",
         price: "text-green-400",
         icon: "text-green-400",
@@ -109,7 +110,8 @@ export default function PricingSection() {
       },
       yellow: {
         border: "border-yellow-600/50",
-        badgeBg: "bg-gradient-to-r from-yellow-600 to-yellow-700",
+        badgeBg:
+          "bg-gradient-to-r from-yellow-600 to-yellow-700 group-hover:from-yellow-500 group-hover:to-yellow-600",
         badgeText: "text-white",
         price: "text-yellow-400",
         icon: "text-yellow-400",
@@ -206,6 +208,10 @@ export default function PricingSection() {
                     {plan.priceVista}
                   </div>
 
+                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                    {plan.description}
+                  </p>
+
                   <div className="space-y-2 mb-6 text-left">
                     {plan.features.map((feature, index) => (
                       <div key={index} className="flex items-start gap-2">
@@ -234,7 +240,7 @@ export default function PricingSection() {
                         rel="noopener noreferrer"
                         className="text-gray-400 text-xs hover:text-green-400 transition-colors duration-200 underline"
                       >
-                        Ou pague via PIX
+                        Ou pague via PIX com desconto
                       </a>
                     </>
                   ) : (

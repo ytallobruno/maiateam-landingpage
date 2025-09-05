@@ -23,7 +23,7 @@ export default function ResultsSection() {
   const results = [
     {
       image: "/result3.webp",
-      name: "Andresa",
+      name: "Andressa",
       result: "Mais volume em 6 semanas",
       quote:
         "Depois de um período secando, em 6 semanas comi um pouco mais e foquei nos treinos; ganhei mais volume e um aspecto mais redondo.",
