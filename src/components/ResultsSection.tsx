@@ -99,14 +99,19 @@ export default function ResultsSection() {
             <div className="grid md:grid-cols-2 gap-10 items-center">
               {/* Imagens antes e depois */}
               <div className="flex flex-col md:flex-row gap-6 md:gap-6 justify-center items-center">
-                <div className="relative">
-                  <Image
-                    src={featuredResult.beforeImage}
-                    alt="Catarina"
-                    width={200}
-                    height={280}
-                    className="rounded-2xl object-cover h-64 w-52 md:h-72 md:w-56"
-                  />
+                <div className="relative rounded-2xl">
+                  {/* Container da imagem com overflow hidden para conter o efeito scale */}
+                  <div className="rounded-2xl overflow-hidden group">
+                    <Image
+                      src={featuredResult.beforeImage}
+                      alt="Catarina"
+                      width={200}
+                      height={280}
+                      className="rounded-2xl object-cover h-72 w-56 md:h-72 md:w-56 transition-transform duration-500 group-hover:scale-105"
+                      style={{ objectPosition: "center" }}
+                    />
+                  </div>
+                  {/* Badge fora do grupo de hover para permanecer fixo */}
                   <div className="absolute -bottom-3 md:top-auto md:-bottom-3 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-full border border-green-400/30">
                     Antes/Depois
                   </div>
@@ -116,14 +121,19 @@ export default function ResultsSection() {
                   <div className="w-4 h-4 bg-green-400 rounded-full mx-3 md:mx-0 md:my-3"></div>
                   <div className="w-10 h-0.5 md:w-0.5 md:h-10 bg-green-400"></div>
                 </div>
-                <div className="relative">
-                  <Image
-                    src={featuredResult.afterImage}
-                    alt="Catarina"
-                    width={200}
-                    height={280}
-                    className="rounded-2xl object-cover h-64 w-52 md:h-72 md:w-56"
-                  />
+                <div className="relative rounded-2xl">
+                  {/* Container da imagem com overflow hidden para conter o efeito scale */}
+                  <div className="rounded-2xl overflow-hidden group">
+                    <Image
+                      src={featuredResult.afterImage}
+                      alt="Catarina"
+                      width={200}
+                      height={280}
+                      className="rounded-2xl object-cover h-72 w-56 md:h-72 md:w-56 transition-transform duration-500 group-hover:scale-105"
+                      style={{ objectPosition: "center -60px" }}
+                    />
+                  </div>
+                  {/* Badge fora do grupo de hover para permanecer fixo */}
                   <div className="absolute -top-3 md:top-auto md:-bottom-3 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-3 py-1 rounded-full font-bold">
                     Antes/Depois
                   </div>
