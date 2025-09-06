@@ -96,7 +96,7 @@ export default function ResultsSection() {
             {/* Efeito de brilho */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent"></div>
 
-            <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-center">
               {/* Imagens antes e depois */}
               <div className="flex flex-col md:flex-row gap-6 md:gap-6 justify-center items-center">
                 <div className="relative rounded-2xl">
@@ -164,11 +164,11 @@ export default function ResultsSection() {
           </div>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-8 mb-12 max-w-6xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 mb-12 max-w-6xl mx-auto">
           {results.map((result, index) => (
             <motion.div
               key={index}
-              className="cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border border-green-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_10px_25px_rgba(74,222,128,0.08)] group w-full max-w-[280px] sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-21px)]"
+              className="cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border border-green-500/20 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_10px_25px_rgba(74,222,128,0.08)] group w-full max-w-[280px] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(33.333%-21px)]"
               initial={{ y: 50, opacity: 0 }}
               animate={{
                 y: isInView ? 0 : 50,

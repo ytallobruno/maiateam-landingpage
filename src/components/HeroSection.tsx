@@ -59,9 +59,10 @@ export default function HeroSection() {
 
       {/* Container principal */}
       <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh]">
           {/* Coluna esquerda - Conteúdo */}
           <motion.div
+            className="text-center lg:text-left"
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: isInView ? 0 : -100, opacity: isInView ? 1 : 0 }}
             transition={{
@@ -71,7 +72,7 @@ export default function HeroSection() {
             }}
           >
             {/* Badge do troféu */}
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6 cursor-pointer transition-transform duration-200 hover:scale-105">
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6 cursor-pointer transition-transform duration-200 hover:scale-105 mx-auto lg:mx-0">
               <Trophy className="w-4 h-4 text-green-400" />
               <span className="text-green-400 font-medium">
                 Campeão Overall 3x
@@ -79,7 +80,7 @@ export default function HeroSection() {
             </div>
 
             {/* Título principal */}
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6 text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
               Transforme seu
               <br />
               <span className="bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent block">
@@ -89,10 +90,10 @@ export default function HeroSection() {
             </h1>
 
             {/* Subtítulo */}
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed">
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed mx-auto lg:mx-0">
               Protocolo de treino personalizado que já transformou mais de 100
               mulheres.
-              <br />
+              <br className="hidden sm:block" />
               Metodologia comprovada a partir de{" "}
               <strong className="text-green-400 animate-pulse">
                 R$ 149,90
@@ -101,7 +102,7 @@ export default function HeroSection() {
 
             {/* Botões */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+              className="flex flex-col sm:flex-row gap-4 mb-12 mx-auto lg:mx-0 max-w-md sm:max-w-none justify-center lg:justify-start"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
               transition={{
@@ -129,7 +130,7 @@ export default function HeroSection() {
 
             {/* Estatísticas */}
             <motion.div
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-6 text-gray-400"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-6 text-gray-400 justify-center lg:justify-start"
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: isInView ? 0 : 30, opacity: isInView ? 1 : 0 }}
               transition={{
@@ -162,7 +163,7 @@ export default function HeroSection() {
           >
             <div className="relative group">
               {/* Card principal com foto do Lucas */}
-              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl shadow-green-400/20 relative">
+              <div className="w-80 md:w-96 lg:w-80 h-80 md:h-96 lg:h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl shadow-green-400/20 relative">
                 {/* Imagem de perfil do Lucas */}
                 <Image
                   src="/LucasMaiaPerfil.webp"
@@ -213,6 +214,12 @@ export default function HeroSection() {
             grid-template-columns: 1fr !important;
             gap: 1.5rem !important;
             text-align: center;
+          }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .min-h-[80vh] {
+            min-height: 60vh !important;
           }
         }
 

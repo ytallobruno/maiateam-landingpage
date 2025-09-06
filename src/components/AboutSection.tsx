@@ -21,7 +21,7 @@ export default function AboutSection() {
       transition={{ duration: 0.6 }}
     >
       <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Coluna esquerda - Conteúdo */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
@@ -92,7 +92,7 @@ export default function AboutSection() {
             </div>
 
             {/* Estatísticas */}
-            <div className="grid grid-cols-3 gap-4 mt-8 p-6 bg-gradient-to-br from-gray-700/50 to-black/50 rounded-2xl border border-green-500/20">
+            <div className="grid grid-cols-3 gap-2 md:gap-4 mt-8 p-4 md:p-6 bg-gradient-to-br from-gray-700/50 to-black/50 rounded-2xl border border-green-500/20">
               {[
                 { number: "100+", label: "Transformações" },
                 { number: "50+", label: "Alunas Ativas" },
@@ -125,7 +125,7 @@ export default function AboutSection() {
             }}
           >
             <div className="relative">
-              <div className="w-80 h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
+              <div className="w-80 md:w-96 lg:w-80 h-80 md:h-96 lg:h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
                 <div className="relative w-full h-full">
                   <Image
                     src="/LucasMaiaPersonal.webp"

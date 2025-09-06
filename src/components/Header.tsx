@@ -62,12 +62,12 @@ export default function Header() {
         </a>
 
         {/* Navegação Desktop */}
-        <nav className="hidden md:flex gap-8 text-white/90">
+        <nav className="hidden md:flex gap-4 lg:gap-8 text-white/90">
           {menuItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="font-medium transition-colors duration-200 hover:text-green-400"
+              className="font-medium transition-colors duration-200 hover:text-green-400 text-sm lg:text-base"
             >
               {item.text}
             </a>
@@ -77,7 +77,7 @@ export default function Header() {
         {/* CTA Button Desktop */}
         <a
           href="#purchase"
-          className="hidden md:block bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-6 py-3 rounded-full shadow-lg shadow-green-400/25 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-green-400/40"
+          className="hidden md:block bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-4 lg:px-6 py-2 lg:py-3 rounded-full shadow-lg shadow-green-400/25 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-green-400/40 text-sm lg:text-base"
         >
           Começar Agora
         </a>

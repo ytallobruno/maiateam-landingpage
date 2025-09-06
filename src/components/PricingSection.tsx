@@ -165,7 +165,7 @@ export default function PricingSection() {
         </motion.div>
 
         {/* Grid de planos */}
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 max-w-6xl mx-auto items-stretch">
+        <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-6 max-w-6xl mx-auto items-stretch">
           {plans.map((plan, index) => {
             const themeClasses = getThemeClasses(plan.theme, plan.highlighted);
 

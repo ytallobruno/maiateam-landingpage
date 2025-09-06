@@ -65,7 +65,7 @@ export default function FinalCTASection() {
         </motion.div>
 
         <motion.div
-          className="mt-8 flex flex-wrap items-center justify-center gap-6 text-black/80"
+          className="mt-8 flex flex-wrap items-center justify-center gap-4 md:gap-6 text-black/80"
           initial={{ y: 20, opacity: 0 }}
           animate={{
             y: isInView ? 0 : 20,

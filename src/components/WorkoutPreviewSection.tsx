@@ -46,7 +46,7 @@ export default function WorkoutPreviewSection() {
           }}
           transition={{ duration: 0.8, delay: isInView ? 0.4 : 0 }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
             <motion.div
               initial={{ x: -50, opacity: 0 }}
               animate={{
