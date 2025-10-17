@@ -10,8 +10,8 @@ export default function PricingSection() {
       id: "prata",
       name: "PLANO PRATA",
       badge: "INICIAL",
-      priceCredit: "R$ 320,00",
-      priceVista: "R$ 299,90",
+      priceCredit: "R$ 400,00",
+      priceVista: "R$ 385,00",
       description: "2 protocolos de treino com duração de 6 semanas cada um",
       features: [
         "Planilha com vídeos de TODOS os exercícios",
@@ -48,8 +48,8 @@ export default function PricingSection() {
       id: "ouro",
       name: "PLANO OURO",
       badge: "RECOMENDADO",
-      priceCredit: "R$ 400,00",
-      priceVista: "R$ 385,90",
+      priceCredit: "R$ 550,00",
+      priceVista: "R$ 520,00",
       description: "3 protocolos de treino com duração de 6 semanas cada um",
       features: [
         "Planilha com vídeos de TODOS os exercícios",
@@ -67,8 +67,8 @@ export default function PricingSection() {
       id: "platinum",
       name: "PLANO PLATINUM",
       badge: "PREMIUM",
-      priceCredit: "R$ 600,00",
-      priceVista: "R$ 585,90",
+      priceCredit: "R$ 800,00",
+      priceVista: "R$ 700,00",
       description: "4 protocolos de treino com duração de 6 semanas cada um",
       features: [
         "Planilha com vídeos de TODOS os exercícios",
