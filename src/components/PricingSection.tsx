@@ -266,6 +266,9 @@ export default function PricingSection() {
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
                             <p className="font-bold text-lg mb-1">🔥 PROMOÇÃO LIMITADA!</p>
+                            <p className="text-sm">
+                                Preços aumentam em {PROMOTION_CONFIG.displayDateFull} - Garanta já o seu!
+                            </p>
                         </motion.div>
                     )}
                 </motion.div>

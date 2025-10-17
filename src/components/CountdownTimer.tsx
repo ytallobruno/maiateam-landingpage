@@ -41,7 +41,7 @@ export default function CountdownTimer() {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [targetDate]);
 
     if (isExpired) {
         return null;
@@ -75,7 +75,9 @@ export default function CountdownTimer() {
                         </span>
                         <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                     </motion.div>
-                    <p className="text-white text-xs font-semibold">PREÇOS AUMENTAM EM {PROMOTION_CONFIG.displayDate}</p>
+                    <p className="text-white text-xs font-semibold">
+                        PREÇOS AUMENTAM EM {PROMOTION_CONFIG.displayDate}
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2">
@@ -136,7 +138,9 @@ export default function CountdownTimer() {
                             </span>
                             <div className="w-1.5 h-1.5 bg-red-300 rounded-full animate-pulse" />
                         </motion.div>
-                        <p className="text-white text-xs font-semibold">PREÇOS AUMENTAM EM {PROMOTION_CONFIG.displayDate} ⚡</p>
+                        <p className="text-white text-xs font-semibold">
+                            PREÇOS AUMENTAM EM {PROMOTION_CONFIG.displayDate} ⚡
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-4 gap-3 mb-3">
