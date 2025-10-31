@@ -1,10 +1,12 @@
 "use client";
-import { ArrowRight, Play, Star, Trophy, Users } from "lucide-react";
+import { ArrowRight, Play, Star, Trophy, Users, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import { usePromotion } from "@/hooks/usePromotion";
 
 export default function HeroSection() {
+    const { isBlackFriday, savings } = usePromotion();
     const [particles, setParticles] = useState<Array<{ left: number; top: number; duration: number; delay: number }>>(
         []
     );
@@ -77,6 +79,20 @@ export default function HeroSection() {
                             <span className="text-green-400 font-medium">Campeão Overall 3x</span>
                         </div>
 
+                        {/* Badge Black Friday */}
+                        {isBlackFriday && (
+                            <motion.a
+                                href="#pricing"
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 0.6 }}
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold px-4 py-2 rounded-full mb-6 mx-auto lg:mx-0 animate-pulse shadow-lg shadow-amber-500/50 cursor-pointer hover:scale-105 transition-transform duration-200 no-underline"
+                            >
+                                <Sparkles className="w-4 h-4" />
+                                <span>⚡ Até R$ {savings?.platinum.toFixed(0)} OFF em Consultorias</span>
+                            </motion.a>
+                        )}
+
                         {/* Título principal */}
                         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
                             Transforme seu
@@ -107,7 +123,7 @@ export default function HeroSection() {
                             }}
                         >
                             <a
-                                href="#purchase"
+                                href="#pricing"
                                 className="bg-gradient-to-r from-green-400 to-green-600 text-black font-bold px-8 py-4 rounded-full flex items-center gap-2 shadow-lg shadow-green-400/25 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-green-400/40 justify-center"
                             >
                                 <span>Quero Meu Treino</span>
@@ -115,11 +131,11 @@ export default function HeroSection() {
                             </a>
 
                             <a
-                                href="#method"
+                                href={isBlackFriday ? "#pricing" : "#preview"}
                                 className="border-2 border-green-400 text-green-400 font-bold px-8 py-4 rounded-full flex items-center gap-2 transition-all duration-200 hover:bg-green-400 hover:text-black hover:scale-105 justify-center"
                             >
                                 <Play className="w-5 h-5" />
-                                <span>Ver Como Funciona</span>
+                                <span>{isBlackFriday ? "Ver Ofertas BF" : "Ver Como Funciona"}</span>
                             </a>
                         </motion.div>
 

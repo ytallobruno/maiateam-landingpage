@@ -2,8 +2,11 @@
 import { CheckCircle } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { usePromotion } from "@/hooks/usePromotion";
+import BlackFridayCountdown from "./BlackFridayCountdown";
 
 export default function FinalCTASection() {
+    const { isBlackFriday, savings, blackFridayEndDate } = usePromotion();
     const ref = useRef(null);
     const isInView = useInView(ref, {
         once: false,
@@ -25,7 +28,9 @@ export default function FinalCTASection() {
                     animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
                     transition={{ duration: 0.8, delay: isInView ? 0.2 : 0 }}
                 >
-                    Pronta para transformar sua vida?
+                    {isBlackFriday
+                        ? `Última Chance para Economizar até R$ ${savings?.platinum.toFixed(0)}`
+                        : "Pronta para transformar sua vida?"}
                 </motion.h2>
                 <motion.p
                     className="text-xl text-black/80 mb-8 max-w-2xl mx-auto leading-relaxed"
@@ -33,8 +38,22 @@ export default function FinalCTASection() {
                     animate={{ y: isInView ? 0 : 30, opacity: isInView ? 1 : 0 }}
                     transition={{ duration: 0.6, delay: isInView ? 0.4 : 0 }}
                 >
-                    Não perca esta oportunidade única de ter acesso à metodologia que já transformou centenas de vidas.
+                    {isBlackFriday
+                        ? "Aproveite nossa promoção especial de Black Friday com descontos exclusivos nas consultorias!"
+                        : "Não perca esta oportunidade única de ter acesso à metodologia que já transformou centenas de vidas."}
                 </motion.p>
+
+                {isBlackFriday && (
+                    <motion.div
+                        className="mb-8 bg-black/10 border-2 border-black/20 rounded-2xl p-6 max-w-2xl mx-auto"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: isInView ? 1 : 0.9, opacity: isInView ? 1 : 0 }}
+                        transition={{ duration: 0.6, delay: isInView ? 0.5 : 0 }}
+                    >
+                        <p className="text-black font-bold mb-4 text-lg">⏰ Oferta expira em:</p>
+                        <BlackFridayCountdown targetDate={blackFridayEndDate} dark />
+                    </motion.div>
+                )}
 
                 <motion.div
                     className="flex flex-col items-center gap-2"
@@ -45,22 +64,33 @@ export default function FinalCTASection() {
                     }}
                     transition={{ duration: 0.8, delay: isInView ? 0.6 : 0 }}
                 >
-                    <a
-                        href="https://pay.kiwify.com.br/Xcq6j4S"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-black text-green-400 font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] text-lg border-none cursor-pointer hover:scale-105 no-underline"
-                    >
-                        COMEÇAR AGORA - R$ 149,90
-                    </a>
-                    <a
-                        href="https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso%20e%20queria%20saber%20qual%20o%20valor%20dele%20no%20pix"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-black/70 text-sm font-medium hover:text-black transition-colors duration-200 underline"
-                    >
-                        Ou pague via PIX com desconto
-                    </a>
+                    {isBlackFriday ? (
+                        <a
+                            href="#pricing"
+                            className="bg-black text-green-400 font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] text-lg border-none cursor-pointer hover:scale-105 no-underline"
+                        >
+                            VER PLANOS BLACK FRIDAY
+                        </a>
+                    ) : (
+                        <>
+                            <a
+                                href="https://pay.kiwify.com.br/Xcq6j4S"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-black text-green-400 font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] text-lg border-none cursor-pointer hover:scale-105 no-underline"
+                            >
+                                COMEÇAR AGORA - R$ 149,90
+                            </a>
+                            <a
+                                href="https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso%20e%20queria%20saber%20qual%20o%20valor%20dele%20no%20pix"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-black/70 text-sm font-medium hover:text-black transition-colors duration-200 underline"
+                            >
+                                Ou pague via PIX com desconto
+                            </a>
+                        </>
+                    )}
                 </motion.div>
 
                 <motion.div

@@ -28,7 +28,7 @@ export default function Footer() {
                             Todos os direitos reservados.
                         </p>
                         {/* <p className="text-sm text-gray-500">
-              Educador Físico • CREF: XXX-X/RJ
+                Educador Físico • CREF: XXX-X/RJ
             </p> */}
                     </div>
 

@@ -10,9 +10,12 @@ import FAQSection from "@/components/FAQSection";
 import PricingSection from "@/components/PricingSection";
 import WorkoutPreviewSection from "@/components/WorkoutPreviewSection";
 import CountdownTimer from "@/components/CountdownTimer";
+import CountdownSticky from "@/components/CountdownSticky";
+import { usePromotion } from "@/hooks/usePromotion";
 import { useEffect } from "react";
 
 export default function Home() {
+    const { isBlackFriday, isPriceCountdown, blackFridayEndDate } = usePromotion();
     useEffect(() => {
         // Smooth scrolling for internal anchor links only
         const links = document.querySelectorAll('a[href^="#"]');
@@ -36,7 +39,8 @@ export default function Home() {
 
     return (
         <div className="min-h-screen bg-black text-white font-sans m-0 p-0">
-            <CountdownTimer />
+            {isPriceCountdown && <CountdownTimer />}
+            {isBlackFriday && <CountdownSticky targetDate={blackFridayEndDate} />}
             <Header />
             <HeroSection />
             <MethodSection />

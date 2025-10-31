@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { PROMOTION_CONFIG, getPromotionEndTimestamp } from "@/config/promotion";
+import { promotionsConfig, getPromotionDates } from "@/config/promotions.config";
 
 interface TimeLeft {
     days: number;
@@ -20,7 +20,8 @@ export default function CountdownTimer() {
     });
     const [isExpired, setIsExpired] = useState(false);
 
-    const targetDate = getPromotionEndTimestamp();
+    const targetDate = promotionsConfig.priceCountdown.endDate.getTime();
+    const displayDate = getPromotionDates().priceCountdown.displayDate;
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -75,9 +76,7 @@ export default function CountdownTimer() {
                         </span>
                         <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                     </motion.div>
-                    <p className="text-white text-xs font-semibold">
-                        PREÇOS AUMENTAM EM {PROMOTION_CONFIG.displayDate}
-                    </p>
+                    <p className="text-white text-xs font-semibold">PREÇOS AUMENTAM EM {displayDate}</p>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2">
@@ -138,9 +137,7 @@ export default function CountdownTimer() {
                             </span>
                             <div className="w-1.5 h-1.5 bg-red-300 rounded-full animate-pulse" />
                         </motion.div>
-                        <p className="text-white text-xs font-semibold">
-                            PREÇOS AUMENTAM EM {PROMOTION_CONFIG.displayDate} ⚡
-                        </p>
+                        <p className="text-white text-xs font-semibold">PREÇOS AUMENTAM EM {displayDate} ⚡</p>
                     </div>
 
                     <div className="grid grid-cols-4 gap-3 mb-3">
