@@ -10,7 +10,7 @@ export const pricingConfig = {
         },
         ouro: {
             original: 419.9,
-            discount: 385.0,
+            discount: 375.0,
         },
         platinum: {
             original: 690.9,
