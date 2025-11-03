@@ -4,8 +4,8 @@
 export const promotionsConfig = {
     // ========== BLACK FRIDAY ==========
     blackFriday: {
-        enabled: false, // Liga/desliga modo Black Friday
-        startDate: new Date("2025-11-17T00:00:00"), // Início da Black Friday
+        enabled: true, // Liga/desliga modo Black Friday
+        startDate: new Date("2025-11-03T00:00:00"), // Início da Black Friday
         endDate: new Date("2025-11-30T23:59:59"), // Fim da Black Friday
     },
 
