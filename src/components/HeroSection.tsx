@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 import { usePromotion } from "@/hooks/usePromotion";
 
 export default function HeroSection() {
-    const { isBlackFriday, savings } = usePromotion();
+    const { isBlackFriday, savings, prices } = usePromotion();
     const [particles, setParticles] = useState<Array<{ left: number; top: number; duration: number; delay: number }>>(
         []
     );
@@ -108,7 +108,9 @@ export default function HeroSection() {
                             Protocolo de treino personalizado que já transformou mais de 100 mulheres.
                             <br className="hidden sm:block" />
                             Metodologia comprovada a partir de{" "}
-                            <strong className="text-green-400 animate-pulse">R$ 149,90</strong>
+                            <strong className="text-green-400 animate-pulse">
+                                R$ {prices?.protocolo.toFixed(2).replace(".", ",")}
+                            </strong>
                         </p>
 
                         {/* Botões */}

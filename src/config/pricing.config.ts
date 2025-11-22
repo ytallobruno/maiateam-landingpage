@@ -17,7 +17,7 @@ export const pricingConfig = {
             discount: 600.0,
         },
         protocolo: {
-            price: 149.9, // Sempre o mesmo
+            price: 119.9,
         },
     },
 
