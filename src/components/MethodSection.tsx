@@ -2,8 +2,10 @@
 import { FileText, Camera, Calendar, Activity, ArrowRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { usePromotion } from "@/hooks/usePromotion";
 
 export default function MethodSection() {
+    const { prices } = usePromotion();
     const steps = [
         {
             icon: FileText,
@@ -124,7 +126,7 @@ export default function MethodSection() {
                     </p>
                     <div className="flex justify-center">
                         <div className="bg-green-400 text-black font-bold py-3 px-6 rounded-full text-lg">
-                            Valor normal: R$ 300+ → A partir de: R$ 149,90
+                            Valor normal: R$ 300+ → A partir de: R$ {prices?.protocolo.toFixed(2).replace(".", ",")}
                         </div>
                     </div>
                 </motion.div>
