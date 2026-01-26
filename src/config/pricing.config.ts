@@ -35,7 +35,7 @@ export const pricingConfig = {
             vista: 619.9,
             credito: 690.9,
         },
-        protocolo: 135.0, // Sempre o mesmo preço
+        protocolo: 150.0, // Sempre o mesmo preço
     },
 } as const;
 
