@@ -25,7 +25,8 @@ Produzir código, documentação, análises e recomendações que reflitam o rep
 2. Descobrir packages, apps ou serviços relacionados.
 3. Inspecionar manifests e configs relevantes.
 4. Descobrir comandos e tooling existentes.
-5. Só então propor mudanças, documentação ou execução.
+5. Procurar referências na internet
+6. Só então propor mudanças, documentação ou execução.
 
 ## Regras para documentação
 

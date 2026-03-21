@@ -173,7 +173,7 @@ export default function ResultsSection() {
                                                     alt={`Transformação de ${result.name}`}
                                                     width={420}
                                                     height={560}
-                                                    className="w-full h-full object-cover transition-transform duration-700 scale-100 group-hover:scale-105"
+                                                    className={`w-full h-full object-cover transition-transform duration-700 scale-100 group-hover:scale-105 ${result.name === "Catarina" ? "object-[center_80%]" : ""}`}
                                                     priority={index === 0}
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
