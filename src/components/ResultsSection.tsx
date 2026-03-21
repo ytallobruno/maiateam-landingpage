@@ -3,20 +3,17 @@
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination, A11y, EffectCoverflow } from "swiper/modules";
+import { Autoplay, Navigation, A11y, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 
 export default function ResultsSection() {
     const ref = useRef(null);
     const prevButtonRef = useRef<HTMLButtonElement>(null);
     const nextButtonRef = useRef<HTMLButtonElement>(null);
-    const paginationElRef = useRef<HTMLDivElement>(null);
-    const [activeRealIndex, setActiveRealIndex] = useState(0);
 
     const isInView = useInView(ref, {
         once: false,
@@ -103,7 +100,7 @@ export default function ResultsSection() {
                 >
                     <div className="relative">
                         <Swiper
-                            modules={[Autoplay, Navigation, Pagination, A11y, EffectCoverflow]}
+                            modules={[Autoplay, Navigation, A11y, EffectCoverflow]}
                             effect="coverflow"
                             coverflowEffect={{
                                 rotate: 0,
@@ -120,7 +117,6 @@ export default function ResultsSection() {
                             grabCursor
                             watchSlidesProgress
                             loop={true}
-                            onSlideChange={(swiper) => setActiveRealIndex(swiper.realIndex)}
                             onBeforeInit={(swiper) => {
                                 if (!swiper.params.navigation || typeof swiper.params.navigation === "boolean") {
                                     return;
@@ -128,10 +124,6 @@ export default function ResultsSection() {
 
                                 swiper.params.navigation.prevEl = prevButtonRef.current;
                                 swiper.params.navigation.nextEl = nextButtonRef.current;
-
-                                if (swiper.params.pagination && typeof swiper.params.pagination !== "boolean") {
-                                    swiper.params.pagination.el = paginationElRef.current;
-                                }
                             }}
                             navigation={{
                                 prevEl: prevButtonRef.current,
@@ -141,11 +133,6 @@ export default function ResultsSection() {
                                 delay: 3800,
                                 disableOnInteraction: false,
                                 pauseOnMouseEnter: true,
-                            }}
-                            pagination={{
-                                el: paginationElRef.current,
-                                clickable: true,
-                                dynamicBullets: false,
                             }}
                             initialSlide={3}
                             breakpoints={{
@@ -170,20 +157,13 @@ export default function ResultsSection() {
                             }}
                         >
                             {results.map((result, index) => {
-                                const isActive = index === activeRealIndex;
-                                const isFeaturedAndActive = result.featured && isActive;
-
                                 return (
                                     <SwiperSlide key={result.name}>
                                         <article
                                             className={`h-full cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border rounded-2xl overflow-hidden transition-all duration-500 group ${
-                                                isFeaturedAndActive
-                                                    ? "border-green-300 shadow-[0_8px_20px_rgba(74,222,128,0.30)] ring-2 ring-green-300/35"
-                                                    : isActive
-                                                      ? "border-green-400/80 shadow-[0_14px_34px_rgba(74,222,128,0.16)]"
-                                                      : result.featured
-                                                        ? "border-green-400/50 shadow-[0_8px_20px_rgba(74,222,128,0.12)]"
-                                                        : "border-green-500/20 opacity-90"
+                                                result.featured
+                                                    ? "border-green-400/60 shadow-[0_8px_20px_rgba(74,222,128,0.16)]"
+                                                    : "border-green-500/20 opacity-90"
                                             }`}
                                             aria-label={`Resultado de ${result.name}`}
                                         >
@@ -193,9 +173,7 @@ export default function ResultsSection() {
                                                     alt={`Transformação de ${result.name}`}
                                                     width={420}
                                                     height={560}
-                                                    className={`w-full h-full object-cover transition-transform duration-700 ${
-                                                        isActive ? "scale-[1.02]" : "scale-100 group-hover:scale-105"
-                                                    }`}
+                                                    className="w-full h-full object-cover transition-transform duration-700 scale-100 group-hover:scale-105"
                                                     priority={index === 0}
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
@@ -250,16 +228,6 @@ export default function ResultsSection() {
                         <div className="pointer-events-none absolute left-1/2 top-[42%] z-10 hidden h-14 w-[calc(100%+1rem)] -translate-x-1/2 -translate-y-1/2 justify-between sm:flex">
                             <div className="h-full w-16 bg-gradient-to-r from-black/5 to-transparent" />
                             <div className="h-full w-16 bg-gradient-to-l from-black/5 to-transparent" />
-                        </div>
-
-                        <div className="mt-2 flex items-center justify-center gap-3 text-sm text-gray-300">
-                            <span className="font-semibold text-green-300 tabular-nums min-w-6 text-right leading-none flex items-center">
-                                {/* {String(activeRealIndex + 1).padStart(2, "0")} */}
-                            </span>
-                            <div ref={paginationElRef} className="results-swiper-pagination flex items-center" />
-                            <span className="tabular-nums min-w-6 leading-none flex items-center">
-                                {/* {String(results.length).padStart(2, "0")} */}
-                            </span>
                         </div>
                     </div>
                 </motion.div>

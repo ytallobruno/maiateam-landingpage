@@ -106,20 +106,27 @@ Quando o usuário pedir implementação ou alteração de frontend:
 - Foi reportada falha de lint/build por `CRLF (␍)` com regra `prettier/prettier` no arquivo `src/config/promotions.config.ts`.
 - Foi identificada a necessidade de padronizar line endings para `LF` antes de validar lint/build.
 - Foi reforçada a importância de rodar formatação no arquivo alterado antes de executar lint/build.
+- **[2026-03-21]** Ao remover funcionalidade de pagination dots do carousel, foram removidas variáveis `paginationElRef`, `activeRealIndex` e imports relacionados, porém NÃO foram removidas TODAS as referências a `isActive` no código, causando erro de runtime `ReferenceError: isActive is not defined` e `ReferenceError: activeRealIndex is not defined`.
 
 ### Inferências (a partir dos fatos acima)
 
 - Erros de `prettier/prettier` podem bloquear validações subsequentes quando o arquivo está com line ending diferente do padrão esperado.
 - Executar formatação e checagens em sequência reduz recorrência de falhas por estilo.
+- **Ao remover variáveis/estados de um componente React, é CRÍTICO usar grep/busca para encontrar TODAS as referências no arquivo antes de validar. Remover apenas a declaração sem buscar usos causa erros de runtime que não são capturados por lint/typecheck.**
 
 ### Checklist obrigatório para futuras mudanças
 
 1. Garantir `LF` nos arquivos alterados (evitar `CRLF`).
-2. Rodar formatação:
+2. **ANTES de validar, ao remover variáveis/estados/props:**
+    - Usar `grep` com `-n` e `output_mode: "content"` para encontrar TODAS as referências no arquivo
+    - Verificar cada linha retornada pelo grep
+    - Remover ou substituir cada referência encontrada
+    - Repetir grep após mudanças para confirmar zero ocorrências
+3. Rodar formatação:
     - `npm run format`
-3. Rodar lint:
+4. Rodar lint:
     - `npm run lint`
-4. Validar build:
+5. Validar build (quando relevante):
     - `npm run build`
 
 ### Evidência dos comandos usados como referência (scripts reais)
