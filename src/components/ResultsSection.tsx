@@ -3,27 +3,27 @@
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, A11y } from "swiper/modules";
+import { Autoplay, Navigation, Pagination, A11y, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 
 export default function ResultsSection() {
     const ref = useRef(null);
+    const prevButtonRef = useRef<HTMLButtonElement>(null);
+    const nextButtonRef = useRef<HTMLButtonElement>(null);
+    const paginationElRef = useRef<HTMLDivElement>(null);
+    const [activeRealIndex, setActiveRealIndex] = useState(0);
+
     const isInView = useInView(ref, {
         once: false,
         margin: "-20% 0px -20% 0px",
     });
 
     const results = [
-        {
-            image: "/resultado-catarina.webp",
-            name: "Catarina",
-            result: "Quadríceps e posteriores com muito mais volume",
-            quote: "Não faço dieta, apenas treino",
-            featured: true,
-        },
         {
             image: "/resultado-thamiris.webp",
             name: "Thamiris Lima",
@@ -44,6 +44,13 @@ export default function ResultsSection() {
             result: "Evolução aproximada de 6 meses",
             quote: "Aluna do plano ouro, aproximadamente 6 meses de diferente de uma foto pra outra, conseguimos reduzir a celulite, melhorar o aspecto dos membros inferiores e arredondamento do glúteo",
             featured: false,
+        },
+        {
+            image: "/resultado-catarina.webp",
+            name: "Catarina",
+            result: "Quadríceps e posteriores com muito mais volume",
+            quote: "Não faço dieta, apenas treino",
+            featured: true,
         },
         {
             image: "/resultado-giovana.webp",
@@ -94,90 +101,167 @@ export default function ResultsSection() {
                     }}
                     transition={{ duration: 0.8, delay: isInView ? 0.4 : 0 }}
                 >
-                    <Swiper
-                        modules={[Autoplay, Pagination, A11y]}
-                        spaceBetween={20}
-                        slidesPerView={1.1}
-                        autoplay={{
-                            delay: 3500,
-                            disableOnInteraction: false,
-                            pauseOnMouseEnter: true,
-                        }}
-                        pagination={{ clickable: true }}
-                        loop
-                        centeredSlides={false}
-                        initialSlide={0}
-                        breakpoints={{
-                            640: {
-                                slidesPerView: 1.6,
-                                spaceBetween: 20,
-                            },
-                            768: {
-                                slidesPerView: 2.1,
-                                spaceBetween: 24,
-                            },
-                            1024: {
-                                slidesPerView: 3,
-                                spaceBetween: 28,
-                            },
-                        }}
-                        className="!pb-12"
-                        aria-label="Carrossel de transformações das alunas"
-                    >
-                        {results.map((result, index) => (
-                            <SwiperSlide key={result.name}>
-                                <article
-                                    className={`h-full cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_10px_25px_rgba(74,222,128,0.08)] group ${
-                                        result.featured
-                                            ? "border-green-400/60 shadow-[0_10px_30px_rgba(74,222,128,0.18)]"
-                                            : "border-green-500/20"
-                                    }`}
-                                    aria-label={`Resultado de ${result.name}`}
-                                >
-                                    <div className="relative aspect-[3/4] overflow-hidden">
-                                        <Image
-                                            src={result.image}
-                                            alt={`Transformação de ${result.name}`}
-                                            width={420}
-                                            height={560}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            priority={index === 0}
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
-                                        <div className="absolute bottom-3 left-3 right-3">
-                                            <div
-                                                className={`font-bold py-2 px-3 rounded-full text-center text-sm ${
-                                                    result.featured
-                                                        ? "bg-green-300 text-black"
-                                                        : "bg-green-400 text-black"
-                                                }`}
-                                            >
-                                                {result.result}
-                                            </div>
-                                        </div>
-                                        {result.featured && (
-                                            <div className="absolute top-3 left-3 bg-green-400 text-black font-bold py-1.5 px-3 rounded-full text-xs">
-                                                ⭐ Transformação Destaque
-                                            </div>
-                                        )}
-                                    </div>
+                    <div className="relative">
+                        <Swiper
+                            modules={[Autoplay, Navigation, Pagination, A11y, EffectCoverflow]}
+                            effect="coverflow"
+                            coverflowEffect={{
+                                rotate: 0,
+                                stretch: 0,
+                                depth: 100,
+                                modifier: 1.5,
+                                slideShadows: false,
+                                scale: 0.9,
+                            }}
+                            speed={650}
+                            spaceBetween={20}
+                            slidesPerView={1.2}
+                            centeredSlides={true}
+                            grabCursor
+                            watchSlidesProgress
+                            loop={true}
+                            onSlideChange={(swiper) => setActiveRealIndex(swiper.realIndex)}
+                            onBeforeInit={(swiper) => {
+                                if (!swiper.params.navigation || typeof swiper.params.navigation === "boolean") {
+                                    return;
+                                }
 
-                                    <div className="p-5">
-                                        <h3
-                                            className={`font-bold mb-2 text-center ${
-                                                result.featured ? "text-xl text-green-300" : "text-lg text-white"
+                                swiper.params.navigation.prevEl = prevButtonRef.current;
+                                swiper.params.navigation.nextEl = nextButtonRef.current;
+
+                                if (swiper.params.pagination && typeof swiper.params.pagination !== "boolean") {
+                                    swiper.params.pagination.el = paginationElRef.current;
+                                }
+                            }}
+                            navigation={{
+                                prevEl: prevButtonRef.current,
+                                nextEl: nextButtonRef.current,
+                            }}
+                            autoplay={{
+                                delay: 3800,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true,
+                            }}
+                            pagination={{
+                                el: paginationElRef.current,
+                                clickable: true,
+                                dynamicBullets: false,
+                            }}
+                            initialSlide={3}
+                            breakpoints={{
+                                768: {
+                                    slidesPerView: 1.3,
+                                    spaceBetween: 24,
+                                },
+                                1024: {
+                                    slidesPerView: 3.2,
+                                    spaceBetween: 28,
+                                    centeredSlides: false,
+                                },
+                            }}
+                            className="results-swiper !pb-8"
+                            aria-label="Carrossel de transformações das alunas"
+                            a11y={{
+                                prevSlideMessage: "Slide anterior",
+                                nextSlideMessage: "Próximo slide",
+                                paginationBulletMessage: "Ir para o slide {{index}}",
+                                firstSlideMessage: "Este é o primeiro slide",
+                                lastSlideMessage: "Este é o último slide",
+                            }}
+                        >
+                            {results.map((result, index) => {
+                                const isActive = index === activeRealIndex;
+                                const isFeaturedAndActive = result.featured && isActive;
+
+                                return (
+                                    <SwiperSlide key={result.name}>
+                                        <article
+                                            className={`h-full cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border rounded-2xl overflow-hidden transition-all duration-500 group ${
+                                                isFeaturedAndActive
+                                                    ? "border-green-300 shadow-[0_8px_20px_rgba(74,222,128,0.30)] ring-2 ring-green-300/35"
+                                                    : isActive
+                                                      ? "border-green-400/80 shadow-[0_14px_34px_rgba(74,222,128,0.16)]"
+                                                      : result.featured
+                                                        ? "border-green-400/50 shadow-[0_8px_20px_rgba(74,222,128,0.12)]"
+                                                        : "border-green-500/20 opacity-90"
                                             }`}
+                                            aria-label={`Resultado de ${result.name}`}
                                         >
-                                            {result.name}
-                                        </h3>
-                                        <p className="text-gray-300 text-sm leading-relaxed italic text-center">
-                                            &ldquo;{result.quote}&rdquo;
-                                        </p>
-                                    </div>
-                                </article>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                                            <div className="relative aspect-[3/4] overflow-hidden">
+                                                <Image
+                                                    src={result.image}
+                                                    alt={`Transformação de ${result.name}`}
+                                                    width={420}
+                                                    height={560}
+                                                    className={`w-full h-full object-cover transition-transform duration-700 ${
+                                                        isActive ? "scale-[1.02]" : "scale-100 group-hover:scale-105"
+                                                    }`}
+                                                    priority={index === 0}
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
+                                                <div className="absolute bottom-3 left-3 right-3">
+                                                    <div className="bg-green-400 text-black font-bold py-2 px-3 rounded-full text-center text-sm">
+                                                        {result.result}
+                                                    </div>
+                                                </div>
+                                                {result.featured && (
+                                                    <div className="absolute top-3 left-3 bg-green-400 text-black font-bold py-1.5 px-3 rounded-full text-xs">
+                                                        ⭐ Transformação Destaque
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="p-4">
+                                                <h3 className="font-bold mb-1.5 text-center transition-colors text-base text-white">
+                                                    {result.name}
+                                                </h3>
+                                                <p className="results-quote text-gray-300 text-xs leading-relaxed italic text-center">
+                                                    &ldquo;{result.quote}&rdquo;
+                                                </p>
+                                            </div>
+                                        </article>
+                                    </SwiperSlide>
+                                );
+                            })}
+                        </Swiper>
+
+                        <button
+                            ref={prevButtonRef}
+                            type="button"
+                            aria-label="Ver transformação anterior"
+                            className="absolute left-0 md:left-2 top-[40%] z-20 -translate-y-1/2 h-11 w-11 rounded-full border-2 border-green-300/60 text-green-300 hidden sm:inline-flex items-center justify-center transition-all duration-300 hover:bg-green-300 hover:text-black hover:border-green-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                        >
+                            <span aria-hidden="true" className="text-2xl font-bold leading-none">
+                                ‹
+                            </span>
+                        </button>
+
+                        <button
+                            ref={nextButtonRef}
+                            type="button"
+                            aria-label="Ver próxima transformação"
+                            className="absolute right-0 md:right-2 top-[40%] z-20 -translate-y-1/2 h-11 w-11 rounded-full border-2 border-green-300/60 text-green-300 hidden sm:inline-flex items-center justify-center transition-all duration-300 hover:bg-green-300 hover:text-black hover:border-green-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                        >
+                            <span aria-hidden="true" className="text-2xl font-bold leading-none">
+                                ›
+                            </span>
+                        </button>
+
+                        <div className="pointer-events-none absolute left-1/2 top-[42%] z-10 hidden h-14 w-[calc(100%+1rem)] -translate-x-1/2 -translate-y-1/2 justify-between sm:flex">
+                            <div className="h-full w-16 bg-gradient-to-r from-black/5 to-transparent" />
+                            <div className="h-full w-16 bg-gradient-to-l from-black/5 to-transparent" />
+                        </div>
+
+                        <div className="mt-2 flex items-center justify-center gap-3 text-sm text-gray-300">
+                            <span className="font-semibold text-green-300 tabular-nums min-w-6 text-right leading-none flex items-center">
+                                {/* {String(activeRealIndex + 1).padStart(2, "0")} */}
+                            </span>
+                            <div ref={paginationElRef} className="results-swiper-pagination flex items-center" />
+                            <span className="tabular-nums min-w-6 leading-none flex items-center">
+                                {/* {String(results.length).padStart(2, "0")} */}
+                            </span>
+                        </div>
+                    </div>
                 </motion.div>
 
                 <motion.div
