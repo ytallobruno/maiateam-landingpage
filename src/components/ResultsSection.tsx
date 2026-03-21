@@ -13,43 +13,42 @@ export default function ResultsSection() {
     });
 
     const featuredResult = {
-        beforeImage: "/resultado0.webp",
-        afterImage: "/resultado01.webp",
+        image: "/resultado-catarina.webp",
         name: "Catarina",
-        result: "Quadríceps e posteriores: muito mais volume em 3 meses",
+        result: "Quadríceps e posteriores com muito mais volume",
         quote: "Não faço dieta, apenas treino",
     };
 
     const results = [
         {
-            image: "/result3.webp",
-            name: "Andressa",
-            result: "Mais volume em 6 semanas",
-            quote: "Depois de um período secando, em 6 semanas comi um pouco mais e foquei nos treinos; ganhei mais volume e um aspecto mais redondo.",
+            image: "/resultado-thamiris.webp",
+            name: "Thamiris Lima",
+            result: "Evolução em 8 semanas",
+            quote: "Aluna de protocolo avulso e com apenas 8 semanas (apenas um protocolo de treino) obteve melhora no quadríceps, em formato e também em volume.",
         },
         {
-            image: "/result4.webp",
-            name: "Maria Eduarda",
-            result: "Físico volumoso em 8 semanas",
-            quote: "Com um protocolo de 8 semanas aumentei o volume dos meus glúteos e deixei meu físico com aspecto mais cheio.",
+            image: "/resultado-gabriele.webp",
+            name: "Gabriele Martins",
+            result: "Dorsais de verdade em 1 ano",
+            quote: "Um ano de duração de uma foto para a outra e construímos dorsais de verdade. Aluna com rotina corrida, pouco tempo para treinar e ainda sim com um bom acompanhamento e treinos periodizados obteve uma melhora significativa da cintura escapular.",
         },
         {
-            image: "/resultado5.webp",
-            name: "Vanessa",
-            result: "Mudança corporal em 3 meses",
-            quote: "Em processo de emagrecimento, em 3 meses melhorei cortes, o detalhamento e o volume dos meus quadríceps.",
+            image: "/resultado-leticia.webp",
+            name: "Letícia Castro",
+            result: "Evolução aproximada de 6 meses",
+            quote: "Aluna do plano ouro, aproximadamente 6 meses de diferente de uma foto pra outra, conseguimos reduzir a celulite, melhorar o aspecto dos membros inferiores e arredondamento do glúteo",
         },
         {
-            image: "/result2.webp",
+            image: "/resultado-giovana.webp",
             name: "Giovana",
             result: "Construída do zero em 2 anos",
             quote: "Eu era falsa magra, com pouquíssima massa e muita gordura. Em 2 anos aprendi a treinar e construí um físico do zero.",
         },
         {
-            image: "/result1.webp",
-            name: "Luisa",
-            result: "Glúteos transformados em 1 ano",
-            quote: "Nunca me senti bem de biquíni/shorts; em 1 ano foquei nos glúteos e transformei minha 'bunda' em glúteos de verdade.",
+            image: "/resultado-rochelly.webp",
+            name: "Rochelly",
+            result: "Evolução completa em 1 ano",
+            quote: "Um ano de uma foto pra outra, outra postura, um glúteo de verdade construído em que substituímos gordura por massa muscular de verdade. Treinava em horário de pico, rotina de CLT e tinha apenas 40-45min para treinar; ainda sim foi possível alcançar um resultado incrível",
         },
     ];
 
@@ -92,44 +91,22 @@ export default function ResultsSection() {
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent"></div>
 
                         <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-                            {/* Imagens antes e depois */}
-                            <div className="flex flex-col md:flex-row gap-6 md:gap-6 justify-center items-center">
+                            {/* Imagem de destaque */}
+                            <div className="flex justify-center items-center">
                                 <div className="relative rounded-2xl">
                                     {/* Container da imagem com overflow hidden para conter o efeito scale */}
                                     <div className="rounded-2xl overflow-hidden group">
                                         <Image
-                                            src={featuredResult.beforeImage}
+                                            src={featuredResult.image}
                                             alt="Catarina"
-                                            width={200}
-                                            height={280}
-                                            className="rounded-2xl object-cover h-72 w-56 md:h-72 md:w-56 transition-transform duration-500 group-hover:scale-105"
+                                            width={320}
+                                            height={420}
+                                            className="rounded-2xl object-cover h-80 w-64 md:h-[420px] md:w-80 transition-transform duration-500 group-hover:scale-105"
                                             style={{ objectPosition: "center" }}
                                         />
                                     </div>
                                     {/* Badge fora do grupo de hover para permanecer fixo */}
                                     <div className="absolute -bottom-3 md:top-auto md:-bottom-3 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-full border border-green-400/30">
-                                        Antes/Depois
-                                    </div>
-                                </div>
-                                <div className="flex md:flex-col flex-row items-center flex-shrink-0">
-                                    <div className="w-10 h-0.5 md:w-0.5 md:h-10 bg-green-400"></div>
-                                    <div className="w-4 h-4 bg-green-400 rounded-full mx-3 md:mx-0 md:my-3"></div>
-                                    <div className="w-10 h-0.5 md:w-0.5 md:h-10 bg-green-400"></div>
-                                </div>
-                                <div className="relative rounded-2xl">
-                                    {/* Container da imagem com overflow hidden para conter o efeito scale */}
-                                    <div className="rounded-2xl overflow-hidden group">
-                                        <Image
-                                            src={featuredResult.afterImage}
-                                            alt="Catarina"
-                                            width={200}
-                                            height={280}
-                                            className="rounded-2xl object-cover h-72 w-56 md:h-72 md:w-56 transition-transform duration-500 group-hover:scale-105"
-                                            style={{ objectPosition: "center -60px" }}
-                                        />
-                                    </div>
-                                    {/* Badge fora do grupo de hover para permanecer fixo */}
-                                    <div className="absolute -top-3 md:top-auto md:-bottom-3 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-3 py-1 rounded-full font-bold">
                                         Antes/Depois
                                     </div>
                                 </div>
