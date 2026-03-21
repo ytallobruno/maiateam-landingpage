@@ -1,9 +1,9 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
-import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import ResultCard from "./ResultCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, A11y, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
@@ -159,45 +159,7 @@ export default function ResultsSection() {
                             {results.map((result, index) => {
                                 return (
                                     <SwiperSlide key={result.name}>
-                                        <article
-                                            className={`h-full cursor-default bg-gradient-to-br from-gray-800 to-gray-900 border rounded-2xl overflow-hidden transition-all duration-500 group ${
-                                                result.featured
-                                                    ? "border-green-400/60 shadow-[0_8px_20px_rgba(74,222,128,0.16)]"
-                                                    : "border-green-500/20 opacity-90"
-                                            }`}
-                                            aria-label={`Resultado de ${result.name}`}
-                                        >
-                                            <div className="relative aspect-[3/4] overflow-hidden">
-                                                <Image
-                                                    src={result.image}
-                                                    alt={`Transformação de ${result.name}`}
-                                                    width={420}
-                                                    height={560}
-                                                    className={`w-full h-full object-cover transition-transform duration-700 scale-100 group-hover:scale-105 ${result.name === "Catarina" ? "object-[center_80%]" : ""}`}
-                                                    priority={index === 0}
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent"></div>
-                                                <div className="absolute bottom-3 left-3 right-3">
-                                                    <div className="bg-green-400 text-black font-bold py-2 px-3 rounded-full text-center text-sm">
-                                                        {result.result}
-                                                    </div>
-                                                </div>
-                                                {result.featured && (
-                                                    <div className="absolute top-3 left-3 bg-green-400 text-black font-bold py-1.5 px-3 rounded-full text-xs">
-                                                        ⭐ Transformação Destaque
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            <div className="p-4">
-                                                <h3 className="font-bold mb-1.5 text-center transition-colors text-base text-white">
-                                                    {result.name}
-                                                </h3>
-                                                <p className="results-quote text-gray-300 text-xs leading-relaxed italic text-center">
-                                                    &ldquo;{result.quote}&rdquo;
-                                                </p>
-                                            </div>
-                                        </article>
+                                        <ResultCard result={result} index={index} />
                                     </SwiperSlide>
                                 );
                             })}
