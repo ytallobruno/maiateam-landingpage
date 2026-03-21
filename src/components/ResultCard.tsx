@@ -21,7 +21,7 @@ export default function ResultCard({ result, index }: { result: Result; index: n
             }`}
             aria-label={`Resultado de ${result.name}`}
         >
-            {/* Foto em destaque: mantém proporção retangular (3/4) */}
+            {/* Imagem no topo - shadcn-like (imagem separada do header) */}
             <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                     src={result.image}
@@ -29,31 +29,29 @@ export default function ResultCard({ result, index }: { result: Result; index: n
                     width={420}
                     height={560}
                     className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${
-                        result.name === "Catarina" ? "object-[center_30%]" : ""
+                        result.name === "Catarina" ? "object-[center_70%]" : ""
                     }`}
                     priority={index === 0}
                 />
 
+                {/* Featured badge sobre a foto (top-left) */}
                 {result.featured && (
-                    <div className="absolute top-3 left-3 z-10 bg-green-400 text-black font-bold py-1.5 px-3 rounded-full text-xs">
+                    <div className="absolute top-3 left-3 z-20 bg-green-400 text-black font-bold py-1.5 px-3 rounded-full text-xs">
                         ⭐ Transformação Destaque
                     </div>
                 )}
             </div>
 
-            {/* Área de texto separada abaixo da foto */}
+            {/* CardHeader + CardContent (shadcn-like) */}
             <div className="p-4">
-                <div className="mb-3 flex justify-center">
-                    <span className="text-sm bg-green-400 text-black font-semibold px-3 py-1 rounded-full">
-                        {result.result}
-                    </span>
+                <div className="mb-3">
+                    <h3 className="text-white text-lg font-semibold">{result.name}</h3>
+                    <p className="text-sm text-green-400 font-medium">{result.result}</p>
                 </div>
 
-                <h3 className="text-center text-white font-bold text-base md:text-lg">{result.name}</h3>
-
-                <p className="text-gray-300 text-sm leading-relaxed italic text-center mt-2 line-clamp-3">
-                    “{result.quote}”
-                </p>
+                <div>
+                    <p className="text-gray-300 text-sm italic leading-relaxed line-clamp-3">“{result.quote}”</p>
+                </div>
             </div>
         </article>
     );
