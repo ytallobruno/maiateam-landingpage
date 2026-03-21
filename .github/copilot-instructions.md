@@ -17,6 +17,7 @@ Produzir código, documentação, análises e recomendações que reflitam o rep
 7. Quando faltar evidência, escreva `Não evidenciado no repositório`.
 8. Prefira aderência aos padrões existentes do repositório em vez de sugestões genéricas.
 9. Todo output final deve ser em português pt-BR, preservando termos técnicos em inglês quando isso mantiver a precisão.
+10. Sempre atualize o tópico de histórico de erros com fatos observados, inferências e checklist para evitar recorrência.
 
 ## Fluxo obrigatório antes de responder tarefas relevantes
 
