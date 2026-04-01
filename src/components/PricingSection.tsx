@@ -7,7 +7,15 @@ import { usePromotion } from "@/hooks/usePromotion";
 import BlackFridayCountdown from "./BlackFridayCountdown";
 
 export default function PricingSection() {
-    const { isBlackFriday, isPriceCountdown, prices, savings, blackFridayEndDate } = usePromotion();
+    const {
+        isBlackFriday,
+        isPriceCountdown,
+        prices,
+        savings,
+        blackFridayEndDate,
+        isProtocoloAvulsoPromo,
+        protocoloAvulsoMessage,
+    } = usePromotion();
     const ref = useRef(null);
     const isInView = useInView(ref, {
         once: false,
@@ -89,7 +97,7 @@ export default function PricingSection() {
                 {
                     id: "avulso",
                     name: "PROTOCOLO AVULSO",
-                    badge: "Preço Fixo",
+                    badge: isProtocoloAvulsoPromo ? protocoloAvulsoMessage : "Preço Fixo",
                     price: prices.protocolo,
                     priceVista: null,
                     priceCredito: null,
@@ -137,10 +145,10 @@ export default function PricingSection() {
                 {
                     id: "avulso",
                     name: "PROTOCOLO AVULSO",
-                    badge: "MAIS VENDIDO",
+                    badge: isProtocoloAvulsoPromo ? protocoloAvulsoMessage : "MAIS VENDIDO",
                     price: prices.protocolo,
-                    priceVista: null,
-                    priceCredito: null,
+                    priceVista: prices.protocoloVista,
+                    priceCredito: prices.protocoloCredito,
                     originalPrice: null,
                     savings: null,
                     description: "1 treino único personalizado, mas sem o acompanhamento",

@@ -95,5 +95,7 @@ export function usePromotion() {
         blackFridayEndDate: promotionsConfig.blackFriday.endDate,
         priceCountdownEndDate: promotionsConfig.priceCountdown.endDate,
         priceCountdownMessage: promotionsConfig.priceCountdown.message,
+        isProtocoloAvulsoPromo: promotionsConfig.protocoloAvulso.enabled,
+        protocoloAvulsoMessage: promotionsConfig.protocoloAvulso.message,
     };
 }

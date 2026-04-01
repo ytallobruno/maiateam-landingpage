@@ -24,18 +24,21 @@ export const pricingConfig = {
     // ========== PREÇOS NORMAIS ==========
     normal: {
         prata: {
-            vista: 295.9, // Preço à vista (PIX)
-            credito: 329.9, // Preço parcelado
+            vista: 329.9, // Preço à vista (PIX)
+            credito: 350.0, // Preço parcelado
         },
         ouro: {
-            vista: 375.9,
+            vista: 399.9,
             credito: 419.9,
         },
         platinum: {
             vista: 619.9,
             credito: 690.9,
         },
-        protocolo: 150.0, // Sempre o mesmo preço
+        protocolo: {
+            vista: 135.0, // Sempre o mesmo preço à vista (PIX)
+            credito: 149.9, // Preço parcelado
+        },
     },
 } as const;
 
@@ -65,6 +68,8 @@ export const getCurrentPrices = (isBlackFriday: boolean) => {
             platinumVista: null,
             platinumCredito: null,
             protocolo: pricingConfig.blackFriday.protocolo.price,
+            protocoloVista: null,
+            protocoloCredito: null,
             isBlackFriday: true,
         };
     }
@@ -82,7 +87,9 @@ export const getCurrentPrices = (isBlackFriday: boolean) => {
         platinumOriginal: null,
         platinumVista: pricingConfig.normal.platinum.vista,
         platinumCredito: pricingConfig.normal.platinum.credito,
-        protocolo: pricingConfig.normal.protocolo,
+        protocolo: pricingConfig.normal.protocolo.credito,
+        protocoloVista: pricingConfig.normal.protocolo.vista,
+        protocoloCredito: pricingConfig.normal.protocolo.credito,
         isBlackFriday: false,
     };
 };

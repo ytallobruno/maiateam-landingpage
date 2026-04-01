@@ -15,6 +15,12 @@ export const promotionsConfig = {
         endDate: new Date("2025-12-31T23:59:59"), // Data fim do countdown
         message: "Preços sobem em:", // Mensagem do countdown
     },
+
+    // ========== PROTOCOLO AVULSO ==========
+    protocoloAvulso: {
+        enabled: true, // Liga/desliga modo promocional para protocolo
+        message: "APENAS 5 VAGAS", // Mensagem da flag
+    },
 } as const;
 
 // ========== FUNÇÕES AUXILIARES ==========
