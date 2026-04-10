@@ -16,6 +16,7 @@ export default function FinalCTASection() {
     return (
         <motion.section
             ref={ref}
+            id="final"
             className="py-24 bg-gradient-to-r from-green-400 to-green-600"
             initial={{ opacity: 0 }}
             animate={{ opacity: isInView ? 1 : 0 }}

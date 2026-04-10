@@ -87,7 +87,7 @@ export const getCurrentPrices = (isBlackFriday: boolean) => {
         platinumOriginal: null,
         platinumVista: pricingConfig.normal.platinum.vista,
         platinumCredito: pricingConfig.normal.platinum.credito,
-        protocolo: pricingConfig.normal.protocolo.credito,
+        protocolo: pricingConfig.normal.protocolo.vista,
         protocoloVista: pricingConfig.normal.protocolo.vista,
         protocoloCredito: pricingConfig.normal.protocolo.credito,
         isBlackFriday: false,
