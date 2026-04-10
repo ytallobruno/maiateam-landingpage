@@ -9,7 +9,7 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const menuItems = [
-        { href: "#hero", text: "Início" },
+        // { href: "#hero", text: "Início" },
         { href: "#method", text: "Método" },
         { href: "#about", text: "Sobre" },
         { href: "#results", text: "Resultados" },
