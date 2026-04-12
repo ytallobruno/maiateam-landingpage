@@ -14,6 +14,21 @@ const config: Config = {
                 "brand-black": "#0d0d0d",
                 "brand-white": "#ffffff",
                 "brand-gray": "#8a8a8a",
+                surface: {
+                    base: "rgb(var(--surface-base) / <alpha-value>)",
+                    elevated: "rgb(var(--surface-elevated) / <alpha-value>)",
+                    focal: "rgb(var(--surface-focal) / <alpha-value>)",
+                },
+                text: {
+                    primary: "rgb(var(--text-primary) / <alpha-value>)",
+                    secondary: "rgb(var(--text-secondary) / <alpha-value>)",
+                    tertiary: "rgb(var(--text-tertiary) / <alpha-value>)",
+                },
+                stroke: {
+                    subtle: "rgb(var(--border-subtle) / <alpha-value>)",
+                    medium: "rgb(var(--border-medium) / <alpha-value>)",
+                    strong: "rgb(var(--border-strong) / <alpha-value>)",
+                },
                 green: {
                     400: "#4ade80",
                     500: "#22c55e",

@@ -5,20 +5,20 @@ export const promotionsConfig = {
     // ========== BLACK FRIDAY ==========
     blackFriday: {
         enabled: true, // Liga/desliga modo Black Friday
-        startDate: new Date("2025-11-03T00:00:00"), // Início da Black Friday
-        endDate: new Date("2025-11-30T23:59:59"), // Fim da Black Friday
+        startDate: new Date("2026-11-01T00:00:00"), // Início da Black Friday
+        endDate: new Date("2026-11-30T23:59:59"), // Fim da Black Friday
     },
 
     // ========== COUNTDOWN DE PREÇOS ==========
     priceCountdown: {
         enabled: false, // Liga/desliga o countdown de preços
-        endDate: new Date("2025-12-31T23:59:59"), // Data fim do countdown
+        endDate: new Date("2026-12-31T23:59:59"), // Data fim do countdown
         message: "Preços sobem em:", // Mensagem do countdown
     },
 
     // ========== PROTOCOLO AVULSO ==========
     protocoloAvulso: {
-        enabled: true, // Liga/desliga modo promocional para protocolo
+        enabled: false, // Liga/desliga modo promocional para protocolo
         message: "APENAS 5 VAGAS", // Mensagem da flag
     },
 } as const;

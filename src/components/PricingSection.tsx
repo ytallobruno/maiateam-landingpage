@@ -1,10 +1,40 @@
 "use client";
 
 import { CheckCircle, Phone, Star, Sparkles } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { usePromotion } from "@/hooks/usePromotion";
 import BlackFridayCountdown from "./BlackFridayCountdown";
+
+type Plan = {
+    id: "prata" | "ouro" | "platinum" | "avulso";
+    name: string;
+    badge: string;
+    price: number | null;
+    priceVista: number | null;
+    priceCredito: number | null;
+    originalPrice: number | null;
+    savings: number | undefined | null;
+    description: string;
+    features: string[];
+    paymentLink: string;
+    whatsappLink: string;
+    highlighted: boolean;
+    isBlackFriday: boolean;
+};
+
+type PlanTheme = {
+    cardBorder: string;
+    cardBg: string;
+    badgeClass: string;
+    priceClass: string;
+    iconClass: string;
+    hoverClass: string;
+    buttonClass: string;
+    featureBoxClass: string;
+    pixSavingsClass: string;
+};
+
+const formatCurrency = (value: number) => `R$ ${value.toFixed(2).replace(".", ",")}`;
 
 export default function PricingSection() {
     const {
@@ -16,23 +46,17 @@ export default function PricingSection() {
         isProtocoloAvulsoPromo,
         protocoloAvulsoMessage,
     } = usePromotion();
-    const ref = useRef(null);
-    const isInView = useInView(ref, {
-        once: false,
-        margin: "-20% 0px -20% 0px",
-    });
-
-    const getPlans = () => {
+    const getPlans = (): Plan[] => {
         if (isBlackFriday) {
             return [
                 {
                     id: "prata",
                     name: "PLANO PRATA",
                     badge: "🔥 BLACK FRIDAY",
-                    originalPrice: prices.prataOriginal,
                     price: prices.prata,
                     priceVista: null,
                     priceCredito: null,
+                    originalPrice: prices.prataOriginal,
                     savings: savings?.prata,
                     description: "2 protocolos de treino com duração de 6 semanas cada um",
                     features: [
@@ -45,17 +69,16 @@ export default function PricingSection() {
                     whatsappLink:
                         "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata%20BLACK%20FRIDAY",
                     highlighted: false,
-                    theme: "gold",
                     isBlackFriday: true,
                 },
                 {
                     id: "ouro",
                     name: "PLANO OURO",
                     badge: "🏆 BLACK FRIDAY + MAIS POPULAR",
-                    originalPrice: prices.ouroOriginal,
                     price: prices.ouro,
                     priceVista: null,
                     priceCredito: null,
+                    originalPrice: prices.ouroOriginal,
                     savings: savings?.ouro,
                     description: "3 protocolos de treino com duração de 6 semanas cada um",
                     features: [
@@ -68,17 +91,16 @@ export default function PricingSection() {
                     whatsappLink:
                         "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro%20BLACK%20FRIDAY",
                     highlighted: true,
-                    theme: "gold",
                     isBlackFriday: true,
                 },
                 {
                     id: "platinum",
                     name: "PLANO PLATINUM",
                     badge: "👑 BLACK FRIDAY PREMIUM",
-                    originalPrice: prices.platinumOriginal,
                     price: prices.platinum,
                     priceVista: null,
                     priceCredito: null,
+                    originalPrice: prices.platinumOriginal,
                     savings: savings?.platinum,
                     description: "4 protocolos de treino com duração de 6 semanas cada um",
                     features: [
@@ -91,7 +113,6 @@ export default function PricingSection() {
                     whatsappLink:
                         "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum%20BLACK%20FRIDAY",
                     highlighted: false,
-                    theme: "gold",
                     isBlackFriday: true,
                 },
                 {
@@ -114,241 +135,297 @@ export default function PricingSection() {
                     whatsappLink:
                         "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso",
                     highlighted: false,
-                    theme: "green",
-                    isBlackFriday: false,
-                },
-            ];
-        } else {
-            return [
-                {
-                    id: "prata",
-                    name: "PLANO PRATA",
-                    badge: "INICIAL",
-                    price: prices.prataCredito,
-                    priceVista: prices.prataVista,
-                    priceCredito: prices.prataCredito,
-                    originalPrice: null,
-                    savings: null,
-                    description: "2 protocolos de treino com duração de 6 semanas cada um",
-                    features: [
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Alongamentos específicos",
-                        "Ajustes periódicos nos treinos",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata",
-                    highlighted: false,
-                    theme: "gray",
-                    isBlackFriday: false,
-                },
-                {
-                    id: "avulso",
-                    name: "PROTOCOLO AVULSO",
-                    badge: isProtocoloAvulsoPromo ? protocoloAvulsoMessage : "MAIS VENDIDO",
-                    price: prices.protocolo,
-                    priceVista: prices.protocoloVista,
-                    priceCredito: prices.protocoloCredito,
-                    originalPrice: null,
-                    savings: null,
-                    description: "1 treino único personalizado, mas sem o acompanhamento",
-                    features: [
-                        "1 planilha de treino permanente",
-                        "Alongamentos específicos",
-                        "Diretrizes de execução",
-                        "Acesso vitalício",
-                    ],
-                    paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
-                    whatsappLink:
-                        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso",
-                    highlighted: true,
-                    theme: "green",
-                    isBlackFriday: false,
-                },
-                {
-                    id: "ouro",
-                    name: "PLANO OURO",
-                    badge: "RECOMENDADO",
-                    price: prices.ouroCredito,
-                    priceVista: prices.ouroVista,
-                    priceCredito: prices.ouroCredito,
-                    originalPrice: null,
-                    savings: null,
-                    description: "3 protocolos de treino com duração de 6 semanas cada um",
-                    features: [
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Todos os benefícios anteriores",
-                        "Chamada no Meet",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro",
-                    highlighted: false,
-                    theme: "yellow",
-                    isBlackFriday: false,
-                },
-                {
-                    id: "platinum",
-                    name: "PLANO PLATINUM",
-                    badge: "PREMIUM",
-                    price: prices.platinumCredito,
-                    priceVista: prices.platinumVista,
-                    priceCredito: prices.platinumCredito,
-                    originalPrice: null,
-                    savings: null,
-                    description: "4 protocolos de treino com duração de 6 semanas cada um",
-                    features: [
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Todos os benefícios anteriores",
-                        "24 semanas de acompanhamento",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum",
-                    highlighted: false,
-                    theme: "purple",
                     isBlackFriday: false,
                 },
             ];
         }
+
+        return [
+            {
+                id: "prata",
+                name: "PLANO PRATA",
+                badge: "INICIAL",
+                price: prices.prataCredito,
+                priceVista: prices.prataVista,
+                priceCredito: prices.prataCredito,
+                originalPrice: null,
+                savings: null,
+                description: "2 protocolos de treino com duração de 6 semanas cada um",
+                features: [
+                    "Planilha com vídeos de TODOS os exercícios",
+                    "Planilha de controle de carga",
+                    "Alongamentos específicos",
+                    "Ajustes periódicos nos treinos",
+                ],
+                paymentLink: "#",
+                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata",
+                highlighted: false,
+                isBlackFriday: false,
+            },
+            {
+                id: "avulso",
+                name: "PROTOCOLO AVULSO",
+                badge: isProtocoloAvulsoPromo ? protocoloAvulsoMessage : "MAIS VENDIDO",
+                price: prices.protocolo,
+                priceVista: prices.protocoloVista,
+                priceCredito: prices.protocoloCredito,
+                originalPrice: null,
+                savings: null,
+                description: "1 treino único personalizado, mas sem o acompanhamento",
+                features: [
+                    "1 planilha de treino permanente",
+                    "Alongamentos específicos",
+                    "Diretrizes de execução",
+                    "Acesso vitalício",
+                ],
+                paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
+                whatsappLink:
+                    "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso",
+                highlighted: true,
+                isBlackFriday: false,
+            },
+            {
+                id: "ouro",
+                name: "PLANO OURO",
+                badge: "RECOMENDADO",
+                price: prices.ouroCredito,
+                priceVista: prices.ouroVista,
+                priceCredito: prices.ouroCredito,
+                originalPrice: null,
+                savings: null,
+                description: "3 protocolos de treino com duração de 6 semanas cada um",
+                features: [
+                    "Planilha com vídeos de TODOS os exercícios",
+                    "Planilha de controle de carga",
+                    "Todos os benefícios anteriores",
+                    "Chamada no Meet",
+                ],
+                paymentLink: "#",
+                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro",
+                highlighted: false,
+                isBlackFriday: false,
+            },
+            {
+                id: "platinum",
+                name: "PLANO PLATINUM",
+                badge: "PREMIUM",
+                price: prices.platinumCredito,
+                priceVista: prices.platinumVista,
+                priceCredito: prices.platinumCredito,
+                originalPrice: null,
+                savings: null,
+                description: "4 protocolos de treino com duração de 6 semanas cada um",
+                features: [
+                    "Planilha com vídeos de TODOS os exercícios",
+                    "Planilha de controle de carga",
+                    "Todos os benefícios anteriores",
+                    "24 semanas de acompanhamento",
+                ],
+                paymentLink: "#",
+                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum",
+                highlighted: false,
+                isBlackFriday: false,
+            },
+        ];
     };
 
     const plans = getPlans();
 
-    const getThemeClasses = (theme: string, highlighted: boolean, isBF: boolean) => {
-        if (isBF) {
+    const isRecommendedPlan = (plan: Plan) => plan.badge.includes("RECOMENDADO") || plan.badge.includes("MAIS POPULAR");
+    const getPlanTheme = (plan: Plan, hasPremiumFocus: boolean): PlanTheme => {
+        if (plan.isBlackFriday) {
             return {
-                border: highlighted ? "border-amber-400" : "border-amber-500/50",
-                badgeBg: "bg-gradient-to-r from-amber-500 to-amber-600",
-                badgeText: "text-black",
-                price: "text-amber-400",
-                icon: "text-amber-400",
-                button: "bg-amber-500 text-black hover:bg-amber-400",
-                hover: highlighted
-                    ? "hover:border-amber-300 hover:shadow-[0_25px_50px_rgba(245,158,11,0.3)]"
-                    : "hover:border-amber-400 hover:shadow-[0_20px_40px_rgba(245,158,11,0.2)]",
-                glow: "shadow-[0_0_30px_rgba(245,158,11,0.15)]",
-            };
+                prata: {
+                    cardBorder: "border-amber-500/50",
+                    cardBg: "bg-gradient-to-b from-[#16110a] to-[#0d0a07]",
+                    badgeClass: "bg-gradient-to-r from-amber-500 to-amber-600 text-black",
+                    priceClass: "text-amber-300",
+                    iconClass: "text-amber-300",
+                    hoverClass: "hover:border-amber-300 hover:shadow-[0_24px_44px_rgba(245,158,11,0.16)]",
+                    buttonClass: "bg-amber-500 text-black hover:bg-amber-400",
+                    featureBoxClass: "border-amber-400/20 bg-amber-500/[0.06]",
+                    pixSavingsClass: "bg-amber-500/15 border-amber-400/40 text-amber-300",
+                },
+                ouro: {
+                    cardBorder: "border-yellow-400/75",
+                    cardBg: "bg-gradient-to-b from-[#1a1508] to-[#100d06]",
+                    badgeClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black",
+                    priceClass: "text-yellow-300",
+                    iconClass: "text-yellow-300",
+                    hoverClass: "hover:border-yellow-300 hover:shadow-[0_24px_48px_rgba(250,204,21,0.2)]",
+                    buttonClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black hover:brightness-105",
+                    featureBoxClass: "border-yellow-300/25 bg-yellow-400/[0.06]",
+                    pixSavingsClass: "bg-yellow-400/15 border-yellow-300/45 text-yellow-200",
+                },
+                platinum: {
+                    cardBorder: "border-orange-300/70",
+                    cardBg: "bg-gradient-to-b from-[#181007] to-[#0f0a05]",
+                    badgeClass: "bg-gradient-to-r from-amber-300 to-orange-400 text-black",
+                    priceClass: "text-orange-200",
+                    iconClass: "text-orange-200",
+                    hoverClass: "hover:border-orange-200 hover:shadow-[0_24px_48px_rgba(251,146,60,0.2)]",
+                    buttonClass: "bg-gradient-to-r from-amber-300 to-orange-400 text-black hover:brightness-105",
+                    featureBoxClass: "border-orange-300/25 bg-orange-400/[0.06]",
+                    pixSavingsClass: "bg-orange-400/15 border-orange-300/45 text-orange-200",
+                },
+                avulso: {
+                    cardBorder: "border-amber-500/50",
+                    cardBg: "bg-gradient-to-b from-[#14100b] to-[#0b0907]",
+                    badgeClass: "bg-gradient-to-r from-amber-500 to-amber-600 text-black",
+                    priceClass: "text-amber-300",
+                    iconClass: "text-amber-300",
+                    hoverClass: "hover:border-amber-300 hover:shadow-[0_24px_44px_rgba(245,158,11,0.16)]",
+                    buttonClass: "bg-amber-500 text-black hover:bg-amber-400",
+                    featureBoxClass: "border-amber-400/20 bg-amber-500/[0.06]",
+                    pixSavingsClass: "bg-amber-500/15 border-amber-400/40 text-amber-300",
+                },
+            }[plan.id];
         }
 
-        const themes = {
-            gray: {
-                border: "border-gray-600",
-                badgeBg: "bg-gradient-to-r from-gray-600 to-gray-700",
-                badgeText: "text-white",
-                price: "text-green-400",
-                icon: "text-green-400",
-                button: "bg-gray-700 hover:bg-gray-500",
-                hover: "hover:border-gray-400 hover:shadow-[0_20px_40px_rgba(156,163,175,0.1)]",
-                glow: "",
+        const themes: Record<Plan["id"], PlanTheme> = {
+            prata: {
+                cardBorder: "border-zinc-300/35",
+                cardBg: "bg-gradient-to-b from-[#121212] to-[#0b0b0b]",
+                badgeClass: "bg-gradient-to-r from-zinc-300 to-zinc-500 text-black",
+                priceClass: "text-zinc-100",
+                iconClass: "text-zinc-300",
+                hoverClass: "hover:border-zinc-200/60 hover:shadow-[0_24px_44px_rgba(212,212,216,0.14)]",
+                buttonClass: "bg-zinc-200 text-black hover:bg-zinc-100",
+                featureBoxClass: "border-zinc-300/15 bg-zinc-300/[0.05]",
+                pixSavingsClass: "bg-zinc-400/15 border-zinc-300/35 text-zinc-200",
             },
-            green: {
-                border: highlighted ? "border-green-400/50" : "border-gray-600/50",
-                badgeBg: "bg-gradient-to-r from-green-400 to-green-600",
-                badgeText: "text-black",
-                price: "text-green-400",
-                icon: "text-green-400",
-                button: "bg-green-500 text-black hover:bg-green-400",
-                hover: highlighted
-                    ? "hover:border-green-400 hover:shadow-[0_25px_50px_rgba(74,222,128,0.15)]"
-                    : "hover:border-green-500",
-                glow: "",
+            ouro: {
+                cardBorder: hasPremiumFocus ? "border-yellow-300/75" : "border-yellow-400/45",
+                cardBg: "bg-gradient-to-b from-[#171406] to-[#0d0b05]",
+                badgeClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black",
+                priceClass: "text-yellow-300",
+                iconClass: "text-yellow-300",
+                hoverClass: "hover:border-yellow-300 hover:shadow-[0_24px_44px_rgba(250,204,21,0.16)]",
+                buttonClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black hover:brightness-105",
+                featureBoxClass: "border-yellow-300/20 bg-yellow-400/[0.06]",
+                pixSavingsClass: "bg-yellow-400/15 border-yellow-300/40 text-yellow-200",
             },
-            yellow: {
-                border: "border-yellow-600/50",
-                badgeBg: "bg-gradient-to-r from-yellow-600 to-yellow-700",
-                badgeText: "text-white",
-                price: "text-yellow-400",
-                icon: "text-yellow-400",
-                button: "bg-yellow-700 hover:bg-yellow-600",
-                hover: "hover:border-yellow-500 hover:shadow-[0_20px_40px_rgba(251,191,36,0.1)]",
-                glow: "",
+            platinum: {
+                cardBorder: "border-cyan-300/55",
+                cardBg: "bg-gradient-to-b from-[#091218] to-[#070b0f]",
+                badgeClass: "bg-gradient-to-r from-cyan-300 to-sky-500 text-black",
+                priceClass: "text-cyan-200",
+                iconClass: "text-cyan-300",
+                hoverClass: "hover:border-cyan-200 hover:shadow-[0_24px_44px_rgba(34,211,238,0.16)]",
+                buttonClass: "bg-gradient-to-r from-cyan-300 to-sky-500 text-black hover:brightness-105",
+                featureBoxClass: "border-cyan-300/20 bg-cyan-400/[0.06]",
+                pixSavingsClass: "bg-cyan-500/15 border-cyan-300/40 text-cyan-200",
             },
-            purple: {
-                border: "border-purple-500/50",
-                badgeBg: "bg-gradient-to-r from-purple-600 to-purple-700",
-                badgeText: "text-white",
-                price: "text-purple-400",
-                icon: "text-purple-400",
-                button: "bg-purple-700 hover:bg-purple-600",
-                hover: "hover:border-purple-400 hover:shadow-[0_20px_40px_rgba(147,51,234,0.1)]",
-                glow: "",
+            avulso: {
+                cardBorder: hasPremiumFocus ? "border-green-400/75" : "border-green-400/45",
+                cardBg: "bg-gradient-to-b from-[#07140d] to-[#050d08]",
+                badgeClass: "bg-gradient-to-r from-green-300 to-green-500 text-black",
+                priceClass: "text-green-300",
+                iconClass: "text-green-400",
+                hoverClass: "hover:border-green-300 hover:shadow-[0_24px_44px_rgba(74,222,128,0.18)]",
+                buttonClass: "bg-gradient-to-r from-green-300 to-green-500 text-black hover:brightness-105",
+                featureBoxClass: "border-green-300/20 bg-green-400/[0.06]",
+                pixSavingsClass: "bg-green-500/15 border-green-300/40 text-green-200",
             },
         };
-        return themes[theme as keyof typeof themes];
+
+        return themes[plan.id];
     };
 
     return (
         <motion.section
-            ref={ref}
             id="pricing"
-            className="py-24 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden"
+            className="relative overflow-hidden bg-gradient-to-b from-black via-gray-950 to-black py-16 md:py-20 lg:py-24"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
         >
             {isBlackFriday && (
                 <div className="absolute inset-0 pointer-events-none">
-                    <Sparkles className="absolute top-20 left-10 w-8 h-8 text-amber-400/20 animate-pulse" />
-                    <Sparkles
-                        className="absolute top-40 right-20 w-6 h-6 text-amber-400/20 animate-pulse"
-                        style={{ animationDelay: "1s" }}
-                    />
-                    <Sparkles
-                        className="absolute bottom-20 left-1/4 w-10 h-10 text-amber-400/20 animate-pulse"
-                        style={{ animationDelay: "2s" }}
-                    />
-                    <Sparkles
-                        className="absolute bottom-40 right-1/3 w-7 h-7 text-amber-400/20 animate-pulse"
-                        style={{ animationDelay: "1.5s" }}
-                    />
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <Sparkles className="absolute top-20 left-10 h-8 w-8 text-amber-400/20" />
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.08 }}
+                    >
+                        <Sparkles className="absolute top-40 right-20 h-6 w-6 text-amber-400/20" />
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.16 }}
+                    >
+                        <Sparkles className="absolute bottom-20 left-1/4 h-10 w-10 text-amber-400/20" />
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.22 }}
+                    >
+                        <Sparkles className="absolute bottom-40 right-1/3 h-7 w-7 text-amber-400/20" />
+                    </motion.div>
                 </div>
             )}
 
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6">
                 {isBlackFriday ? (
                     <motion.div
-                        className="text-center mb-12"
+                        className="mb-10 text-center md:mb-12"
                         initial={{ y: 50, opacity: 0 }}
-                        animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold px-6 py-2 rounded-full mb-6 animate-pulse">
+                        <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 px-6 py-2 font-bold text-black">
                             <Sparkles className="w-5 h-5" />
                             <span>BLACK FRIDAY 2025</span>
                             <Sparkles className="w-5 h-5" />
                         </div>
 
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white leading-tight">
+                        <h2 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
                             Consultoria com <span className="text-amber-400">Desconto Especial</span>
                         </h2>
 
-                        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+                        <p className="mx-auto mb-6 max-w-3xl text-base leading-relaxed text-gray-300 sm:text-lg md:mb-8 md:text-xl">
                             Aproveite descontos de até R$ 90,90 nos planos de consultoria!
                         </p>
 
-                        <div className="bg-gradient-to-br from-amber-500/10 to-amber-600/10 border-2 border-amber-500/30 rounded-2xl p-6 max-w-2xl mx-auto">
+                        <div className="mx-auto max-w-2xl rounded-2xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-amber-600/10 p-4 sm:p-5 md:p-6">
                             <p className="text-amber-400 font-bold mb-4 text-lg">⏰ Oferta expira em:</p>
                             <BlackFridayCountdown targetDate={blackFridayEndDate} />
                         </div>
                     </motion.div>
                 ) : (
                     <motion.div
-                        className="text-center mb-16"
+                        className="mb-12 text-center md:mb-16"
                         initial={{ y: 50, opacity: 0 }}
-                        animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
+                        <h2 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl md:mb-6 md:text-5xl">
                             Quanto vai <span className="text-green-400">investir?</span>
                         </h2>
-                        <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                        <p className="mx-auto mb-4 max-w-3xl text-base leading-relaxed text-gray-300 sm:text-lg md:text-xl">
                             Pode parecer mentira, mas você receberá o melhor treino da sua vida, com explicação de
                             métodos avançados e vídeos de cada exercício.
                         </p>
+                        <p className="text-sm text-gray-400 uppercase tracking-[0.18em]">
+                            Escolha seu nível de acompanhamento e feche em minutos
+                        </p>
 
                         {isPriceCountdown && (
-                            <div className="mt-6 bg-gradient-to-r from-red-500/10 to-red-600/10 border-2 border-red-500/30 rounded-xl p-4 max-w-2xl mx-auto">
+                            <div className="mx-auto mt-6 max-w-2xl rounded-xl border-2 border-red-500/30 bg-gradient-to-r from-red-500/10 to-red-600/10 p-4">
                                 <p className="text-red-400 font-bold text-sm">
                                     ⚠️ Aproveite os preços atuais! Em breve os valores serão reajustados.
                                 </p>
@@ -357,25 +434,28 @@ export default function PricingSection() {
                     </motion.div>
                 )}
 
-                <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:gap-6 max-w-6xl mx-auto items-stretch mb-12">
+                <div className="mx-auto mb-10 grid max-w-6xl grid-cols-1 items-stretch gap-4 sm:mb-12 sm:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-6">
                     {plans.map((plan, index) => {
-                        const themeClasses = getThemeClasses(plan.theme, plan.highlighted, plan.isBlackFriday);
+                        const recommended = isRecommendedPlan(plan);
+                        const hasPremiumFocus = recommended || plan.highlighted;
+                        const theme = getPlanTheme(plan, hasPremiumFocus);
 
                         return (
                             <motion.div
                                 key={plan.id}
-                                className={`bg-gradient-to-br from-gray-800 to-gray-900 border-2 ${themeClasses.border} rounded-2xl p-6 relative overflow-hidden transition-all duration-300 ${themeClasses.hover} ${themeClasses.glow} ${plan.highlighted ? "scale-105" : ""} flex flex-col`}
+                                className={`relative flex flex-col overflow-hidden rounded-2xl border-2 ${theme.cardBorder} ${theme.cardBg} p-5 transition-all duration-300 md:p-6 ${theme.hoverClass} ${hasPremiumFocus ? "md:-translate-y-2" : ""}`}
                                 initial={{ y: 80, opacity: 0 }}
-                                animate={{ y: isInView ? 0 : 80, opacity: isInView ? 1 : 0 }}
+                                whileInView={{ y: 0, opacity: 1 }}
+                                viewport={{ once: true, amount: 0.2 }}
                                 transition={{
                                     duration: 0.6,
-                                    delay: isInView ? 0.4 + index * 0.1 : 0,
+                                    delay: 0.25 + index * 0.08,
                                     ease: "easeOut",
                                 }}
                             >
                                 {plan.badge && (
                                     <div
-                                        className={`absolute top-0 left-0 right-0 ${themeClasses.badgeBg} ${themeClasses.badgeText} text-center py-2 font-bold text-xs flex items-center justify-center gap-1`}
+                                        className={`absolute left-0 right-0 top-0 ${theme.badgeClass} flex items-center justify-center gap-1 py-2 text-center text-[11px] font-bold sm:text-xs`}
                                     >
                                         {plan.id === "avulso" && !plan.isBlackFriday && <Star className="w-3 h-3" />}
                                         {plan.badge}
@@ -383,22 +463,24 @@ export default function PricingSection() {
                                     </div>
                                 )}
 
-                                <div className="text-center mt-6 flex-grow flex flex-col">
-                                    <h3 className="text-lg font-bold text-white mb-3">{plan.name}</h3>
+                                <div className="mt-5 flex flex-grow flex-col text-center md:mt-6">
+                                    <h3 className="mb-3 text-lg font-bold text-white">{plan.name}</h3>
 
                                     {plan.isBlackFriday && plan.originalPrice && (
                                         <>
                                             <div className="mb-2">
                                                 <span className="text-gray-400 text-sm line-through">
-                                                    R$ {plan.originalPrice.toFixed(2).replace(".", ",")}
+                                                    {formatCurrency(plan.originalPrice)}
                                                 </span>
                                             </div>
-                                            <div className={`text-3xl font-bold ${themeClasses.price} mb-2`}>
-                                                R$ {plan.price!.toFixed(2).replace(".", ",")}
+                                            <div className={`mb-2 text-2xl font-bold sm:text-3xl ${theme.priceClass}`}>
+                                                {formatCurrency(plan.price!)}
                                             </div>
                                             {plan.savings && (
-                                                <div className="bg-gradient-to-r from-amber-500 to-amber-600 text-black text-xs font-bold py-1 px-3 rounded-full inline-block mb-3">
-                                                    💰 ECONOMIZE R$ {plan.savings.toFixed(2).replace(".", ",")}
+                                                <div
+                                                    className={`text-xs font-bold py-1 px-3 rounded-full inline-block mb-3 border ${theme.pixSavingsClass}`}
+                                                >
+                                                    💰 ECONOMIZE {formatCurrency(plan.savings)}
                                                 </div>
                                             )}
                                         </>
@@ -407,18 +489,19 @@ export default function PricingSection() {
                                         <>
                                             <div className="mb-2">
                                                 <div className="text-gray-400 text-xs mb-1">À vista (PIX)</div>
-                                                <div className={`text-3xl font-bold ${themeClasses.price}`}>
-                                                    R$ {plan.priceVista.toFixed(2).replace(".", ",")}
+                                                <div className={`text-2xl font-bold sm:text-3xl ${theme.priceClass}`}>
+                                                    {formatCurrency(plan.priceVista)}
                                                 </div>
                                             </div>
                                             <div className="mb-3">
                                                 <div className="text-gray-500 text-xs mb-1">ou no crédito</div>
-                                                <div className="text-gray-400 text-sm">
-                                                    R$ {plan.priceCredito.toFixed(2).replace(".", ",")}
+                                                <div className="text-gray-300 text-sm">
+                                                    {formatCurrency(plan.priceCredito)}
                                                 </div>
-                                                <div className="bg-green-500/20 text-green-400 text-xs font-bold py-1 px-2 rounded-full inline-block mt-1">
-                                                    💰 Economize R${" "}
-                                                    {(plan.priceCredito - plan.priceVista).toFixed(2).replace(".", ",")}{" "}
+                                                <div
+                                                    className={`text-xs font-bold py-1 px-2 rounded-full inline-block mt-1 border ${theme.pixSavingsClass}`}
+                                                >
+                                                    💰 Economize {formatCurrency(plan.priceCredito - plan.priceVista)}{" "}
                                                     no PIX
                                                 </div>
                                             </div>
@@ -428,8 +511,8 @@ export default function PricingSection() {
                                         <>
                                             <div className="mb-2">
                                                 <div className="text-gray-400 text-xs mb-1">No cartão</div>
-                                                <div className={`text-3xl font-bold ${themeClasses.price}`}>
-                                                    R$ {plan.price.toFixed(2).replace(".", ",")}
+                                                <div className={`text-3xl font-bold ${theme.priceClass}`}>
+                                                    {formatCurrency(plan.price)}
                                                 </div>
                                             </div>
                                             <div className="mb-3">
@@ -438,7 +521,7 @@ export default function PricingSection() {
                                                         href={plan.whatsappLink}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-gray-400 text-xs hover:text-green-400 transition-colors duration-200 underline inline-block"
+                                                        className="text-gray-300 text-xs hover:text-green-400 transition-colors duration-200 underline inline-block"
                                                     >
                                                         Ou pague via PIX com desconto
                                                     </a>
@@ -459,15 +542,17 @@ export default function PricingSection() {
                                         </>
                                     )}
 
-                                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">{plan.description}</p>
+                                    <p className="mb-4 text-sm leading-relaxed text-gray-300">{plan.description}</p>
 
-                                    <div className="space-y-2 mb-6 text-left flex-grow">
+                                    <div
+                                        className={`mb-5 flex-grow space-y-2 rounded-xl border p-3.5 text-left sm:mb-6 sm:p-4 ${theme.featureBoxClass}`}
+                                    >
                                         {plan.features.map((feature, idx) => (
                                             <div key={idx} className="flex items-start gap-2">
                                                 <CheckCircle
-                                                    className={`w-4 h-4 ${themeClasses.icon} flex-shrink-0 mt-0.5`}
+                                                    className={`w-4 h-4 ${theme.iconClass} flex-shrink-0 mt-0.5`}
                                                 />
-                                                <span className="text-gray-300 text-xs">{feature}</span>
+                                                <span className="text-xs leading-relaxed text-gray-200">{feature}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -478,7 +563,7 @@ export default function PricingSection() {
                                                 href={plan.paymentLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`block w-full ${themeClasses.button} font-bold py-3 rounded-full text-sm transition-all duration-300 cursor-pointer text-center no-underline`}
+                                                className={`block w-full cursor-pointer rounded-full py-2.5 text-center text-sm font-bold no-underline transition-all duration-300 sm:py-3 ${theme.buttonClass} shadow-[0_10px_25px_rgba(74,222,128,0.22)]`}
                                             >
                                                 QUERO MEU PROTOCOLO
                                             </a>
@@ -487,7 +572,7 @@ export default function PricingSection() {
                                                 href={plan.whatsappLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`block w-full ${themeClasses.button} text-white font-bold py-3 rounded-full text-sm transition-all duration-300 text-center no-underline`}
+                                                className={`block w-full rounded-full py-2.5 text-center text-sm font-bold no-underline transition-all duration-300 sm:py-3 ${theme.buttonClass}`}
                                             >
                                                 {plan.isBlackFriday ? "GARANTIR DESCONTO" : "SABER MAIS"}
                                             </a>
@@ -502,14 +587,15 @@ export default function PricingSection() {
                 <motion.div
                     className="text-center"
                     initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: isInView ? 0 : 30, opacity: isInView ? 1 : 0 }}
-                    transition={{ duration: 0.6, delay: isInView ? 1.2 : 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
                 >
                     <a
                         href="https://wa.me/5521972179585?text=Oii+Lucas%2C+como+funciona+sua+consultoria+online%3F+Pode+me+passar+mais+informa%C3%A7%C3%B5es%3F+"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-3 bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-[0_10px_25px_rgba(22,163,74,0.25)] no-underline hover:scale-105"
+                        className="inline-flex items-center gap-3 rounded-full bg-green-600 px-6 py-3.5 text-sm font-bold text-white no-underline shadow-[0_10px_25px_rgba(22,163,74,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-500 sm:px-8 sm:py-4 sm:text-base"
                     >
                         <Phone className="w-5 h-5" />
                         Falar no WhatsApp

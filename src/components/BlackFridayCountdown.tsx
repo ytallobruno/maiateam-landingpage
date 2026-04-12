@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface BlackFridayCountdownProps {
     targetDate: Date;
@@ -23,38 +23,31 @@ export default function BlackFridayCountdown({
     showLabels = true,
     dark = false,
 }: BlackFridayCountdownProps) {
-    const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-    });
+    const calculateTimeLeft = useCallback(() => {
+        const difference = +targetDate - +new Date();
+
+        if (difference > 0) {
+            return {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60),
+            };
+        }
+
+        if (onComplete) onComplete();
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }, [targetDate, onComplete]);
+
+    const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateTimeLeft());
 
     useEffect(() => {
-        const calculateTimeLeft = () => {
-            const difference = +targetDate - +new Date();
-
-            if (difference > 0) {
-                return {
-                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                    minutes: Math.floor((difference / 1000 / 60) % 60),
-                    seconds: Math.floor((difference / 1000) % 60),
-                };
-            } else {
-                if (onComplete) onComplete();
-                return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-            }
-        };
-
-        setTimeLeft(calculateTimeLeft());
-
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [targetDate, onComplete]);
+    }, [calculateTimeLeft]);
 
     const formatNumber = (num: number) => String(num).padStart(2, "0");
 

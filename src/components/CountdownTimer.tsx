@@ -178,9 +178,6 @@ export default function CountdownTimer() {
                     </motion.div>
                 </div>
             </motion.div>
-
-            {/* Espaçamento para evitar sobreposição no mobile */}
-            <div className="md:hidden h-32"></div>
         </>
     );
 }

@@ -15,26 +15,6 @@ Este arquivo é o guia operacional para agentes de código que trabalham neste r
 7. Prefira consistência com o repositório existente em vez de best practices genéricas.
 8. Todo output final deve ser escrito em português pt-BR, preservando termos técnicos em inglês quando isso mantiver a precisão.
 
-## Regras para documentação de Lambda
-
-Ao documentar funções AWS Lambda:
-
-1. Descubra as Lambdas a partir do código e das referências de infraestrutura.
-2. Para cada Lambda, capture nome lógico, path, handler, trigger, contratos, efeitos colaterais, dependências e testes relacionados quando houver evidência.
-3. Marque informações ausentes como `Não evidenciado no repositório`.
-4. Não invente permissões IAM, event shapes nem variáveis de ambiente.
-
-## Regras para testes unitários
-
-Ao criar ou atualizar testes unitários:
-
-1. Descubra primeiro se já existe estrutura de testes no repositório.
-2. Reaproveite o runner, convenções, helpers e padrões já existentes quando estiverem evidenciados.
-3. Só introduza Vitest quando não houver base de testes claramente estabelecida.
-4. Em pedidos com múltiplas Lambdas, mantenha as suítes organizadas por Lambda.
-5. Não invente payloads, fixtures ou branches de negócio sem base no código, testes ou documentação do repositório.
-6. Prefira mockar bordas externas e manter a regra de negócio real sempre que possível.
-
 ## Regras para refatoração
 
 Ao refatorar código:
@@ -49,6 +29,7 @@ Ao refatorar código:
 8. Em TypeScript, preserve tipagem, contratos e aliases.
 9. Em JavaScript, preserve module system e padrão de imports/exports já adotado.
 10. Sempre que possível, valide a refatoração com testes, lint, typecheck ou build reais do repositório.
+11. SEMPRE atualize .github/copilot-instructions.md para refletir a nova arquitetura, padrões ou comandos descobertos durante a refatoração, além de atualizar o tópico histórico de erros.
 
 ## Regras para frontend Next.js com TypeScript e Tailwind
 

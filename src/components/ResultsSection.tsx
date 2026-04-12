@@ -1,106 +1,95 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import ResultCard from "./ResultCard";
+import { motion } from "framer-motion";
+import ResultCard, { type Result } from "./ResultCard";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, A11y, EffectCoverflow } from "swiper/modules";
+import { Navigation, A11y, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 
 export default function ResultsSection() {
-    const ref = useRef(null);
-    const prevButtonRef = useRef<HTMLButtonElement>(null);
-    const nextButtonRef = useRef<HTMLButtonElement>(null);
-
-    const isInView = useInView(ref, {
-        once: false,
-        margin: "-20% 0px -20% 0px",
-    });
-
-    const results = [
+    const results: Result[] = [
         {
             image: "/resultado-thamiris.webp",
             name: "Thamiris Lima",
             result: "Evolução em 8 semanas",
-            quote: "Aluna de protocolo avulso e com apenas 8 semanas (apenas um protocolo de treino) obteve melhora no quadríceps, em formato e também em volume.",
+            quote: "Aluna de protocolo avulso e com apenas 8 semanas (um protocolo) obteve melhora no quadríceps, em formato e também em volume.",
             featured: false,
         },
         {
             image: "/resultado-gabriele.webp",
             name: "Gabriele Martins",
             result: "Dorsais de verdade em 1 ano",
-            quote: "Um ano de duração de uma foto para a outra e construímos dorsais de verdade. Aluna com rotina corrida, pouco tempo para treinar e ainda sim com um bom acompanhamento e treinos periodizados obteve uma melhora significativa da cintura escapular.",
+            quote: "Um ano de uma foto para a outra e construímos dorsais de verdade. Aluna com rotina corrida e ainda sim obteve melhora da cintura escapular.",
             featured: false,
         },
         {
             image: "/resultado-leticia.webp",
             name: "Letícia Castro",
             result: "Evolução aproximada de 6 meses",
-            quote: "Aluna do plano ouro, aproximadamente 6 meses de diferente de uma foto pra outra, conseguimos reduzir a celulite, melhorar o aspecto dos membros inferiores e arredondamento do glúteo",
+            quote: "Aluna do plano ouro, 6 meses de diferença entre fotos, conseguimos reduzir a celulite, melhorar o aspecto dos membros inferiores e do glúteo.",
             featured: false,
         },
         {
             image: "/resultado-catarina.webp",
             name: "Catarina",
             result: "Quadríceps e posteriores com muito mais volume",
-            quote: "Não faço dieta, apenas treino",
+            quote: "No seu primeiro campeonato, varreu diversos prêmios e obteve resultados incríveis.",
             featured: true,
         },
         {
             image: "/resultado-giovana.webp",
             name: "Giovana",
             result: "Construída do zero em 2 anos",
-            quote: "Eu era falsa magra, com pouquíssima massa e muita gordura. Em 2 anos aprendi a treinar e construí um físico do zero.",
+            quote: "Era falsa magra, com pouquíssima massa e muita gordura. Em 2 anos aprendeu a treinar e construiu um físico do zero.",
             featured: false,
         },
         {
             image: "/resultado-rochelly.webp",
             name: "Rochelly",
             result: "Evolução completa em 1 ano",
-            quote: "Um ano de uma foto pra outra, outra postura, um glúteo de verdade construído em que substituímos gordura por massa muscular de verdade. Treinava em horário de pico, rotina de CLT e tinha apenas 40-45min para treinar; ainda sim foi possível alcançar um resultado incrível",
+            quote: "Um glúteo de verdade construído com músculos de verdade. Treinava em horário de pico, rotina de CLT e tinha apenas 45min para treinar.",
             featured: false,
         },
     ];
 
     return (
         <motion.section
-            ref={ref}
             id="results"
-            className="py-24 bg-gradient-to-b from-gray-900 to-black"
+            className="bg-gradient-to-b from-gray-900 to-black py-16 md:py-20 lg:py-24"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
         >
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6">
                 <motion.div
-                    className="text-center mb-16"
+                    className="mb-10 text-center md:mb-12"
                     initial={{ y: 50, opacity: 0 }}
-                    animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
-                    transition={{ duration: 0.8, delay: isInView ? 0.2 : 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, delay: 0.1 }}
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
+                    <h2 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl md:mb-6 md:text-5xl">
                         <span className="text-green-400">Transformações</span> Reais
                     </h2>
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                        Conheça algumas das histórias de sucesso das minhas alunas
+                    <p className="mx-auto max-w-3xl text-base leading-relaxed text-gray-300 sm:text-lg md:text-xl">
+                        Passe os cards e veja o resultado, o contexto e a estratégia aplicada em cada aluna.
                     </p>
                 </motion.div>
 
                 <motion.div
-                    className="mb-12"
+                    className="mb-8 md:mb-10"
                     initial={{ y: 50, opacity: 0 }}
-                    animate={{
-                        y: isInView ? 0 : 50,
-                        opacity: isInView ? 1 : 0,
-                    }}
-                    transition={{ duration: 0.8, delay: isInView ? 0.4 : 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                 >
                     <div className="relative">
                         <Swiper
-                            modules={[Autoplay, Navigation, A11y, EffectCoverflow]}
+                            modules={[Navigation, A11y, EffectCoverflow]}
                             effect="coverflow"
                             coverflowEffect={{
                                 rotate: 0,
@@ -111,33 +100,24 @@ export default function ResultsSection() {
                                 scale: 0.9,
                             }}
                             speed={650}
-                            spaceBetween={20}
-                            slidesPerView={1.2}
+                            spaceBetween={14}
+                            slidesPerView={1.4}
                             centeredSlides={true}
                             grabCursor
                             watchSlidesProgress
                             loop={true}
-                            onBeforeInit={(swiper) => {
-                                if (!swiper.params.navigation || typeof swiper.params.navigation === "boolean") {
-                                    return;
-                                }
-
-                                swiper.params.navigation.prevEl = prevButtonRef.current;
-                                swiper.params.navigation.nextEl = nextButtonRef.current;
-                            }}
                             navigation={{
-                                prevEl: prevButtonRef.current,
-                                nextEl: nextButtonRef.current,
-                            }}
-                            autoplay={{
-                                delay: 3800,
-                                disableOnInteraction: false,
-                                pauseOnMouseEnter: true,
+                                prevEl: ".results-nav-prev",
+                                nextEl: ".results-nav-next",
                             }}
                             initialSlide={3}
                             breakpoints={{
+                                640: {
+                                    slidesPerView: 1.45,
+                                    spaceBetween: 16,
+                                },
                                 768: {
-                                    slidesPerView: 1.3,
+                                    slidesPerView: 1.35,
                                     spaceBetween: 24,
                                 },
                                 1024: {
@@ -146,7 +126,7 @@ export default function ResultsSection() {
                                     centeredSlides: false,
                                 },
                             }}
-                            className="results-swiper !pb-8"
+                            className="results-swiper !pb-6 md:!pb-8"
                             aria-label="Carrossel de transformações das alunas"
                             a11y={{
                                 prevSlideMessage: "Slide anterior",
@@ -166,10 +146,9 @@ export default function ResultsSection() {
                         </Swiper>
 
                         <button
-                            ref={prevButtonRef}
                             type="button"
                             aria-label="Ver transformação anterior"
-                            className="absolute left-0 md:left-2 top-[40%] z-20 -translate-y-1/2 h-11 w-11 rounded-full border-2 border-green-300/60 text-green-300 hidden sm:inline-flex items-center justify-center transition-all duration-300 hover:bg-green-300 hover:text-black hover:border-green-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                            className="results-nav-prev absolute left-0 md:left-2 top-[40%] z-20 -translate-y-1/2 h-11 w-11 rounded-full border-2 border-green-300/60 text-green-300 hidden sm:inline-flex items-center justify-center transition-all duration-300 hover:bg-green-300 hover:text-black hover:border-green-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                         >
                             <span aria-hidden="true" className="text-2xl font-bold leading-none">
                                 ‹
@@ -177,10 +156,9 @@ export default function ResultsSection() {
                         </button>
 
                         <button
-                            ref={nextButtonRef}
                             type="button"
                             aria-label="Ver próxima transformação"
-                            className="absolute right-0 md:right-2 top-[40%] z-20 -translate-y-1/2 h-11 w-11 rounded-full border-2 border-green-300/60 text-green-300 hidden sm:inline-flex items-center justify-center transition-all duration-300 hover:bg-green-300 hover:text-black hover:border-green-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                            className="results-nav-next absolute right-0 md:right-2 top-[40%] z-20 -translate-y-1/2 h-11 w-11 rounded-full border-2 border-green-300/60 text-green-300 hidden sm:inline-flex items-center justify-center transition-all duration-300 hover:bg-green-300 hover:text-black hover:border-green-300 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-300/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                         >
                             <span aria-hidden="true" className="text-2xl font-bold leading-none">
                                 ›
@@ -195,28 +173,48 @@ export default function ResultsSection() {
                 </motion.div>
 
                 <motion.div
+                    className="mb-10 flex justify-center md:mb-12"
+                    initial={{ y: 24, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.35 }}
+                >
+                    <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-gray-300 sm:text-sm">
+                        <span className="font-semibold text-green-300">{results.length} casos reais</span>
+                        <span aria-hidden="true" className="text-green-400">
+                            •
+                        </span>
+                        <span>Sem promessas vagas: evolução mensurável e aplicável</span>
+                    </div>
+                </motion.div>
+
+                <motion.div
                     className="text-center"
                     initial={{ y: 30, opacity: 0 }}
-                    animate={{
-                        y: isInView ? 0 : 30,
-                        opacity: isInView ? 1 : 0,
-                    }}
-                    transition={{
-                        duration: 0.6,
-                        delay: isInView ? 1.1 : 0,
-                    }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.45 }}
                 >
-                    <div className="bg-gradient-to-r from-green-400/10 to-green-600/10 border border-green-500/30 rounded-2xl p-8 max-w-2xl mx-auto">
-                        <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+                    <div className="mx-auto max-w-3xl rounded-2xl border border-green-500/30 bg-gradient-to-r from-green-400/10 to-green-600/10 p-6 md:p-8">
+                        <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">
                             Você terá acesso à <span className="text-green-400">mesma metodologia</span>
                         </h3>
-                        <p className="text-gray-300 mb-6 leading-relaxed">
+                        <p className="mb-6 text-sm leading-relaxed text-gray-300 sm:text-base">
                             As mesmas estratégias que usei com todas essas mulheres para obter esses resultados
                             incríveis.
                         </p>
-                        <div className="inline-flex items-center gap-2 bg-green-400 text-black font-bold py-3 px-6 rounded-full">
-                            <CheckCircle className="w-5 h-5" />
-                            Metodologia Comprovada
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="inline-flex items-center gap-2 rounded-full bg-green-400 px-5 py-2.5 text-sm font-bold text-black sm:px-6 sm:py-3 sm:text-base">
+                                <CheckCircle className="w-5 h-5" />
+                                Metodologia Comprovada
+                            </div>
+                            <a
+                                href="#pricing"
+                                className="inline-flex items-center gap-2 rounded-full border border-green-400/60 bg-black px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-green-300 transition-all duration-200 hover:bg-green-400 hover:text-black"
+                            >
+                                Ver planos e começar
+                                <span aria-hidden="true">→</span>
+                            </a>
                         </div>
                     </div>
                 </motion.div>

@@ -65,13 +65,13 @@ export default function AboutSection() {
                                 Formado em <strong className="text-white">Educação Física</strong> pela Universidade
                                 Federal Rural do Rio de Janeiro e{" "}
                                 <strong className="text-green-400">atleta de fisiculturismo</strong>, sendo campeão
-                                Overall 3 vezes da minha categoria.
+                                Overall 3 vezes na minha Body Shape.
                             </p>
 
                             <p className="text-gray-300 text-lg leading-relaxed">
-                                Já atendi <strong className="text-green-400 animate-pulse">mais de 100 mulheres</strong>{" "}
+                                Já atendi <strong className="text-green-400 animate-pulse">mais de 200 mulheres</strong>{" "}
                                 dentro da minha consultoria, que atualmente possui mais de{" "}
-                                <strong className="text-white">50 alunas ativas</strong>.
+                                <strong className="text-white">95 alunas ativas</strong>.
                             </p>
 
                             <p className="text-gray-300 text-lg leading-relaxed">
@@ -84,9 +84,9 @@ export default function AboutSection() {
                         {/* Estatísticas */}
                         <div className="grid grid-cols-3 gap-2 md:gap-4 mt-8 p-4 md:p-6 bg-gradient-to-br from-gray-700/50 to-black/50 rounded-2xl border border-green-500/20">
                             {[
-                                { number: "100+", label: "Transformações" },
-                                { number: "50+", label: "Alunas Ativas" },
-                                { number: "3x", label: "Campeão" },
+                                { number: "200+", label: "Transformações" },
+                                { number: "95+", label: "Alunas Ativas" },
+                                { number: "20x", label: "Campeão" },
                             ].map((stat, index) => (
                                 <div key={stat.label} className="text-center">
                                     <div
@@ -118,7 +118,7 @@ export default function AboutSection() {
                             <div className="w-80 md:w-96 lg:w-80 h-80 md:h-96 lg:h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-[0_0_40px_rgba(74,222,128,0.2)] ">
                                 <div className="relative w-full h-full">
                                     <Image
-                                        src="/LucasMaiaPersonal.webp"
+                                        src="/maiaPerfil.jpg"
                                         alt="Lucas Maia - Personal Coach"
                                         fill
                                         className="object-cover object-center"
@@ -126,16 +126,6 @@ export default function AboutSection() {
                                     />
                                     {/* Overlay gradiente para melhor legibilidade do texto */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                                    {/* Texto sobre a imagem */}
-                                    <div className="absolute bottom-4 left-4 right-4 text-center">
-                                        {/* <p className="text-white font-bold text-xl drop-shadow-lg">
-                      Lucas Maia
-                    </p>
-                    <p className="text-green-400 text-sm font-medium drop-shadow-lg">
-                      Seu Personal Coach
-                    </p> */}
-                                    </div>
                                 </div>
                             </div>
 

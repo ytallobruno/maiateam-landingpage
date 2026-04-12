@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Clock } from "lucide-react";
 
@@ -16,40 +16,33 @@ interface TimeLeft {
 }
 
 export default function CountdownSticky({ targetDate, onComplete }: CountdownStickyProps) {
-    const [timeLeft, setTimeLeft] = useState<TimeLeft>({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-    });
+    const calculateTimeLeft = useCallback(() => {
+        const difference = +targetDate - +new Date();
+
+        if (difference > 0) {
+            return {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60),
+            };
+        }
+
+        if (onComplete) onComplete();
+        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }, [targetDate, onComplete]);
+
+    const [timeLeft, setTimeLeft] = useState<TimeLeft>(() => calculateTimeLeft());
     const [isVisible, setIsVisible] = useState(true);
     const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
-        const calculateTimeLeft = () => {
-            const difference = +targetDate - +new Date();
-
-            if (difference > 0) {
-                return {
-                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                    minutes: Math.floor((difference / 1000 / 60) % 60),
-                    seconds: Math.floor((difference / 1000) % 60),
-                };
-            } else {
-                if (onComplete) onComplete();
-                return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-            }
-        };
-
-        setTimeLeft(calculateTimeLeft());
-
         const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [targetDate, onComplete]);
+    }, [calculateTimeLeft]);
 
     const formatNumber = (num: number) => String(num).padStart(2, "0");
 

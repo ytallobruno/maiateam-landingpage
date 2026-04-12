@@ -9,7 +9,6 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const menuItems = [
-        // { href: "#hero", text: "Início" },
         { href: "#method", text: "Método" },
         { href: "#about", text: "Sobre" },
         { href: "#results", text: "Resultados" },
@@ -20,28 +19,33 @@ export default function Header() {
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
+        onScroll();
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
     useEffect(() => {
-        document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+        const html = document.documentElement;
+        html.style.overflowY = mobileMenuOpen ? "hidden" : "";
+
         return () => {
-            document.body.style.overflow = "";
+            html.style.overflowY = "";
         };
     }, [mobileMenuOpen]);
 
     return (
         <header
             className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-300 ${
-                scrolled ? "bg-black/40 backdrop-blur-lg border-b border-green-400/20" : "bg-transparent"
+                scrolled
+                    ? "bg-[linear-gradient(180deg,rgba(0,0,0,0.82),rgba(0,0,0,0.45))] backdrop-blur-xl border-b border-green-400/20 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+                    : "bg-[linear-gradient(180deg,rgba(0,0,0,0.5),rgba(0,0,0,0))]"
             }`}
         >
-            <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 md:h-20">
                 {/* Logo */}
                 <a
                     href="#hero"
-                    className="flex items-center gap-3 cursor-pointer transition-transform duration-200 hover:scale-105"
+                    className="flex cursor-pointer items-center gap-2.5 transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 sm:gap-3"
                     aria-label="Voltar ao topo"
                 >
                     <Image
@@ -49,7 +53,10 @@ export default function Header() {
                         alt="MaiaTeam Logo"
                         width={120}
                         height={40}
-                        className="h-10 w-auto"
+                        loading="eager"
+                        priority
+                        style={{ width: "auto", height: "auto" }}
+                        className="h-8 w-auto md:h-10"
                     />
                 </a>
 
@@ -59,7 +66,7 @@ export default function Header() {
                         <a
                             key={item.href}
                             href={item.href}
-                            className="font-medium transition-colors duration-200 hover:text-green-400 text-sm lg:text-base"
+                            className="font-medium transition-all duration-200 hover:text-green-300 text-sm lg:text-base hover:-translate-y-0.5"
                         >
                             {item.text}
                         </a>
@@ -69,14 +76,14 @@ export default function Header() {
                 {/* CTA Button Desktop */}
                 <a
                     href="#final"
-                    className="hidden md:block bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-4 lg:px-6 py-2 lg:py-3 rounded-full shadow-lg shadow-green-400/25 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-green-400/40 text-sm lg:text-base"
+                    className="hidden md:block bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-4 lg:px-6 py-2 lg:py-3 rounded-full shadow-[0_20px_45px_rgba(34,197,94,0.25)] border border-green-300/40 transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 text-sm lg:text-base"
                 >
                     Começar Agora
                 </a>
 
                 {/* Menu Mobile Button */}
                 <button
-                    className="md:hidden grid place-items-center h-11 w-11 rounded-2xl border border-white/15 bg-black/35 text-white shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-300 hover:border-green-400/50 hover:text-green-300"
+                    className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-black/35 text-white shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-300 hover:border-green-400/50 hover:text-green-300 md:hidden md:h-11 md:w-11 md:rounded-2xl"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
                 >
@@ -90,7 +97,7 @@ export default function Header() {
                     <>
                         <motion.button
                             aria-label="Fechar menu mobile"
-                            className="md:hidden fixed inset-0 top-20 bg-black/70 backdrop-blur-[2px]"
+                            className="fixed inset-0 top-16 bg-black/70 backdrop-blur-[2px] md:hidden"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -103,10 +110,10 @@ export default function Header() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -24 }}
                             transition={{ duration: 0.3, ease: "easeOut" }}
-                            className="md:hidden relative z-10 px-4 pb-4"
+                            className="relative z-10 px-4 pb-4 pt-1 md:hidden"
                         >
-                            <div className="rounded-3xl border border-white/10 bg-[radial-gradient(120%_90%_at_0%_0%,rgba(184,255,90,0.16),transparent_55%),rgba(8,8,8,0.92)] shadow-[0_30px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl p-3">
-                                <nav className="space-y-2">
+                            <div className="rounded-3xl border border-white/10 bg-[radial-gradient(120%_90%_at_0%_0%,rgba(184,255,90,0.16),transparent_55%),rgba(8,8,8,0.92)] p-3 shadow-[0_30px_90px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+                                <nav className="space-y-1.5">
                                     {menuItems.map((item, index) => (
                                         <motion.a
                                             key={item.href}
@@ -128,7 +135,7 @@ export default function Header() {
                                 </nav>
 
                                 <motion.a
-                                    href="#purchase"
+                                    href="#final"
                                     onClick={() => setMobileMenuOpen(false)}
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}

@@ -1,100 +1,62 @@
 "use client";
 import { ArrowRight, Play, Star, Trophy, Users, Sparkles } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { usePromotion } from "@/hooks/usePromotion";
+
+const heroContainer: Variants = {
+    hidden: { opacity: 0, y: 18 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.55,
+            ease: "easeOut",
+            staggerChildren: 0.08,
+        },
+    },
+};
+
+const heroItem: Variants = {
+    hidden: { opacity: 0, y: 16 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+};
 
 export default function HeroSection() {
     const { isBlackFriday, savings, prices } = usePromotion();
-    const [particles, setParticles] = useState<Array<{ left: number; top: number; duration: number; delay: number }>>(
-        []
-    );
-
-    useEffect(() => {
-        const newParticles = Array.from({ length: 20 }, () => ({
-            left: Math.random() * 100,
-            top: Math.random() * 100,
-            duration: 3 + Math.random() * 2,
-            delay: Math.random() * 2,
-        }));
-        setParticles(newParticles);
-    }, []);
-
-    const ref = useRef(null);
-    const isInView = useInView(ref, {
-        once: false,
-        margin: "-10% 0px -10% 0px",
-    });
+    const transformacoes = 200;
 
     return (
         <motion.section
-            ref={ref}
             id="hero"
-            className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black flex items-center relative overflow-hidden pt-28 md:mt-0 pb-12 md:pb-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
-            transition={{ duration: 0.8 }}
+            className="relative overflow-hidden bg-surface-base pb-12 pt-24 md:pb-16 md:pt-28 lg:pb-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={heroContainer}
         >
-            {/* Animated background grid */}
-            <div
-                className="absolute inset-0 opacity-10"
-                style={{
-                    backgroundImage:
-                        "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')",
-                }}
-            />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_45%_at_72%_18%,rgba(34,197,94,0.2),transparent_70%)]" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-green-400/10 to-transparent" />
 
-            {/* Floating particles */}
-            {particles.map((particle, i) => (
-                <div
-                    key={i}
-                    className="absolute w-2 h-2 bg-green-400/30 rounded-full animate-bounce"
-                    style={{
-                        left: `${particle.left}%`,
-                        top: `${particle.top}%`,
-                        animationDuration: `${particle.duration}s`,
-                        animationDelay: `${particle.delay}s`,
-                    }}
-                />
-            ))}
-
-            {/* Container principal */}
-            <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-                <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[80vh]">
-                    {/* Coluna esquerda - Conteúdo */}
-                    <motion.div
-                        className="text-center lg:text-left"
-                        initial={{ x: -100, opacity: 0 }}
-                        animate={{ x: isInView ? 0 : -100, opacity: isInView ? 1 : 0 }}
-                        transition={{
-                            duration: 0.8,
-                            delay: isInView ? 0.4 : 0,
-                            ease: "easeOut",
-                        }}
-                    >
-                        {/* Badge do troféu */}
-                        <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6 cursor-pointer transition-transform duration-200 hover:scale-105 mx-auto lg:mx-0">
+            <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl items-center px-4 sm:px-6 md:min-h-[calc(100vh-5rem)]">
+                <div className="grid w-full gap-8 md:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+                    <motion.div className="text-center lg:text-left" variants={heroItem}>
+                        <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-stroke-medium bg-surface-elevated px-3.5 py-1.5 lg:mx-0 md:mb-5 md:px-4 md:py-2">
                             <Trophy className="w-4 h-4 text-green-400" />
                             <span className="text-green-400 font-medium">Campeão Overall 3x</span>
                         </div>
 
-                        {/* Badge Black Friday */}
                         {isBlackFriday && (
-                            <motion.a
+                            <a
                                 href="#pricing"
-                                initial={{ scale: 0, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{ duration: 0.5, delay: 0.6 }}
-                                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold px-4 py-2 rounded-full mb-6 mx-auto lg:mx-0 animate-pulse shadow-lg shadow-amber-500/50 cursor-pointer hover:scale-105 transition-transform duration-200 no-underline"
+                                className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 px-4 py-2 font-bold text-black no-underline lg:mx-0 md:mb-6"
                             >
                                 <Sparkles className="w-4 h-4" />
                                 <span>⚡ Até R$ {savings?.platinum.toFixed(0)} OFF em Consultorias</span>
-                            </motion.a>
+                            </a>
                         )}
 
-                        {/* Título principal */}
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
+                        <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl">
                             Transforme seu
                             <br />
                             <span className="bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent block">
@@ -103,30 +65,22 @@ export default function HeroSection() {
                             com ciência
                         </h1>
 
-                        {/* Subtítulo */}
-                        <p className="text-xl text-gray-300 mb-8 max-w-2xl leading-relaxed mx-auto lg:mx-0">
-                            Protocolo de treino personalizado que já transformou mais de 100 mulheres.
+                        <p className="mx-auto mb-7 max-w-2xl text-base leading-relaxed text-text-secondary lg:mx-0 sm:text-lg md:mb-9 md:text-xl">
+                            Protocolo de treino personalizado que já transformou mais de {transformacoes} mulheres.
                             <br className="hidden sm:block" />
                             Metodologia comprovada a partir de{" "}
-                            <strong className="text-green-400 animate-pulse">
+                            <strong className="text-green-400">
                                 R$ {prices?.protocolo.toFixed(2).replace(".", ",")}
                             </strong>
                         </p>
 
-                        {/* Botões */}
                         <motion.div
-                            className="flex flex-col sm:flex-row gap-4 mb-12 mx-auto lg:mx-0 max-w-md sm:max-w-none justify-center lg:justify-start"
-                            initial={{ y: 50, opacity: 0 }}
-                            animate={{ y: isInView ? 0 : 50, opacity: isInView ? 1 : 0 }}
-                            transition={{
-                                duration: 0.6,
-                                delay: isInView ? 0.6 : 0,
-                                ease: "easeOut",
-                            }}
+                            className="mb-8 flex max-w-md flex-col justify-center gap-3.5 sm:max-w-none sm:flex-row sm:gap-4 lg:justify-start md:mb-10"
+                            variants={heroItem}
                         >
                             <a
                                 href="#pricing"
-                                className="bg-gradient-to-r from-green-400 to-green-600 text-black font-bold px-8 py-4 rounded-full flex items-center gap-2 shadow-lg shadow-green-400/25 transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-green-400/40 justify-center"
+                                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-green-400 to-green-600 px-7 py-3.5 font-bold text-black shadow-[0_14px_32px_rgba(34,197,94,0.28)] transition-all duration-200 hover:brightness-105 md:px-8 md:py-4"
                             >
                                 <span>Quero Meu Treino</span>
                                 <ArrowRight className="w-5 h-5" />
@@ -134,109 +88,68 @@ export default function HeroSection() {
 
                             <a
                                 href={isBlackFriday ? "#pricing" : "#preview"}
-                                className="border-2 border-green-400 text-green-400 font-bold px-8 py-4 rounded-full flex items-center gap-2 transition-all duration-200 hover:bg-green-400 hover:text-black hover:scale-105 justify-center"
+                                className="inline-flex items-center justify-center gap-2 rounded-full border border-green-400/60 bg-white/[0.02] px-7 py-3.5 font-bold text-green-300 transition-all duration-200 hover:border-green-300 hover:bg-green-400/10 md:px-8 md:py-4"
                             >
                                 <Play className="w-5 h-5" />
                                 <span>{isBlackFriday ? "Ver Ofertas BF" : "Ver Como Funciona"}</span>
                             </a>
                         </motion.div>
 
-                        {/* Estatísticas */}
-                        <motion.div
-                            className="flex flex-col sm:flex-row items-start sm:items-center gap-6 text-gray-400 justify-center lg:justify-start"
-                            initial={{ y: 30, opacity: 0 }}
-                            animate={{ y: isInView ? 0 : 30, opacity: isInView ? 1 : 0 }}
-                            transition={{
-                                duration: 0.6,
-                                delay: isInView ? 0.8 : 0,
-                                ease: "easeOut",
-                            }}
-                        >
-                            <div className="flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:text-green-400">
+                        <div className="flex flex-col items-center justify-center gap-4 text-sm text-text-tertiary sm:flex-row sm:gap-6 sm:text-base lg:justify-start">
+                            <div className="flex items-center gap-2">
                                 <Users className="w-5 h-5 text-green-400" />
-                                <span>100+ Transformações</span>
+                                <span>{transformacoes}+ Transformações</span>
                             </div>
-                            <div className="flex items-center gap-2 cursor-pointer transition-colors duration-200 hover:text-green-400">
+                            <div className="flex items-center gap-2">
                                 <Star className="w-5 h-5 text-green-400" />
                                 <span>Avaliação 5.0</span>
                             </div>
-                        </motion.div>
+                        </div>
                     </motion.div>
 
-                    {/* Coluna direita - Card do Lucas */}
-                    <motion.div
-                        className="flex justify-center mb-8 lg:mb-0"
-                        initial={{ x: 100, opacity: 0 }}
-                        animate={{ x: isInView ? 0 : 100, opacity: isInView ? 1 : 0 }}
-                        transition={{
-                            duration: 0.8,
-                            delay: isInView ? 0.5 : 0,
-                            ease: "easeOut",
-                        }}
-                    >
-                        <div className="relative group">
-                            {/* Card principal com foto do Lucas */}
-                            <div className="w-80 md:w-96 lg:w-80 h-80 md:h-96 lg:h-80 bg-gradient-to-br from-green-400/15 to-green-600/15 border border-green-400/30 rounded-3xl overflow-hidden backdrop-blur-sm shadow-2xl shadow-green-400/20 relative">
-                                {/* Imagem de perfil do Lucas */}
-                                <Image
-                                    src="/LucasMaiaPerfil.webp"
-                                    alt="Lucas Maia - Educador Físico"
-                                    width={320}
-                                    height={320}
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                />
+                    <motion.div className="flex justify-center lg:justify-end" variants={heroItem}>
+                        <div className="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[420px]">
+                            <div className="relative">
+                                <div className="rounded-[2rem] border border-stroke-medium bg-surface-elevated p-3 shadow-[0_30px_70px_rgba(0,0,0,0.55)]">
+                                    <div className="relative overflow-hidden rounded-[1.5rem] border border-green-400/30">
+                                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
+                                        <Image
+                                            src="/LucasMaiaPerfil.webp"
+                                            alt="Lucas Maia - Educador Físico"
+                                            width={420}
+                                            height={540}
+                                            className="h-[390px] w-full object-cover object-top sm:h-[440px] lg:h-[470px]"
+                                            priority
+                                        />
+                                        <div className="absolute inset-x-0 bottom-0 z-20 p-5 text-left sm:p-6">
+                                            <p className="text-xl font-semibold text-green-300">Lucas Maia</p>
+                                            <p className="text-sm text-text-secondary">Educador Físico & Coach</p>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                {/* Gradiente preto de baixo para cima */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                                <div className="absolute -left-2 top-4 rounded-xl border border-green-400/30 bg-surface-focal/90 px-3 py-2.5 backdrop-blur-sm sm:-left-3 sm:top-6 sm:rounded-2xl sm:px-4 sm:py-3">
+                                    <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">
+                                        alunas ativas
+                                    </p>
+                                    <p className="text-xl font-bold text-green-300">95+</p>
+                                </div>
 
-                                {/* Textos sobrepostos */}
-                                <div className="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
-                                    <p className="text-green-400 font-semibold text-lg mb-1">Lucas Maia</p>
-                                    <p className="text-gray-300 text-sm">Educador Físico & Coach</p>
+                                <div className="absolute -right-1 bottom-4 z-30 rounded-xl border border-white/10 bg-black/85 px-3 py-2.5 backdrop-blur-sm sm:-right-2 sm:bottom-6 sm:rounded-2xl sm:px-4 sm:py-3">
+                                    <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">
+                                        resultados reais
+                                    </p>
+                                    <p className="text-xl font-bold text-white">{transformacoes}+</p>
                                 </div>
                             </div>
 
-                            {/* Badge de alunas ativas */}
-                            <div className="absolute -bottom-4 -left-4 bg-black/80 border border-green-400/30 rounded-xl px-4 py-2 backdrop-blur-sm cursor-pointer transition-transform duration-200 hover:scale-110">
-                                <p className="text-green-400 font-bold text-sm m-0">50+ alunas ativas</p>
+                            <div className="mt-2 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-text-secondary sm:mt-3 sm:px-5 sm:py-4">
+                                Treinos periodizados, individualizados e orientados para evolução consistente.
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </div>
-
-            <style jsx>{`
-                @keyframes glow {
-                    0%,
-                    100% {
-                        box-shadow: 0 0 40px rgba(74, 222, 128, 0.2);
-                    }
-                    50% {
-                        box-shadow: 0 0 80px rgba(74, 222, 128, 0.4);
-                    }
-                }
-
-                @media (max-width: 1024px) {
-                    .grid {
-                        grid-template-columns: 1fr !important;
-                        gap: 1.5rem !important;
-                        text-align: center;
-                    }
-                }
-
-                @media (min-width: 641px) and (max-width: 1024px) {
-                    .min-h-[80vh] {
-                        min-height: 60vh !important;
-                    }
-                }
-
-                @media (max-width: 640px) {
-                    .w-80 {
-                        width: 280px !important;
-                        height: 280px !important;
-                    }
-                }
-            `}</style>
         </motion.section>
     );
 }

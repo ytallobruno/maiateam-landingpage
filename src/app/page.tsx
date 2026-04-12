@@ -16,6 +16,9 @@ import { useEffect } from "react";
 
 export default function Home() {
     const { isBlackFriday, isPriceCountdown, blackFridayEndDate } = usePromotion();
+    const showBlackFridayPromo = isBlackFriday;
+    const showPriceCountdownPromo = !showBlackFridayPromo && isPriceCountdown;
+    const hasMobilePromoBar = showBlackFridayPromo || showPriceCountdownPromo;
     useEffect(() => {
         // Smooth scrolling for internal anchor links only
         const links = document.querySelectorAll('a[href^="#"]');
@@ -38,9 +41,11 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black text-white font-sans m-0 p-0">
-            {isPriceCountdown && <CountdownTimer />}
-            {isBlackFriday && <CountdownSticky targetDate={blackFridayEndDate} />}
+        <div
+            className={`min-h-screen bg-black text-white font-sans m-0 p-0 ${hasMobilePromoBar ? "pb-32 md:pb-0" : ""}`}
+        >
+            {showPriceCountdownPromo && <CountdownTimer />}
+            {showBlackFridayPromo && <CountdownSticky targetDate={blackFridayEndDate} />}
             <Header />
             <HeroSection />
             <MethodSection />
