@@ -1,90 +1,121 @@
 # AGENTS.md
 
-## Propósito
+## Visão Geral do Projeto
 
-Este arquivo é o guia operacional para agentes de código que trabalham neste repositório.
+Landing page em Next.js (App Router) para consultoria fitness/personal trainer, com foco em conversão, SEO e conteúdo em português pt-BR.
 
-## Regras inegociáveis
+Arquitetura observada (evidência direta):
 
-1. Não assuma a stack de tecnologia com base em memória ou defaults genéricos.
-2. Inspecione evidências do repositório antes de propor código, comandos, arquitetura ou documentação.
-3. Em monorepos, inspecione **todos** os `package.json` antes de descrever a stack.
-4. Trate docs explícitos, `package.json`, lockfiles, configs, infraestrutura e padrões existentes no código como fontes de verdade.
-5. Nunca invente comandos.
-6. Quando faltar evidência, diga isso explicitamente.
-7. Prefira consistência com o repositório existente em vez de best practices genéricas.
-8. Todo output final deve ser escrito em português pt-BR, preservando termos técnicos em inglês quando isso mantiver a precisão.
+- `src/app`: rotas, layout e metadata routes (`robots.ts`, `sitemap.ts`)
+- `src/components`: seções visuais da landing
+- `src/config`: configuração de preços, promoções e SEO
+- `src/hooks`: lógica de estado reutilizável (ex.: `usePromotion`)
 
-## Regras para refatoração
+## Regras Inegociáveis
 
-Ao refatorar código:
+1. Não assuma stack, comandos, arquitetura ou padrões sem evidência no repositório.
+2. Trate `package.json`, lockfiles, configs e código versionado como fonte primária de verdade.
+3. Nunca invente comandos.
+4. Quando faltar evidência, declare: `Não evidenciado no repositório`.
+5. Priorize consistência com o código existente em vez de best practices genéricas.
+6. Todo output final deve ser escrito em português pt-BR.
+
+## Setup e Comandos
+
+Use npm (evidência: `package-lock.json` e scripts da raiz).
+
+- Instalar dependências: `npm install`
+- Dev server: `npm run dev`
+- Build: `npm run build`
+- Start produção: `npm run start`
+- Lint: `npm run lint`
+- Lint com correção: `npm run lint:fix`
+- Format: `npm run format`
+- Verificar formato: `npm run format:check`
+
+## Workflow de Desenvolvimento
+
+1. Leia contexto em:
+   - `.github/copilot/copilot-instructions.md`
+   - `.github/copilot-instructions.md`
+   - `.github/instructions/*.instructions.md`
+2. Localize arquivos similares antes de alterar.
+3. Aplique mudanças cirúrgicas mantendo contratos e comportamento.
+4. Execute, quando relevante:
+   1. `npm run format`
+   2. `npm run lint`
+   3. `npm run build`
+
+## Instruções de Testes
+
+- Framework de testes automatizados: **Não evidenciado no repositório**.
+- Não adicionar ferramenta de teste sem solicitação explícita.
+- Validar mudanças com lint/build e, se aplicável, testes já existentes.
+
+## Convenções de Código
+
+### TypeScript / React / Next
+
+- `PascalCase` para componentes e `camelCase` para funções/constantes.
+- Preferir alias `@/` para imports internos (`tsconfig.json`).
+- Usar `export default function NomeComponente()` em componentes/páginas.
+- Usar `export const metadata: Metadata` em páginas/layout server-side.
+- Usar `"use client"` apenas quando necessário (hooks/eventos do cliente).
+
+### UI / Tailwind
+
+- Reutilizar componentes e padrões visuais existentes.
+- Manter classes Tailwind inline no JSX conforme padrão atual.
+- Não introduzir novas libs de UI/estado sem pedido explícito.
+
+### Acessibilidade e SEO
+
+- Preservar `aria-*`, hierarchy de headings e `alt` descritivo.
+- Em links externos, manter `target="_blank"` com `rel="noopener noreferrer"`.
+- Em SEO, seguir padrão do projeto: metadata Next, JSON-LD, `robots.ts`, `sitemap.ts`.
+
+## Build e Deploy
+
+- Build oficial: `npm run build` (output estático/prerender gerenciado pelo Next).
+- Pipeline de CI/CD: **Não evidenciado no repositório**.
+- Processo formal de deploy: **Não evidenciado no repositório**.
+
+## Segurança
+
+- Nunca adicionar secrets no código.
+- Variáveis de ambiente só quando houver necessidade comprovada; ex.: `NEXT_PUBLIC_SITE_URL`.
+- Tratar URLs externas com validação/normalização quando já houver helper para isso.
+
+## Pull Requests e Commits
+
+- Convenção obrigatória de título de PR: **Não evidenciado no repositório**.
+- Antes de concluir mudanças de código, garantir que lint/build não foram quebrados.
+- Para refatorações, explicitar quando houver qualquer mudança funcional.
+
+## Refatoração e Frontend (regras específicas)
+
+Ao refatorar:
 
 1. Preserve regra de negócio, lógica e contratos existentes.
-2. Entenda o comportamento atual antes de mover responsabilidades.
-3. Respeite a estrutura de pastas já existente no repositório.
-4. Priorize organização compatível com `helper`, `service`, `repository`, `templates`, `types` e `utils` quando essas pastas existirem.
-5. Só crie novas pastas quando houver ganho estrutural claro.
-6. As novas pastas preferenciais permitidas são `builder`, `builders`, `query` e `queries`, quando fizerem sentido.
-7. Não misture refatoração com alteração funcional sem sinalizar explicitamente.
-8. Em TypeScript, preserve tipagem, contratos e aliases.
-9. Em JavaScript, preserve module system e padrão de imports/exports já adotado.
-10. Sempre que possível, valide a refatoração com testes, lint, typecheck ou build reais do repositório.
-11. SEMPRE atualize .github/copilot-instructions.md para refletir a nova arquitetura, padrões ou comandos descobertos durante a refatoração, além de atualizar o tópico histórico de erros.
+2. Não misture refatoração com alteração funcional sem explicitar.
+3. Preserve tipagem, aliases e padrão de imports/exports atuais.
 
-## Regras para frontend Next.js com TypeScript e Tailwind
+Ao implementar frontend Next.js + TypeScript + Tailwind:
 
-Ao implementar ou alterar frontend:
+1. Confirmar uso de App Router/Pages Router antes de alterar rotas.
+2. Reaproveitar componentes/layouts/utilitários já existentes.
+3. Preservar semântica, responsividade e acessibilidade.
 
-1. Descubra primeiro a arquitetura real do frontend.
-2. Confirme se o projeto usa `app router`, `pages router` ou ambos.
-3. Reaproveite componentes, layouts, utilitários e padrões visuais já existentes.
-4. Respeite a convenção de Tailwind adotada no repositório.
-5. Não introduza bibliotecas novas de UI, estado, formulários ou animação sem evidência ou pedido explícito.
-6. Preserve semântica, responsividade e acessibilidade básica.
-7. Em TypeScript, preserve tipagem, aliases e contratos existentes.
-8. Não misture refatoração visual com mudança funcional sem deixar isso explícito.
-9. Sempre que possível, valide a mudança com lint, typecheck, testes ou build reais do repositório.
+## Histórico Incremental de Erros (obrigatório)
 
-## Formato preferido de resposta
+Sempre que um erro for descoberto e corrigido, atualizar:
 
-```md
-## Resumo
+- `.github/instructions/error-history.instructions.md`
 
-## Evidências
+Objetivo: manter histórico de recorrências, causa raiz, correção e prevenção (o que não fazer novamente).
 
-- ...
+## Troubleshooting
 
-## Comandos Descobertos
-
-- ...
-
-## Riscos / Lacunas
-
-- ...
-
-## Próximo Passo Recomendado
-```
-
-## Quando as tarefas forem amplas
-
-Se a tarefa cobrir múltiplas frentes, divida o trabalho em trilhas separadas:
-
-- descoberta de stack
-- documentação geral
-- documentação Lambda por Lambda
-- testes unitários por Lambda
-- refatoração por módulo ou por Lambda
-- implementação ou evolução de frontend
-- higiene e validação do repositório
-
-Se o ambiente suportar agentes especializados ou subagentes, delegue para eles.
-Se não suportar, emule o mesmo fluxo de forma sequencial e mantenha as saídas separadas.
-
-## Uso com `/fleet`
-
-```bash
-copilot /fleet "Use o agente swarm-orchestrator para analisar a stack, documentar o projeto e documentar as Lambdas."
-copilot /fleet "Use o agente swarm-orchestrator para revisar o repositório, descobrir scripts reais e executar lint/format/test se existirem."
-copilot /fleet "Use o agente swarm-orchestrator para analisar a Lambda selecionada, propor uma refatoração segura preservando a regra de negócio e validar o resultado com os comandos reais do repositório."
-copilot /fleet "Use o agente swarm-orchestrator para analisar o frontend atual, delegar a implementação para o frontend-next-tailwind-engineer e validar a segurança da mudança com os comandos reais do repositório."
-```
+- Se lint falhar por estilo, executar `npm run format` e repetir lint.
+- Se build falhar por tipagem, corrigir no arquivo afetado sem usar cast amplo (`any`) sem necessidade.
+- Se houver divergência entre instruções, priorizar as de `.github/instructions/` e arquivos de contexto mais próximos da mudança.
