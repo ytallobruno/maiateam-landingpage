@@ -26,7 +26,7 @@ export default function ResultCard({ result, index }: { result: Result; index: n
             <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                     src={result.image}
-                    alt={`Transformação de ${result.name}`}
+                    alt={`Antes e depois de ${result.name} com consultoria de treino personalizado feminino`}
                     width={420}
                     height={560}
                     className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] ${

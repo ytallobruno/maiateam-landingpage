@@ -119,7 +119,7 @@ export default function AboutSection() {
                                 <div className="relative w-full h-full">
                                     <Image
                                         src="/maiaPerfil.jpg"
-                                        alt="Lucas Maia - Personal Coach"
+                                        alt="Lucas Maia, educador físico e personal trainer especializado em consultoria feminina"
                                         fill
                                         className="object-cover object-center"
                                         sizes="(max-width: 640px) 280px, 320px"

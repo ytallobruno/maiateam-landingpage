@@ -12,38 +12,69 @@ import WorkoutPreviewSection from "@/components/WorkoutPreviewSection";
 import CountdownTimer from "@/components/CountdownTimer";
 import CountdownSticky from "@/components/CountdownSticky";
 import { usePromotion } from "@/hooks/usePromotion";
-import { useEffect } from "react";
+import Link from "next/link";
+import { homeFaqs, homeOfferCatalog, siteMetadata, siteUrl } from "@/config/seo.config";
+
+const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: homeFaqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+        },
+    })),
+};
+
+const offerCatalogStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: "Planos de consultoria online",
+    itemListElement: homeOfferCatalog.map((offer) => ({
+        "@type": "Offer",
+        itemOffered: {
+            "@type": "Service",
+            name: offer.name,
+            description: offer.description,
+        },
+        price: offer.price,
+        priceCurrency: "BRL",
+        availability: "https://schema.org/InStock",
+    })),
+};
+
+const websiteStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteMetadata.siteName,
+    url: siteUrl,
+    inLanguage: "pt-BR",
+};
 
 export default function Home() {
     const { isBlackFriday, isPriceCountdown, blackFridayEndDate } = usePromotion();
     const showBlackFridayPromo = isBlackFriday;
     const showPriceCountdownPromo = !showBlackFridayPromo && isPriceCountdown;
     const hasMobilePromoBar = showBlackFridayPromo || showPriceCountdownPromo;
-    useEffect(() => {
-        // Smooth scrolling for internal anchor links only
-        const links = document.querySelectorAll('a[href^="#"]');
-        links.forEach((link) => {
-            link.addEventListener("click", (e) => {
-                const href = link.getAttribute("href");
-                if (!href || !href.startsWith("#") || href.includes("://")) {
-                    // Se é link externo, não interceptar - deixar comportamento nativo
-                    return;
-                }
-
-                // Só prevenir comportamento padrão para links internos
-                e.preventDefault();
-                const element = document.querySelector(href);
-                if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                }
-            });
-        });
-    }, []);
 
     return (
         <div
             className={`min-h-screen bg-black text-white font-sans m-0 p-0 ${hasMobilePromoBar ? "pb-32 md:pb-0" : ""}`}
         >
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(offerCatalogStructuredData) }}
+            />
             {showPriceCountdownPromo && <CountdownTimer />}
             {showBlackFridayPromo && <CountdownSticky targetDate={blackFridayEndDate} />}
             <Header />

@@ -2,33 +2,7 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
-const faqs = [
-    {
-        question: "Como irei receber meu treino?",
-        answer: "Você receberá seu treino via WhatsApp após me encaminhar todo material solicitado para elaboração do seu protocolo personalizado.",
-    },
-    {
-        question: "Tenho acesso por quanto tempo?",
-        answer: "Depende do plano que você adquirir. No plano avulso você terá o treino de forma permanente e poderá adquirir outro protocolo avulso quando quiser. Em todos os outros planos, cada treino tem duração de 6 semanas. E após esse período eu reavalio o seu físico para enviar a continuação dos treinos.",
-    },
-    {
-        question: "Irei receber uma ficha genérica?",
-        answer: "NÃO! Seu treino será construído do ZERO e feito sob medida para seus objetivos. Por isso todo material de fotos e anamnese é solicitado, para que sua experiência seja única.",
-    },
-    {
-        question: "Posso enviar vídeos para correção?",
-        answer: "Ao adquirir qualquer plano COM EXCEÇÃO do avulso, você poderá enviar quantos vídeos quiser de TODOS os exercícios. A consultoria só fará sentido caso haja também a sua participação com o envio dos vídeos.",
-    },
-    {
-        question: "Como funciona após o pagamento?",
-        answer: "Após o pagamento, enviarei uma mensagem no seu WhatsApp solicitando todo material para construir seu treino e em 5 dias corridos retornarei seu protocolo completo.",
-    },
-    {
-        question: "Terei suporte?",
-        answer: "Você terá todo suporte necessário de segunda à sexta e também em alguns fins de semana, ajustes no seu treino caso haja mudanças bruscas em sua rotina, retirada de dúvidas e até mesmo se necessário eu gravo vídeos explicativos para você em uma academia para te enviar.",
-    },
-];
+import { homeFaqs } from "@/config/seo.config";
 
 export default function FAQSection() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -66,7 +40,7 @@ export default function FAQSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <ul className="space-y-2.5 md:space-y-4">
-                        {faqs.map((faq, index) => {
+                        {homeFaqs.map((faq, index) => {
                             const isOpen = openFaq === index;
                             const triggerId = `faq-trigger-${index}`;
                             const panelId = `faq-panel-${index}`;

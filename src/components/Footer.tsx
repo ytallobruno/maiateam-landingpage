@@ -2,6 +2,7 @@
 
 import { Camera, Phone } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function Footer() {
@@ -10,6 +11,11 @@ export default function Footer() {
         { href: "#results", text: "Resultados" },
         { href: "#pricing", text: "Planos" },
         { href: "#faq", text: "FAQ" },
+    ];
+    const seoLinks = [
+        { href: "/personal-trainer-online-mulheres", text: "Personal trainer online para mulheres" },
+        { href: "/emagrecimento-feminino", text: "Treino para emagrecimento feminino" },
+        { href: "/hipertrofia-feminina", text: "Hipertrofia feminina" },
     ];
 
     return (
@@ -27,7 +33,7 @@ export default function Footer() {
                             <div className="w-12 h-12 bg-gradient-to-br from-green-500/90 to-green-700 rounded-xl flex items-center justify-center overflow-hidden shadow-[0_12px_35px_rgba(34,197,94,0.35)]">
                                 <Image
                                     src="/MaiaTeamLogo.webp"
-                                    alt="Maia Team Logo"
+                                    alt="Logo MaiaTeam consultoria personalizada de treino online"
                                     width={30}
                                     height={30}
                                     className="object-contain"
@@ -76,6 +82,23 @@ export default function Footer() {
                                     whatsapp
                                 </span>
                             </a>
+                        </div>
+                    </div>
+
+                    <div className="mt-5 border-t border-white/10 pt-4 md:mt-6 md:pt-5">
+                        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-white/55">
+                            Conteúdos
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2.5 sm:gap-4">
+                            {seoLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-xs text-green-300/90 transition-colors duration-200 hover:text-green-200 sm:text-sm"
+                                >
+                                    {link.text}
+                                </Link>
+                            ))}
                         </div>
                     </div>
 

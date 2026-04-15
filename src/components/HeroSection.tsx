@@ -115,7 +115,7 @@ export default function HeroSection() {
                                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
                                         <Image
                                             src="/LucasMaiaPerfil.webp"
-                                            alt="Lucas Maia - Educador Físico"
+                                            alt="Lucas Maia, personal trainer online para mulheres com foco em treino personalizado"
                                             width={420}
                                             height={540}
                                             className="h-[390px] w-full object-cover object-top sm:h-[440px] lg:h-[470px]"

@@ -50,7 +50,7 @@ export default function Header() {
                 >
                     <Image
                         src="/MaiaTeamLogo.webp"
-                        alt="MaiaTeam Logo"
+                        alt="MaiaTeam - Consultoria de personal trainer online focado em mulheres"
                         width={120}
                         height={40}
                         loading="eager"
