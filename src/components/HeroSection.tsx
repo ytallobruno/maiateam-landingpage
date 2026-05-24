@@ -114,7 +114,7 @@ export default function HeroSection() {
                                     <div className="relative overflow-hidden rounded-[1.5rem] border border-green-400/30">
                                         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
                                         <Image
-                                            src="/LucasMaiaPerfil.webp"
+                                            src="/maia_podio.jpg"
                                             alt="Lucas Maia, personal trainer online para mulheres com foco em treino personalizado"
                                             width={420}
                                             height={540}

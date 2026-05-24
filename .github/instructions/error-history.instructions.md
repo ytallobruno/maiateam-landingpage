@@ -24,15 +24,19 @@ Sempre que um erro for identificado e corrigido no repositório, registre de for
 ## [YYYY-MM-DD] Título curto do erro
 
 ### Evidências
+
 - ...
 
 ### Causa raiz
+
 - ...
 
 ### Correção
+
 - ...
 
 ### Prevenção
+
 - ...
 ```
 

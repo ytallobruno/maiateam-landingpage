@@ -19,11 +19,11 @@ export default function ResultCard({ result, index }: { result: Result; index: n
             className={`h-full cursor-default bg-gradient-to-b from-gray-900 to-black border rounded-2xl overflow-hidden transition-all duration-300 group flex flex-col ${
                 result.featured
                     ? "border-green-400/60 shadow-[0_16px_40px_rgba(74,222,128,0.16)]"
-                    : "border-white/10 hover:border-green-500/40"
+                    : "border-white/10 hover:border-green-500/80"
             }`}
             aria-label={`Resultado de ${result.name}`}
         >
-            <div className="relative aspect-[3/4] overflow-hidden">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-t-2xl border-b-0 border-1 border-green-400/30">
                 <Image
                     src={result.image}
                     alt={`Antes e depois de ${result.name} com consultoria de treino personalizado feminino`}
@@ -38,13 +38,13 @@ export default function ResultCard({ result, index }: { result: Result; index: n
 
                 {result.featured && (
                     <div className="absolute top-3 left-3 z-20 bg-green-400 text-black font-bold py-1.5 px-3 rounded-full text-xs tracking-wide">
-                        ⭐ Caso em destaque
+                        ⭐ Destaque
                     </div>
                 )}
             </div>
 
             <div className="p-5 flex flex-1 flex-col gap-4">
-                <div className="rounded-xl border border-green-400/30 bg-green-400/10 px-3 py-2">
+                <div className="rounded-xl border-4 border-green-400/30 bg-green-400/10 px-3 py-2">
                     <p className="text-[11px] uppercase tracking-[0.18em] text-green-300/80 mb-1">Resultado</p>
                     <p className="text-green-300 font-semibold leading-snug">{result.result}</p>
                 </div>

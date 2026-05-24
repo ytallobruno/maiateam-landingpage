@@ -62,16 +62,17 @@ export default function AboutSection() {
                         {/* Descrições */}
                         <div className="space-y-6">
                             <p className="text-gray-300 text-lg leading-relaxed">
-                                Formado em <strong className="text-white">Educação Física</strong> pela Universidade
+                                Formado em <strong className="text-green-400">Educação Física</strong> pela Universidade
                                 Federal Rural do Rio de Janeiro e{" "}
                                 <strong className="text-green-400">atleta de fisiculturismo</strong>, sendo campeão
-                                Overall 3 vezes na minha Body Shape.
+                                Overall <strong className="text-green-400">4 vezes</strong> na minha Body Shape e{" "}
+                                <strong className="text-green-400">atual campeão overall na IFBB ES</strong>.
                             </p>
 
                             <p className="text-gray-300 text-lg leading-relaxed">
-                                Já atendi <strong className="text-green-400 animate-pulse">mais de 200 mulheres</strong>{" "}
-                                dentro da minha consultoria, que atualmente possui mais de{" "}
-                                <strong className="text-white">95 alunas ativas</strong>.
+                                Já atendi <strong className="text-green-400">mais de 200 mulheres</strong> dentro da
+                                minha consultoria, que atualmente possui mais de{" "}
+                                <strong className="text-green-400">95 alunas ativas</strong>.
                             </p>
 
                             <p className="text-gray-300 text-lg leading-relaxed">

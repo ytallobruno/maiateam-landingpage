@@ -33,17 +33,32 @@ export default function ResultsSection() {
             featured: false,
         },
         {
+            image: "/manuela-resultado.jpeg",
+            name: "Manuela",
+            result: "Evolução em 8 meses",
+            quote: "Aluna do plano ouro, em 8 meses de consultoria conseguimos de forma natural transformar o glúteo e as costas.",
+            featured: false,
+        },
+        {
             image: "/resultado-catarina.webp",
             name: "Catarina",
             result: "Quadríceps e posteriores com muito mais volume",
             quote: "No seu primeiro campeonato, varreu diversos prêmios e obteve resultados incríveis.",
             featured: true,
         },
+
         {
-            image: "/resultado-giovana.webp",
-            name: "Giovana",
-            result: "Construída do zero em 2 anos",
-            quote: "Era falsa magra, com pouquíssima massa e muita gordura. Em 2 anos aprendeu a treinar e construiu um físico do zero.",
+            image: "/ana-resultado.jpeg",
+            name: "Ana",
+            result: "Evolução em 6 semanas",
+            quote: "Diferença de 4kgs de uma foto para outra. Aluna que adquiriu o protocolo avulso de treino em busca de adesão, porque manter a constância era sua maior dificuldade.",
+            featured: false,
+        },
+        {
+            image: "/vanessa-resultado.jpeg",
+            name: "Vanessa",
+            result: "Transformação em 1 ano",
+            quote: "42 anos e 1 ano de treinamento. Treinava já há 7 anos e seguia totalmente estagnada nos resultados.",
             featured: false,
         },
         {
