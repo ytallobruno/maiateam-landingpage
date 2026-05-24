@@ -112,7 +112,7 @@ export const plansConfig: Record<string, PlanFeatures> = {
     avulso: {
         id: "avulso",
         name: "PROTOCOLO AVULSO",
-        description: "Plano Basic avulso com protocolo de 4 semanas e vagas limitadas (15)",
+        description: "Plano Basic avulso com protocolo de 4 semanas",
         features: [
             "Protocolo de 4 semanas",
             "1 planilha de treino permanente",
@@ -131,7 +131,7 @@ export const plansConfig: Record<string, PlanFeatures> = {
     mensal: {
         id: "mensal",
         name: "PLANO MENSAL",
-        description: "Plano Premium mensal com protocolo fixo de 4 semanas, renovado todo mês",
+        description: "Plano Premium mensal com protocolo fixo de 4 semanas e vagas limitadas",
         features: [
             "Acesso à nova plataforma de alunos",
             "Planilha com vídeos de TODOS os exercícios",
@@ -156,6 +156,7 @@ export const plansConfig: Record<string, PlanFeatures> = {
             "Planilha de controle de carga",
             "Alongamentos específicos",
             "Ajustes periódicos nos treinos",
+            "Protocolo de 6 semanas",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata",
         theme: {
