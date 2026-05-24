@@ -4,6 +4,15 @@ import { CheckCircle, Phone, Star, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { usePromotion } from "@/hooks/usePromotion";
 import BlackFridayCountdown from "./BlackFridayCountdown";
+import {
+    plansConfig,
+    getPlanOrder,
+    getPlanBadge,
+    getWhatsAppLink,
+    getPaymentLink,
+    isPlanHighlighted,
+    getPlanThemeClasses,
+} from "@/config/plans.config";
 
 type Plan = {
     id: "mensal" | "prata" | "ouro" | "platinum" | "avulso";
@@ -22,18 +31,6 @@ type Plan = {
     isBlackFriday: boolean;
 };
 
-type PlanTheme = {
-    cardBorder: string;
-    cardBg: string;
-    badgeClass: string;
-    priceClass: string;
-    iconClass: string;
-    hoverClass: string;
-    buttonClass: string;
-    featureBoxClass: string;
-    pixSavingsClass: string;
-};
-
 const formatCurrency = (value: number) => `R$ ${value.toFixed(2).replace(".", ",")}`;
 
 export default function PricingSection() {
@@ -46,375 +43,48 @@ export default function PricingSection() {
         isProtocoloAvulsoPromo,
         protocoloAvulsoMessage,
     } = usePromotion();
-    const getPlans = (): Plan[] => {
-        if (isBlackFriday) {
-            return [
-                {
-                    id: "mensal",
-                    name: "PLANO MENSAL",
-                    badge: "MENSAL",
-                    price: prices.mensal,
-                    priceVista: null,
-                    priceCredito: null,
-                    originalPrice: prices.mensalOriginal,
-                    savings: savings?.mensal,
-                    description: "Plano Basic mensal com protocolo fixo de 4 semanas, renovado todo mês",
-                    features: [
-                        "Acesso à nova plataforma de alunos",
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Alongamentos específicos",
-                        "Ajustes periódicos nos treinos",
-                        "Protocolo de 4 semanas (renovação mensal)",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Mensal",
-                    highlighted: false,
-                    isBlackFriday: true,
-                },
-                {
-                    id: "prata",
-                    name: "PLANO PRATA",
-                    badge: "🔥 BLACK FRIDAY",
-                    price: prices.prata,
-                    priceVista: null,
-                    priceCredito: null,
-                    originalPrice: prices.prataOriginal,
-                    savings: savings?.prata,
-                    description:
-                        "Plano Premium de entrada com 2 protocolos de treino e acesso à nova plataforma de alunos",
-                    features: [
-                        "Acesso à nova plataforma de alunos",
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Alongamentos específicos",
-                        "Ajustes periódicos nos treinos",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink:
-                        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata%20BLACK%20FRIDAY",
-                    highlighted: false,
-                    isBlackFriday: true,
-                },
-                {
-                    id: "ouro",
-                    name: "PLANO OURO",
-                    badge: "🏆 BLACK FRIDAY + MAIS POPULAR",
-                    price: prices.ouro,
-                    priceVista: null,
-                    priceCredito: null,
-                    originalPrice: prices.ouroOriginal,
-                    savings: savings?.ouro,
-                    description: "Plano Premium com 3 protocolos de treino e acompanhamento mais próximo",
-                    features: [
-                        "Acesso à nova plataforma de alunos",
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Alongamentos específicos",
-                        "Ajustes periódicos nos treinos",
-                        "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink:
-                        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro%20BLACK%20FRIDAY",
-                    highlighted: true,
-                    isBlackFriday: true,
-                },
-                {
-                    id: "platinum",
-                    name: "PLANO PLATINUM",
-                    badge: "👑 BLACK FRIDAY PREMIUM",
-                    price: prices.platinum,
-                    priceVista: null,
-                    priceCredito: null,
-                    originalPrice: prices.platinumOriginal,
-                    savings: savings?.platinum,
-                    description: "Plano Premium com 4 protocolos de treino e acompanhamento avançado",
-                    features: [
-                        "Acesso à nova plataforma de alunos",
-                        "Planilha com vídeos de TODOS os exercícios",
-                        "Planilha de controle de carga",
-                        "Alongamentos específicos",
-                        "Ajustes periódicos nos treinos",
-                        "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
-                    ],
-                    paymentLink: "#",
-                    whatsappLink:
-                        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum%20BLACK%20FRIDAY",
-                    highlighted: false,
-                    isBlackFriday: true,
-                },
-                {
-                    id: "avulso",
-                    name: "PROTOCOLO AVULSO",
-                    badge: isProtocoloAvulsoPromo ? protocoloAvulsoMessage : "Preço Fixo",
-                    price: prices.protocolo,
-                    priceVista: null,
-                    priceCredito: null,
-                    originalPrice: null,
-                    savings: null,
-                    description: "Plano Basic avulso com protocolo de 4 semanas e vagas limitadas",
-                    features: [
-                        "Protocolo de 4 semanas",
-                        "1 planilha de treino permanente",
-                        "Alongamentos específicos",
-                        "Diretrizes de execução",
-                        "Acesso vitalício",
-                        "Sem acesso à nova plataforma de alunos",
-                    ],
-                    paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
-                    whatsappLink:
-                        "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso",
-                    highlighted: false,
-                    isBlackFriday: false,
-                },
-            ];
-        }
 
-        return [
-            {
-                id: "mensal",
-                name: "PLANO MENSAL",
-                badge: "MENSAL",
-                price: prices.mensalCredito,
-                priceVista: prices.mensalVista,
-                priceCredito: prices.mensalCredito,
-                originalPrice: null,
-                savings: null,
-                description: "Plano Basic mensal com protocolo fixo de 4 semanas, renovado todo mês",
-                features: [
-                    "Acesso à nova plataforma de alunos",
-                    "Planilha com vídeos de TODOS os exercícios",
-                    "Planilha de controle de carga",
-                    "Alongamentos específicos",
-                    "Ajustes periódicos nos treinos",
-                    "Protocolo de 4 semanas (renovação mensal)",
-                ],
-                paymentLink: "#",
-                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Mensal",
-                highlighted: false,
-                isBlackFriday: false,
-            },
-            {
-                id: "prata",
-                name: "PLANO PRATA",
-                badge: "INICIAL",
-                price: prices.prataCredito,
-                priceVista: prices.prataVista,
-                priceCredito: prices.prataCredito,
-                originalPrice: null,
-                savings: null,
-                description: "Plano Premium de entrada com 2 protocolos de treino e acesso à nova plataforma de alunos",
-                features: [
-                    "Acesso à nova plataforma de alunos",
-                    "Planilha com vídeos de TODOS os exercícios",
-                    "Planilha de controle de carga",
-                    "Alongamentos específicos",
-                    "Ajustes periódicos nos treinos",
-                    "Protocolo de 6 semanas",
-                ],
-                paymentLink: "#",
-                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata",
-                highlighted: false,
-                isBlackFriday: false,
-            },
-            {
-                id: "avulso",
-                name: "PROTOCOLO AVULSO",
-                badge: isProtocoloAvulsoPromo ? protocoloAvulsoMessage : "MAIS VENDIDO",
-                price: prices.protocolo,
-                priceVista: prices.protocoloVista,
-                priceCredito: prices.protocoloCredito,
-                originalPrice: null,
-                savings: null,
-                description: "Plano Basic avulso com protocolo de 4 semanas e vagas limitadas (15)",
-                features: [
-                    "Protocolo de 4 semanas",
-                    "1 planilha de treino permanente",
-                    "Alongamentos específicos",
-                    "Diretrizes de execução",
-                    "Acesso vitalício",
-                    "Sem acesso à nova plataforma de alunos",
-                ],
-                paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
-                whatsappLink:
-                    "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso",
-                highlighted: true,
-                isBlackFriday: false,
-            },
-            {
-                id: "ouro",
-                name: "PLANO OURO",
-                badge: "RECOMENDADO",
-                price: prices.ouroCredito,
-                priceVista: prices.ouroVista,
-                priceCredito: prices.ouroCredito,
-                originalPrice: null,
-                savings: null,
-                description: "Plano Premium com 3 protocolos de treino e acompanhamento mais próximo",
-                features: [
-                    "Acesso à nova plataforma de alunos",
-                    "Planilha com vídeos de TODOS os exercícios",
-                    "Planilha de controle de carga",
-                    "Alongamentos específicos",
-                    "Ajustes periódicos nos treinos",
-                    "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
-                ],
-                paymentLink: "#",
-                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro",
-                highlighted: false,
-                isBlackFriday: false,
-            },
-            {
-                id: "platinum",
-                name: "PLANO PLATINUM",
-                badge: "PREMIUM",
-                price: prices.platinumCredito,
-                priceVista: prices.platinumVista,
-                priceCredito: prices.platinumCredito,
-                originalPrice: null,
-                savings: null,
-                description: "Plano Premium com 4 protocolos de treino e acompanhamento avançado",
-                features: [
-                    "Acesso à nova plataforma de alunos",
-                    "Planilha com vídeos de TODOS os exercícios",
-                    "Planilha de controle de carga",
-                    "Alongamentos específicos",
-                    "Ajustes periódicos nos treinos",
-                    "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
-                ],
-                paymentLink: "#",
-                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum",
-                highlighted: false,
-                isBlackFriday: false,
-            },
-        ];
+    const getPlans = (): Plan[] => {
+        const order = getPlanOrder(isBlackFriday);
+        return order.map((planId) => {
+            const plan = plansConfig[planId];
+            const priceKey = planId === "avulso" ? "protocolo" : planId;
+
+            return {
+                id: plan.id as Plan["id"],
+                name: plan.name,
+                badge: getPlanBadge(planId, isBlackFriday),
+                price: isBlackFriday ? (prices[priceKey as keyof typeof prices] as number) : null,
+                priceVista: isBlackFriday ? null : (prices[`${priceKey}Vista` as keyof typeof prices] as number | null),
+                priceCredito: isBlackFriday
+                    ? null
+                    : (prices[`${priceKey}Credito` as keyof typeof prices] as number | null),
+                originalPrice: isBlackFriday
+                    ? (prices[`${priceKey}Original` as keyof typeof prices] as number | null)
+                    : null,
+                savings:
+                    isBlackFriday && priceKey !== "protocolo" && savings
+                        ? savings[priceKey as "prata" | "ouro" | "platinum" | "mensal"]
+                        : null,
+                description: plan.description,
+                features: plan.features,
+                paymentLink: getPaymentLink(planId),
+                whatsappLink: getWhatsAppLink(planId, isBlackFriday),
+                highlighted: isPlanHighlighted(planId, isBlackFriday),
+                isBlackFriday,
+            };
+        });
     };
 
-    const plans = getPlans();
+    const rawPlans = getPlans();
+    const plans = rawPlans.map((plan) => {
+        if (plan.id === "avulso" && isProtocoloAvulsoPromo) {
+            return { ...plan, badge: protocoloAvulsoMessage };
+        }
+        return plan;
+    });
 
     const isRecommendedPlan = (plan: Plan) => plan.badge.includes("RECOMENDADO") || plan.badge.includes("MAIS POPULAR");
-    const getPlanTheme = (plan: Plan, hasPremiumFocus: boolean): PlanTheme => {
-        if (plan.isBlackFriday) {
-            return {
-                mensal: {
-                    cardBorder: "border-purple-400/55",
-                    cardBg: "bg-gradient-to-b from-[#1b102a] to-[#0d0915]",
-                    badgeClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black",
-                    priceClass: "text-purple-200",
-                    iconClass: "text-purple-300",
-                    hoverClass: "hover:border-purple-200 hover:shadow-[0_24px_48px_rgba(168,85,247,0.2)]",
-                    buttonClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black hover:brightness-105",
-                    featureBoxClass: "border-purple-300/25 bg-purple-400/[0.06]",
-                    pixSavingsClass: "bg-purple-400/15 border-purple-300/45 text-purple-200",
-                },
-                prata: {
-                    cardBorder: "border-amber-500/50",
-                    cardBg: "bg-gradient-to-b from-[#16110a] to-[#0d0a07]",
-                    badgeClass: "bg-gradient-to-r from-amber-500 to-amber-600 text-black",
-                    priceClass: "text-amber-300",
-                    iconClass: "text-amber-300",
-                    hoverClass: "hover:border-amber-300 hover:shadow-[0_24px_44px_rgba(245,158,11,0.16)]",
-                    buttonClass: "bg-amber-500 text-black hover:bg-amber-400",
-                    featureBoxClass: "border-amber-400/20 bg-amber-500/[0.06]",
-                    pixSavingsClass: "bg-amber-500/15 border-amber-400/40 text-amber-300",
-                },
-                ouro: {
-                    cardBorder: "border-yellow-400/75",
-                    cardBg: "bg-gradient-to-b from-[#1a1508] to-[#100d06]",
-                    badgeClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black",
-                    priceClass: "text-yellow-300",
-                    iconClass: "text-yellow-300",
-                    hoverClass: "hover:border-yellow-300 hover:shadow-[0_24px_48px_rgba(250,204,21,0.2)]",
-                    buttonClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black hover:brightness-105",
-                    featureBoxClass: "border-yellow-300/25 bg-yellow-400/[0.06]",
-                    pixSavingsClass: "bg-yellow-400/15 border-yellow-300/45 text-yellow-200",
-                },
-                platinum: {
-                    cardBorder: "border-orange-300/70",
-                    cardBg: "bg-gradient-to-b from-[#181007] to-[#0f0a05]",
-                    badgeClass: "bg-gradient-to-r from-amber-300 to-orange-400 text-black",
-                    priceClass: "text-orange-200",
-                    iconClass: "text-orange-200",
-                    hoverClass: "hover:border-orange-200 hover:shadow-[0_24px_48px_rgba(251,146,60,0.2)]",
-                    buttonClass: "bg-gradient-to-r from-amber-300 to-orange-400 text-black hover:brightness-105",
-                    featureBoxClass: "border-orange-300/25 bg-orange-400/[0.06]",
-                    pixSavingsClass: "bg-orange-400/15 border-orange-300/45 text-orange-200",
-                },
-                avulso: {
-                    cardBorder: "border-amber-500/50",
-                    cardBg: "bg-gradient-to-b from-[#14100b] to-[#0b0907]",
-                    badgeClass: "bg-gradient-to-r from-amber-500 to-amber-600 text-black",
-                    priceClass: "text-amber-300",
-                    iconClass: "text-amber-300",
-                    hoverClass: "hover:border-amber-300 hover:shadow-[0_24px_44px_rgba(245,158,11,0.16)]",
-                    buttonClass: "bg-amber-500 text-black hover:bg-amber-400",
-                    featureBoxClass: "border-amber-400/20 bg-amber-500/[0.06]",
-                    pixSavingsClass: "bg-amber-500/15 border-amber-400/40 text-amber-300",
-                },
-            }[plan.id];
-        }
-
-        const themes: Record<Plan["id"], PlanTheme> = {
-            mensal: {
-                cardBorder: "border-purple-400/45",
-                cardBg: "bg-gradient-to-b from-[#140c22] to-[#0b0814]",
-                badgeClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black",
-                priceClass: "text-purple-200",
-                iconClass: "text-purple-300",
-                hoverClass: "hover:border-purple-200 hover:shadow-[0_24px_44px_rgba(168,85,247,0.18)]",
-                buttonClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black hover:brightness-105",
-                featureBoxClass: "border-purple-300/20 bg-purple-400/[0.06]",
-                pixSavingsClass: "bg-purple-400/15 border-purple-300/40 text-purple-200",
-            },
-            prata: {
-                cardBorder: "border-zinc-300/35",
-                cardBg: "bg-gradient-to-b from-[#121212] to-[#0b0b0b]",
-                badgeClass: "bg-gradient-to-r from-zinc-300 to-zinc-500 text-black",
-                priceClass: "text-zinc-100",
-                iconClass: "text-zinc-300",
-                hoverClass: "hover:border-zinc-200/60 hover:shadow-[0_24px_44px_rgba(212,212,216,0.14)]",
-                buttonClass: "bg-zinc-200 text-black hover:bg-zinc-100",
-                featureBoxClass: "border-zinc-300/15 bg-zinc-300/[0.05]",
-                pixSavingsClass: "bg-zinc-400/15 border-zinc-300/35 text-zinc-200",
-            },
-            ouro: {
-                cardBorder: hasPremiumFocus ? "border-yellow-300/75" : "border-yellow-400/45",
-                cardBg: "bg-gradient-to-b from-[#171406] to-[#0d0b05]",
-                badgeClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black",
-                priceClass: "text-yellow-300",
-                iconClass: "text-yellow-300",
-                hoverClass: "hover:border-yellow-300 hover:shadow-[0_24px_44px_rgba(250,204,21,0.16)]",
-                buttonClass: "bg-gradient-to-r from-yellow-300 to-amber-400 text-black hover:brightness-105",
-                featureBoxClass: "border-yellow-300/20 bg-yellow-400/[0.06]",
-                pixSavingsClass: "bg-yellow-400/15 border-yellow-300/40 text-yellow-200",
-            },
-            platinum: {
-                cardBorder: "border-cyan-300/55",
-                cardBg: "bg-gradient-to-b from-[#091218] to-[#070b0f]",
-                badgeClass: "bg-gradient-to-r from-cyan-300 to-sky-500 text-black",
-                priceClass: "text-cyan-200",
-                iconClass: "text-cyan-300",
-                hoverClass: "hover:border-cyan-200 hover:shadow-[0_24px_44px_rgba(34,211,238,0.16)]",
-                buttonClass: "bg-gradient-to-r from-cyan-300 to-sky-500 text-black hover:brightness-105",
-                featureBoxClass: "border-cyan-300/20 bg-cyan-400/[0.06]",
-                pixSavingsClass: "bg-cyan-500/15 border-cyan-300/40 text-cyan-200",
-            },
-            avulso: {
-                cardBorder: hasPremiumFocus ? "border-green-400/75" : "border-green-400/45",
-                cardBg: "bg-gradient-to-b from-[#07140d] to-[#050d08]",
-                badgeClass: "bg-gradient-to-r from-green-300 to-green-500 text-black",
-                priceClass: "text-green-300",
-                iconClass: "text-green-400",
-                hoverClass: "hover:border-green-300 hover:shadow-[0_24px_44px_rgba(74,222,128,0.18)]",
-                buttonClass: "bg-gradient-to-r from-green-300 to-green-500 text-black hover:brightness-105",
-                featureBoxClass: "border-green-300/20 bg-green-400/[0.06]",
-                pixSavingsClass: "bg-green-500/15 border-green-300/40 text-green-200",
-            },
-        };
-
-        return themes[plan.id];
-    };
 
     return (
         <motion.section
@@ -518,16 +188,16 @@ export default function PricingSection() {
                     </motion.div>
                 )}
 
-                <div className="mx-auto mb-10 grid max-w-6xl grid-cols-1 items-stretch gap-4 sm:mb-12 sm:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-6">
+                <div className="mx-auto mb-10 flex flex-wrap justify-center items-stretch gap-4 sm:mb-12 md:gap-5 lg:gap-6 max-w-6xl">
                     {plans.map((plan, index) => {
                         const recommended = isRecommendedPlan(plan);
                         const hasPremiumFocus = recommended || plan.highlighted;
-                        const theme = getPlanTheme(plan, hasPremiumFocus);
+                        const theme = getPlanThemeClasses(plan.id, plan.isBlackFriday, hasPremiumFocus);
 
                         return (
                             <motion.div
                                 key={plan.id}
-                                className={`relative flex flex-col overflow-hidden rounded-2xl border-2 ${theme.cardBorder} ${theme.cardBg} p-5 transition-all duration-300 md:p-6 ${theme.hoverClass} ${hasPremiumFocus ? "md:-translate-y-2" : ""}`}
+                                className={`relative flex w-full sm:w-[calc(50%-8px)] md:w-[calc(50%-10px)] lg:w-[calc(33.333%-16px)] flex-col overflow-hidden rounded-2xl border-2 ${theme.cardBorder} ${theme.cardBg} p-5 transition-all duration-300 md:p-6 ${theme.hoverClass} ${hasPremiumFocus ? "md:-translate-y-2" : ""}`}
                                 initial={{ y: 80, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
                                 viewport={{ once: true, amount: 0.2 }}

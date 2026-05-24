@@ -131,7 +131,7 @@ export const plansConfig: Record<string, PlanFeatures> = {
     mensal: {
         id: "mensal",
         name: "PLANO MENSAL",
-        description: "Plano mensal com protocolo fixo de 4 semanas, renovado todo mês",
+        description: "Plano Premium mensal com protocolo fixo de 4 semanas, renovado todo mês",
         features: [
             "Acesso à nova plataforma de alunos",
             "Planilha com vídeos de TODOS os exercícios",
