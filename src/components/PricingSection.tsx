@@ -6,7 +6,7 @@ import { usePromotion } from "@/hooks/usePromotion";
 import BlackFridayCountdown from "./BlackFridayCountdown";
 
 type Plan = {
-    id: "prata" | "ouro" | "platinum" | "avulso";
+    id: "mensal" | "prata" | "ouro" | "platinum" | "avulso";
     name: string;
     badge: string;
     price: number | null;
@@ -50,6 +50,29 @@ export default function PricingSection() {
         if (isBlackFriday) {
             return [
                 {
+                    id: "mensal",
+                    name: "PLANO MENSAL",
+                    badge: "MENSAL",
+                    price: prices.mensal,
+                    priceVista: null,
+                    priceCredito: null,
+                    originalPrice: prices.mensalOriginal,
+                    savings: savings?.mensal,
+                    description: "Plano Basic mensal com protocolo fixo de 4 semanas, renovado todo mês",
+                    features: [
+                        "Acesso à nova plataforma de alunos",
+                        "Planilha com vídeos de TODOS os exercícios",
+                        "Planilha de controle de carga",
+                        "Alongamentos específicos",
+                        "Ajustes periódicos nos treinos",
+                        "Protocolo de 4 semanas (renovação mensal)",
+                    ],
+                    paymentLink: "#",
+                    whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Mensal",
+                    highlighted: false,
+                    isBlackFriday: true,
+                },
+                {
                     id: "prata",
                     name: "PLANO PRATA",
                     badge: "🔥 BLACK FRIDAY",
@@ -58,8 +81,10 @@ export default function PricingSection() {
                     priceCredito: null,
                     originalPrice: prices.prataOriginal,
                     savings: savings?.prata,
-                    description: "2 protocolos de treino com duração de 6 semanas cada um",
+                    description:
+                        "Plano Premium de entrada com 2 protocolos de treino e acesso à nova plataforma de alunos",
                     features: [
+                        "Acesso à nova plataforma de alunos",
                         "Planilha com vídeos de TODOS os exercícios",
                         "Planilha de controle de carga",
                         "Alongamentos específicos",
@@ -80,12 +105,14 @@ export default function PricingSection() {
                     priceCredito: null,
                     originalPrice: prices.ouroOriginal,
                     savings: savings?.ouro,
-                    description: "3 protocolos de treino com duração de 6 semanas cada um",
+                    description: "Plano Premium com 3 protocolos de treino e acompanhamento mais próximo",
                     features: [
+                        "Acesso à nova plataforma de alunos",
                         "Planilha com vídeos de TODOS os exercícios",
                         "Planilha de controle de carga",
-                        "Todos os benefícios anteriores",
-                        "Chamada no Meet",
+                        "Alongamentos específicos",
+                        "Ajustes periódicos nos treinos",
+                        "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
                     ],
                     paymentLink: "#",
                     whatsappLink:
@@ -102,12 +129,14 @@ export default function PricingSection() {
                     priceCredito: null,
                     originalPrice: prices.platinumOriginal,
                     savings: savings?.platinum,
-                    description: "4 protocolos de treino com duração de 6 semanas cada um",
+                    description: "Plano Premium com 4 protocolos de treino e acompanhamento avançado",
                     features: [
+                        "Acesso à nova plataforma de alunos",
                         "Planilha com vídeos de TODOS os exercícios",
                         "Planilha de controle de carga",
-                        "Todos os benefícios anteriores",
-                        "24 semanas de acompanhamento",
+                        "Alongamentos específicos",
+                        "Ajustes periódicos nos treinos",
+                        "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
                     ],
                     paymentLink: "#",
                     whatsappLink:
@@ -124,12 +153,14 @@ export default function PricingSection() {
                     priceCredito: null,
                     originalPrice: null,
                     savings: null,
-                    description: "1 treino único personalizado, mas sem o acompanhamento",
+                    description: "Plano Basic avulso com protocolo de 4 semanas e vagas limitadas",
                     features: [
+                        "Protocolo de 4 semanas",
                         "1 planilha de treino permanente",
                         "Alongamentos específicos",
                         "Diretrizes de execução",
                         "Acesso vitalício",
+                        "Sem acesso à nova plataforma de alunos",
                     ],
                     paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
                     whatsappLink:
@@ -142,6 +173,29 @@ export default function PricingSection() {
 
         return [
             {
+                id: "mensal",
+                name: "PLANO MENSAL",
+                badge: "MENSAL",
+                price: prices.mensalCredito,
+                priceVista: prices.mensalVista,
+                priceCredito: prices.mensalCredito,
+                originalPrice: null,
+                savings: null,
+                description: "Plano Basic mensal com protocolo fixo de 4 semanas, renovado todo mês",
+                features: [
+                    "Acesso à nova plataforma de alunos",
+                    "Planilha com vídeos de TODOS os exercícios",
+                    "Planilha de controle de carga",
+                    "Alongamentos específicos",
+                    "Ajustes periódicos nos treinos",
+                    "Protocolo de 4 semanas (renovação mensal)",
+                ],
+                paymentLink: "#",
+                whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Mensal",
+                highlighted: false,
+                isBlackFriday: false,
+            },
+            {
                 id: "prata",
                 name: "PLANO PRATA",
                 badge: "INICIAL",
@@ -150,12 +204,14 @@ export default function PricingSection() {
                 priceCredito: prices.prataCredito,
                 originalPrice: null,
                 savings: null,
-                description: "2 protocolos de treino com duração de 6 semanas cada um",
+                description: "Plano Premium de entrada com 2 protocolos de treino e acesso à nova plataforma de alunos",
                 features: [
+                    "Acesso à nova plataforma de alunos",
                     "Planilha com vídeos de TODOS os exercícios",
                     "Planilha de controle de carga",
                     "Alongamentos específicos",
                     "Ajustes periódicos nos treinos",
+                    "Protocolo de 6 semanas",
                 ],
                 paymentLink: "#",
                 whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata",
@@ -171,12 +227,14 @@ export default function PricingSection() {
                 priceCredito: prices.protocoloCredito,
                 originalPrice: null,
                 savings: null,
-                description: "1 treino único personalizado, mas sem o acompanhamento",
+                description: "Plano Basic avulso com protocolo de 4 semanas e vagas limitadas (15)",
                 features: [
+                    "Protocolo de 4 semanas",
                     "1 planilha de treino permanente",
                     "Alongamentos específicos",
                     "Diretrizes de execução",
                     "Acesso vitalício",
+                    "Sem acesso à nova plataforma de alunos",
                 ],
                 paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
                 whatsappLink:
@@ -193,12 +251,14 @@ export default function PricingSection() {
                 priceCredito: prices.ouroCredito,
                 originalPrice: null,
                 savings: null,
-                description: "3 protocolos de treino com duração de 6 semanas cada um",
+                description: "Plano Premium com 3 protocolos de treino e acompanhamento mais próximo",
                 features: [
+                    "Acesso à nova plataforma de alunos",
                     "Planilha com vídeos de TODOS os exercícios",
                     "Planilha de controle de carga",
-                    "Todos os benefícios anteriores",
-                    "Chamada no Meet",
+                    "Alongamentos específicos",
+                    "Ajustes periódicos nos treinos",
+                    "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
                 ],
                 paymentLink: "#",
                 whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro",
@@ -214,12 +274,14 @@ export default function PricingSection() {
                 priceCredito: prices.platinumCredito,
                 originalPrice: null,
                 savings: null,
-                description: "4 protocolos de treino com duração de 6 semanas cada um",
+                description: "Plano Premium com 4 protocolos de treino e acompanhamento avançado",
                 features: [
+                    "Acesso à nova plataforma de alunos",
                     "Planilha com vídeos de TODOS os exercícios",
                     "Planilha de controle de carga",
-                    "Todos os benefícios anteriores",
-                    "24 semanas de acompanhamento",
+                    "Alongamentos específicos",
+                    "Ajustes periódicos nos treinos",
+                    "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
                 ],
                 paymentLink: "#",
                 whatsappLink: "https://wa.me/5521972179585?text=Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum",
@@ -235,6 +297,17 @@ export default function PricingSection() {
     const getPlanTheme = (plan: Plan, hasPremiumFocus: boolean): PlanTheme => {
         if (plan.isBlackFriday) {
             return {
+                mensal: {
+                    cardBorder: "border-purple-400/55",
+                    cardBg: "bg-gradient-to-b from-[#1b102a] to-[#0d0915]",
+                    badgeClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black",
+                    priceClass: "text-purple-200",
+                    iconClass: "text-purple-300",
+                    hoverClass: "hover:border-purple-200 hover:shadow-[0_24px_48px_rgba(168,85,247,0.2)]",
+                    buttonClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black hover:brightness-105",
+                    featureBoxClass: "border-purple-300/25 bg-purple-400/[0.06]",
+                    pixSavingsClass: "bg-purple-400/15 border-purple-300/45 text-purple-200",
+                },
                 prata: {
                     cardBorder: "border-amber-500/50",
                     cardBg: "bg-gradient-to-b from-[#16110a] to-[#0d0a07]",
@@ -283,6 +356,17 @@ export default function PricingSection() {
         }
 
         const themes: Record<Plan["id"], PlanTheme> = {
+            mensal: {
+                cardBorder: "border-purple-400/45",
+                cardBg: "bg-gradient-to-b from-[#140c22] to-[#0b0814]",
+                badgeClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black",
+                priceClass: "text-purple-200",
+                iconClass: "text-purple-300",
+                hoverClass: "hover:border-purple-200 hover:shadow-[0_24px_44px_rgba(168,85,247,0.18)]",
+                buttonClass: "bg-gradient-to-r from-purple-300 to-purple-500 text-black hover:brightness-105",
+                featureBoxClass: "border-purple-300/20 bg-purple-400/[0.06]",
+                pixSavingsClass: "bg-purple-400/15 border-purple-300/40 text-purple-200",
+            },
             prata: {
                 cardBorder: "border-zinc-300/35",
                 cardBg: "bg-gradient-to-b from-[#121212] to-[#0b0b0b]",

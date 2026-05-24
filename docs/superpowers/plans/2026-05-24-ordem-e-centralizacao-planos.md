@@ -1,6 +1,29 @@
-// ========== CONFIGURAÇÃO DE PLANOS ==========
-// Define a estrutura e conteúdo de todos os planos
+# Ordem e Centralizacao de Planos Implementation Plan
 
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** centralizar os dados/temas dos planos em `plans.config.ts` e ajustar a ordem dos cards para avulso, mensal, prata, ouro, platinum (normal e Black Friday).
+
+**Architecture:** `plans.config.ts` vira a fonte unica de ordem, badges, destaques e temas. `PricingSection.tsx` apenas compoe os cards com base no config e nos precos do `usePromotion`.
+
+**Tech Stack:** Next.js (App Router), React, TypeScript, Tailwind CSS.
+
+---
+
+## Arquivos e Responsabilidades
+- Modificar: `src/config/plans.config.ts` — dados dos planos, ordem, badges, destaques e classes de tema.
+- Modificar: `src/components/PricingSection.tsx` — montar cards a partir do config e aplicar ordem.
+
+---
+
+### Task 1: Centralizar configuracao de planos e temas
+
+**Files:**
+- Modify: `src/config/plans.config.ts`
+
+- [ ] **Step 1: Atualizar tipos de tema e adicionar classes**
+
+```ts
 export type PlanThemeKey = "gray" | "green" | "yellow" | "purple" | "amber" | "orange" | "cyan";
 
 export type PlanCardTheme = {
@@ -107,7 +130,11 @@ export const themeClassesConfig: Record<PlanThemeKey, PlanCardTheme> = {
         pixSavingsClass: "bg-cyan-500/15 border-cyan-300/40 text-cyan-200",
     },
 };
+```
 
+- [ ] **Step 2: Atualizar plansConfig (mensal + textos atuais)**
+
+```ts
 export const plansConfig: Record<string, PlanFeatures> = {
     avulso: {
         id: "avulso",
@@ -116,10 +143,10 @@ export const plansConfig: Record<string, PlanFeatures> = {
         features: [
             "Protocolo de 4 semanas",
             "1 planilha de treino permanente",
-            "Alongamentos específicos",
-            "Diretrizes de execução",
-            "Acesso vitalício",
-            "Sem acesso à nova plataforma de alunos",
+            "Alongamentos especificos",
+            "Diretrizes de execucao",
+            "Acesso vitalicio",
+            "Sem acesso a nova plataforma de alunos",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20de%20um%20protocolo%20avulso",
         paymentLink: "https://pay.kiwify.com.br/Xcq6j4S",
@@ -131,14 +158,14 @@ export const plansConfig: Record<string, PlanFeatures> = {
     mensal: {
         id: "mensal",
         name: "PLANO MENSAL",
-        description: "Plano mensal com protocolo fixo de 4 semanas, renovado todo mês",
+        description: "Plano mensal com protocolo fixo de 4 semanas, renovado todo mes",
         features: [
-            "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Acesso a nova plataforma de alunos",
+            "Planilha com videos de TODOS os exercicios",
             "Planilha de controle de carga",
-            "Alongamentos específicos",
-            "Ajustes periódicos nos treinos",
-            "Protocolo de 4 semanas (renovação mensal)",
+            "Alongamentos especificos",
+            "Ajustes periodicos nos treinos",
+            "Protocolo de 4 semanas (renovacao mensal)",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Mensal",
         theme: {
@@ -149,13 +176,13 @@ export const plansConfig: Record<string, PlanFeatures> = {
     prata: {
         id: "prata",
         name: "PLANO PRATA",
-        description: "Plano Premium de entrada com 2 protocolos de treino e acesso à nova plataforma de alunos",
+        description: "Plano Premium de entrada com 2 protocolos de treino e acesso a nova plataforma de alunos",
         features: [
-            "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Acesso a nova plataforma de alunos",
+            "Planilha com videos de TODOS os exercicios",
             "Planilha de controle de carga",
-            "Alongamentos específicos",
-            "Ajustes periódicos nos treinos",
+            "Alongamentos especificos",
+            "Ajustes periodicos nos treinos",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Prata",
         theme: {
@@ -166,13 +193,13 @@ export const plansConfig: Record<string, PlanFeatures> = {
     ouro: {
         id: "ouro",
         name: "PLANO OURO",
-        description: "Plano Premium com 3 protocolos de treino e acompanhamento mais próximo",
+        description: "Plano Premium com 3 protocolos de treino e acompanhamento mais proximo",
         features: [
-            "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Acesso a nova plataforma de alunos",
+            "Planilha com videos de TODOS os exercicios",
             "Planilha de controle de carga",
-            "Alongamentos específicos",
-            "Ajustes periódicos nos treinos",
+            "Alongamentos especificos",
+            "Ajustes periodicos nos treinos",
             "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro",
@@ -184,13 +211,13 @@ export const plansConfig: Record<string, PlanFeatures> = {
     platinum: {
         id: "platinum",
         name: "PLANO PLATINUM",
-        description: "Plano Premium com 4 protocolos de treino e acompanhamento avançado",
+        description: "Plano Premium com 4 protocolos de treino e acompanhamento avancado",
         features: [
-            "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Acesso a nova plataforma de alunos",
+            "Planilha com videos de TODOS os exercicios",
             "Planilha de controle de carga",
-            "Alongamentos específicos",
-            "Ajustes periódicos nos treinos",
+            "Alongamentos especificos",
+            "Ajustes periodicos nos treinos",
             "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum",
@@ -200,11 +227,14 @@ export const plansConfig: Record<string, PlanFeatures> = {
         },
     },
 };
+```
 
-// ========== BADGES ==========
+- [ ] **Step 3: Atualizar badges, ordem e destaques**
+
+```ts
 export const badgesConfig = {
     blackFriday: {
-        avulso: "Preço Fixo",
+        avulso: "Preco Fixo",
         mensal: "MENSAL",
         prata: "🔥 BLACK FRIDAY",
         ouro: "🏆 BLACK FRIDAY + MAIS POPULAR",
@@ -219,61 +249,20 @@ export const badgesConfig = {
     },
 };
 
-// ========== ORDEM DE EXIBIÇÃO ==========
 export const planOrderConfig = {
     blackFriday: ["avulso", "mensal", "prata", "ouro", "platinum"],
     normal: ["avulso", "mensal", "prata", "ouro", "platinum"],
 };
 
-// ========== PLANOS DESTACADOS ==========
 export const highlightedPlansConfig = {
     blackFriday: "ouro",
     normal: "avulso",
 };
+```
 
-// ========== FUNÇÕES AUXILIARES ==========
+- [ ] **Step 4: Adicionar helper para classes de tema**
 
-/** Gera o link do WhatsApp para um plano */
-export const getWhatsAppLink = (planId: string, isBlackFriday: boolean) => {
-    const plan = plansConfig[planId];
-    if (!plan) return "#";
-
-    const suffix = isBlackFriday ? "%20BLACK%20FRIDAY" : "";
-    return `https://wa.me/5521972179585?text=${plan.whatsappMessage}${suffix}`;
-};
-
-/** Retorna o link de pagamento de um plano */
-export const getPaymentLink = (planId: string) => {
-    const plan = plansConfig[planId];
-    return plan?.paymentLink || "#";
-};
-
-/** Retorna o badge apropriado para o plano */
-export const getPlanBadge = (planId: string, isBlackFriday: boolean) => {
-    const mode = isBlackFriday ? "blackFriday" : "normal";
-    return badgesConfig[mode][planId as keyof typeof badgesConfig.blackFriday] || "";
-};
-
-/** Retorna o tema do plano baseado no modo */
-export const getPlanTheme = (planId: string, isBlackFriday: boolean): PlanThemeKey => {
-    const plan = plansConfig[planId];
-    if (!plan) return "gray";
-
-    return isBlackFriday ? plan.theme.blackFriday : plan.theme.normal;
-};
-
-/** Verifica se o plano é destacado */
-export const isPlanHighlighted = (planId: string, isBlackFriday: boolean) => {
-    const highlightedPlan = isBlackFriday ? highlightedPlansConfig.blackFriday : highlightedPlansConfig.normal;
-    return planId === highlightedPlan;
-};
-
-/** Retorna a ordem dos planos */
-export const getPlanOrder = (isBlackFriday: boolean) => {
-    return isBlackFriday ? planOrderConfig.blackFriday : planOrderConfig.normal;
-};
-
-/** Retorna as classes de tema para o card do plano */
+```ts
 export const getPlanThemeClasses = (planId: string, isBlackFriday: boolean, hasPremiumFocus: boolean) => {
     const themeKey = getPlanTheme(planId, isBlackFriday);
     const base = themeClassesConfig[themeKey] || themeClassesConfig.gray;
@@ -289,3 +278,100 @@ export const getPlanThemeClasses = (planId: string, isBlackFriday: boolean, hasP
 
     return base;
 };
+```
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add src/config/plans.config.ts
+git commit -m "refactor: centralize planos config"
+```
+
+---
+
+### Task 2: Usar plans.config.ts no PricingSection
+
+**Files:**
+- Modify: `src/components/PricingSection.tsx`
+
+- [ ] **Step 1: Atualizar imports e remover consts locais**
+
+```ts
+import {
+    plansConfig,
+    getPlanOrder,
+    getPlanBadge,
+    getWhatsAppLink,
+    getPaymentLink,
+    isPlanHighlighted,
+    getPlanThemeClasses,
+} from "@/config/plans.config";
+```
+
+- [ ] **Step 2: Montar array de planos com ordem configurada**
+
+```ts
+const getPlans = (): Plan[] => {
+    const order = getPlanOrder(isBlackFriday);
+    return order.map((planId) => {
+        const plan = plansConfig[planId];
+        const priceKey = planId === "avulso" ? "protocolo" : planId;
+
+        return {
+            id: plan.id as Plan["id"],
+            name: plan.name,
+            badge: getPlanBadge(planId, isBlackFriday),
+            price: isBlackFriday ? prices[priceKey] : null,
+            priceVista: isBlackFriday ? null : prices[`${priceKey}Vista`],
+            priceCredito: isBlackFriday ? null : prices[`${priceKey}Credito`],
+            originalPrice: isBlackFriday ? prices[`${priceKey}Original`] : null,
+            savings: isBlackFriday ? savings?.[priceKey] : null,
+            description: plan.description,
+            features: plan.features,
+            paymentLink: getPaymentLink(planId),
+            whatsappLink: getWhatsAppLink(planId, isBlackFriday),
+            highlighted: isPlanHighlighted(planId, isBlackFriday),
+            isBlackFriday,
+        };
+    });
+};
+```
+
+- [ ] **Step 3: Ajustar badge dinamico do avulso (promocao)**
+
+```ts
+const plans = getPlans().map((plan) => {
+    if (plan.id === "avulso" && isProtocoloAvulsoPromo) {
+        return { ...plan, badge: protocoloAvulsoMessage };
+    }
+    return plan;
+});
+```
+
+- [ ] **Step 4: Usar tema do config**
+
+```ts
+const theme = getPlanThemeClasses(plan.id, plan.isBlackFriday, hasPremiumFocus);
+```
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add src/components/PricingSection.tsx
+git commit -m "refactor: build pricing cards from config"
+```
+
+---
+
+### Task 3: Validacao manual
+
+**Files:**
+- Modify: nenhuma
+
+- [ ] **Step 1: Rodar e conferir ordem**
+
+```bash
+npm run dev
+```
+
+Expected: ordem dos cards `avulso, mensal, prata, ouro, platinum` em ambos os modos.

@@ -16,6 +16,10 @@ export const pricingConfig = {
             original: 690.9,
             discount: 600.0,
         },
+        mensal: {
+            original: 160.9,
+            discount: 149.9,
+        },
         protocolo: {
             price: 119.9,
         },
@@ -35,6 +39,10 @@ export const pricingConfig = {
             vista: 619.9,
             credito: 690.9,
         },
+        mensal: {
+            vista: 149.9,
+            credito: 160.9,
+        },
         protocolo: {
             vista: 135.0, // Sempre o mesmo preço à vista (PIX)
             credito: 149.9, // Preço parcelado
@@ -49,6 +57,7 @@ export const getBlackFridaySavings = () => ({
     prata: pricingConfig.blackFriday.prata.original - pricingConfig.blackFriday.prata.discount,
     ouro: pricingConfig.blackFriday.ouro.original - pricingConfig.blackFriday.ouro.discount,
     platinum: pricingConfig.blackFriday.platinum.original - pricingConfig.blackFriday.platinum.discount,
+    mensal: pricingConfig.blackFriday.mensal.original - pricingConfig.blackFriday.mensal.discount,
 });
 
 /** Retorna os preços baseado no modo ativo (Black Friday ou Normal) */
@@ -67,6 +76,10 @@ export const getCurrentPrices = (isBlackFriday: boolean) => {
             platinumOriginal: pricingConfig.blackFriday.platinum.original,
             platinumVista: null,
             platinumCredito: null,
+            mensal: pricingConfig.blackFriday.mensal.discount,
+            mensalOriginal: pricingConfig.blackFriday.mensal.original,
+            mensalVista: null,
+            mensalCredito: null,
             protocolo: pricingConfig.blackFriday.protocolo.price,
             protocoloVista: null,
             protocoloCredito: null,
@@ -87,6 +100,10 @@ export const getCurrentPrices = (isBlackFriday: boolean) => {
         platinumOriginal: null,
         platinumVista: pricingConfig.normal.platinum.vista,
         platinumCredito: pricingConfig.normal.platinum.credito,
+        mensal: pricingConfig.normal.mensal.credito,
+        mensalOriginal: null,
+        mensalVista: pricingConfig.normal.mensal.vista,
+        mensalCredito: pricingConfig.normal.mensal.credito,
         protocolo: pricingConfig.normal.protocolo.vista,
         protocoloVista: pricingConfig.normal.protocolo.vista,
         protocoloCredito: pricingConfig.normal.protocolo.credito,
