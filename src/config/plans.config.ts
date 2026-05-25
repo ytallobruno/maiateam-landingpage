@@ -112,9 +112,8 @@ export const plansConfig: Record<string, PlanFeatures> = {
     avulso: {
         id: "avulso",
         name: "PROTOCOLO AVULSO",
-        description: "Plano Basic avulso com protocolo de 4 semanas",
+        description: "Plano Basic avulso com um único protocolo",
         features: [
-            "Protocolo de 4 semanas",
             "1 planilha de treino permanente",
             "Alongamentos específicos",
             "Diretrizes de execução",
@@ -131,11 +130,10 @@ export const plansConfig: Record<string, PlanFeatures> = {
     mensal: {
         id: "mensal",
         name: "PLANO MENSAL",
-        description: "Plano Premium mensal com protocolo fixo de 4 semanas e vagas limitadas",
+        description: "Plano Basic mensal com protocolo fixo de 4 semanas e vagas limitadas",
         features: [
             "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
-            "Planilha de controle de carga",
+            "Vídeos de TODOS os exercícios prescritos",
             "Alongamentos específicos",
             "Ajustes periódicos nos treinos",
             "Protocolo de 4 semanas (renovação mensal)",
@@ -152,7 +150,7 @@ export const plansConfig: Record<string, PlanFeatures> = {
         description: "Plano Premium de entrada com 2 protocolos de treino e acesso à nova plataforma de alunos",
         features: [
             "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Vídeos de TODOS os exercícios prescritos",
             "Planilha de controle de carga",
             "Alongamentos específicos",
             "Ajustes periódicos nos treinos",
@@ -170,11 +168,11 @@ export const plansConfig: Record<string, PlanFeatures> = {
         description: "Plano Premium com 3 protocolos de treino e acompanhamento mais próximo",
         features: [
             "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Vídeos de TODOS os exercícios prescritos",
             "Planilha de controle de carga",
             "Alongamentos específicos",
             "Ajustes periódicos nos treinos",
-            "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
+            "Reunião de alinhamento a cada 6 semanas para entrega do protocolo",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Ouro",
         theme: {
@@ -188,11 +186,11 @@ export const plansConfig: Record<string, PlanFeatures> = {
         description: "Plano Premium com 4 protocolos de treino e acompanhamento avançado",
         features: [
             "Acesso à nova plataforma de alunos",
-            "Planilha com vídeos de TODOS os exercícios",
+            "Vídeos de TODOS os exercícios prescritos",
             "Planilha de controle de carga",
             "Alongamentos específicos",
             "Ajustes periódicos nos treinos",
-            "Chamada de alinhamento a cada 6 semanas para entrega do protocolo",
+            "Reunião de alinhamento a cada 6 semanas para entrega do protocolo",
         ],
         whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Platinum",
         theme: {

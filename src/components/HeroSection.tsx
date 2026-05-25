@@ -121,21 +121,21 @@ export default function HeroSection() {
                                             className="h-[390px] w-full object-cover object-top sm:h-[440px] lg:h-[470px]"
                                             priority
                                         />
-                                        <div className="absolute inset-x-0 bottom-0 z-20 p-5 text-left sm:p-6">
+                                        <div className="absolute inset-x-0 bottom-0 z-20 p-5 pr-32 text-left sm:p-6 sm:pr-36">
                                             <p className="text-xl font-semibold text-green-300">Lucas Maia</p>
                                             <p className="text-sm text-text-secondary">Educador Físico & Coach</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="absolute -left-2 top-4 rounded-xl border border-green-400/30 bg-surface-focal/90 px-3 py-2.5 backdrop-blur-sm sm:-left-3 sm:top-6 sm:rounded-2xl sm:px-4 sm:py-3">
+                                <div className="absolute -left-4 top-4 rounded-xl border border-green-400/30 bg-surface-focal/90 px-3 py-2.5 backdrop-blur-sm sm:-left-5 sm:top-6 sm:rounded-2xl sm:px-4 sm:py-3">
                                     <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">
                                         alunas ativas
                                     </p>
                                     <p className="text-xl font-bold text-green-300">95+</p>
                                 </div>
 
-                                <div className="absolute -right-1 bottom-4 z-30 rounded-xl border border-white/10 bg-black/85 px-3 py-2.5 backdrop-blur-sm sm:-right-2 sm:bottom-6 sm:rounded-2xl sm:px-4 sm:py-3">
+                                <div className="absolute -right-5 bottom-4 z-30 rounded-xl border border-white/10 bg-black/85 px-3 py-2.5 backdrop-blur-sm  sm:bottom-6 sm:rounded-2xl sm:px-4 sm:py-3">
                                     <p className="text-xs uppercase tracking-[0.16em] text-text-secondary">
                                         resultados reais
                                     </p>
