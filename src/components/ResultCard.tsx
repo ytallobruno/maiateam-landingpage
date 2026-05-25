@@ -1,15 +1,8 @@
 "use client";
 
+import { type Result } from "@/config/results.config";
 import Image from "next/image";
-import React from "react";
-
-export type Result = {
-    image: string;
-    name: string;
-    result: string;
-    quote: string;
-    featured?: boolean;
-};
+export type { Result };
 
 export default function ResultCard({ result, index }: { result: Result; index: number }) {
     const ctaLabel = "Quero um resultado assim";
@@ -29,6 +22,7 @@ export default function ResultCard({ result, index }: { result: Result; index: n
                     alt={`Antes e depois de ${result.name} com consultoria de treino personalizado feminino`}
                     width={420}
                     height={560}
+                    loading="eager"
                     className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] ${
                         result.name === "Catarina" ? "object-[center_70%]" : ""
                     }`}

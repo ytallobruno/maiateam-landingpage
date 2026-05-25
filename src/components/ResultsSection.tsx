@@ -1,74 +1,17 @@
 "use client";
 
-import { CheckCircle } from "lucide-react";
+import { resultsConfig } from "@/config/results.config";
 import { motion } from "framer-motion";
-import ResultCard, { type Result } from "./ResultCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, A11y, EffectCoverflow } from "swiper/modules";
+import { CheckCircle } from "lucide-react";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
+import { A11y, EffectCoverflow, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import ResultCard from "./ResultCard";
 
 export default function ResultsSection() {
-    const results: Result[] = [
-        {
-            image: "/resultado-thamiris.webp",
-            name: "Thamiris Lima",
-            result: "Evolução em 8 semanas",
-            quote: "Aluna de protocolo avulso e com apenas 8 semanas (um protocolo) obteve melhora no quadríceps, em formato e também em volume.",
-            featured: false,
-        },
-        {
-            image: "/resultado-gabriele.webp",
-            name: "Gabriele Martins",
-            result: "Dorsais de verdade em 1 ano",
-            quote: "Um ano de uma foto para a outra e construímos dorsais de verdade. Aluna com rotina corrida e ainda sim obteve melhora da cintura escapular.",
-            featured: false,
-        },
-        {
-            image: "/resultado-leticia.webp",
-            name: "Letícia Castro",
-            result: "Evolução aproximada de 6 meses",
-            quote: "Aluna do plano ouro, 6 meses de diferença entre fotos, conseguimos reduzir a celulite, melhorar o aspecto dos membros inferiores e do glúteo.",
-            featured: false,
-        },
-        {
-            image: "/manuela-resultado.jpeg",
-            name: "Manuela",
-            result: "Evolução em 8 meses",
-            quote: "Aluna do plano ouro, em 8 meses de consultoria conseguimos de forma natural transformar o glúteo e as costas.",
-            featured: false,
-        },
-        {
-            image: "/resultado-catarina.webp",
-            name: "Catarina",
-            result: "Quadríceps e posteriores com muito mais volume",
-            quote: "No seu primeiro campeonato, varreu diversos prêmios e obteve resultados incríveis.",
-            featured: true,
-        },
-
-        {
-            image: "/ana-resultado.jpeg",
-            name: "Ana",
-            result: "Evolução em 6 semanas",
-            quote: "Diferença de 4kgs de uma foto para outra. Aluna que adquiriu o protocolo avulso de treino em busca de adesão, porque manter a constância era sua maior dificuldade.",
-            featured: false,
-        },
-        {
-            image: "/vanessa-resultado.jpeg",
-            name: "Vanessa",
-            result: "Transformação em 1 ano",
-            quote: "42 anos e 1 ano de treinamento. Treinava já há 7 anos e seguia totalmente estagnada nos resultados.",
-            featured: false,
-        },
-        {
-            image: "/resultado-rochelly.webp",
-            name: "Rochelly",
-            result: "Evolução completa em 1 ano",
-            quote: "Um glúteo de verdade construído com músculos de verdade. Treinava em horário de pico, rotina de CLT e tinha apenas 45min para treinar.",
-            featured: false,
-        },
-    ];
+    const results = resultsConfig;
 
     return (
         <motion.section
