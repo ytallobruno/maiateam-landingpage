@@ -14,7 +14,7 @@ export const siteUrl = (() => {
 
 export const siteMetadata = {
     siteName: "Lucas Maia Consultoria",
-    defaultTitle: "Personal Trainer Online para Mulheres | Lucas Maia",
+    defaultTitle: "Lucas Maia | Personal Trainer Online para Mulheres",
     titleTemplate: "%s | Lucas Maia",
     description:
         "Consultoria com personal trainer online para mulheres com treino personalizado, foco em emagrecimento e hipertrofia feminina.",
