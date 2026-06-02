@@ -5,19 +5,19 @@ export const pricingConfig = {
     // ========== PREÇOS BLACK FRIDAY ==========
     blackFriday: {
         prata: {
-            original: 329.9,
+            original: 350.0,
             discount: 295.0,
         },
         ouro: {
-            original: 419.9,
+            original: 450.0,
             discount: 375.0,
         },
         platinum: {
-            original: 690.9,
+            original: 750.0,
             discount: 600.0,
         },
         mensal: {
-            original: 160.9,
+            original: 160.0,
             discount: 149.9,
         },
         protocolo: {
@@ -28,24 +28,24 @@ export const pricingConfig = {
     // ========== PREÇOS NORMAIS ==========
     normal: {
         prata: {
-            vista: 329.9, // Preço à vista (PIX)
-            credito: 350.0, // Preço parcelado
+            vista: 350.0, // Preço à vista (PIX)
+            credito: 370.0, // Preço parcelado
         },
         ouro: {
-            vista: 399.9,
-            credito: 419.9,
+            vista: 450.0,
+            credito: 480.0,
         },
         platinum: {
-            vista: 619.9,
-            credito: 690.9,
+            vista: 750.0,
+            credito: 800.0,
         },
         mensal: {
-            vista: 149.9,
-            credito: 160.9,
+            vista: 160.0,
+            credito: 165.0,
         },
         protocolo: {
             vista: 135.0, // Sempre o mesmo preço à vista (PIX)
-            credito: 149.9, // Preço parcelado
+            credito: 145.0, // Preço parcelado
         },
     },
 } as const;
