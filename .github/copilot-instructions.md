@@ -1,162 +1,121 @@
-# GitHub Copilot Instructions
+# Copilot Instructions - Maiateam Landing Page
 
-## Priority Guidelines
+A Next.js (App Router) landing page for fitness/personal training consulting, focused on conversion, SEO, and Portuguese pt-BR content.
 
-Ao gerar código para este repositório, siga esta prioridade:
+> ℹ️ **Detailed reference**: See `AGENTS.md` for development philosophy.
 
-1. **Compatibilidade de versão**: respeite estritamente as versões detectadas no projeto.
-2. **Contexto local primeiro**: priorize instruções em `.github/copilot/` (quando existirem) e `.github/copilot-instructions.md`.
-3. **Padrões já existentes**: replique padrões reais do código antes de propor alternativas.
-4. **Consistência arquitetural**: mantenha o estilo atual (monolítico frontend com App Router e organização por domínio em `src/`).
-5. **Qualidade de código**: priorize maintainability, performance, accessibility, security e testability sem inventar práticas não evidenciadas.
+## Build, Test & Lint Commands
 
-## Technology Version Detection (evidência direta)
+All commands use **npm** (evidence: `package-lock.json`).
 
-Use as versões abaixo como referência de compatibilidade:
+```bash
+# Development
+npm run dev              # Dev server at http://localhost:3001
 
-| Tecnologia    | Versão/Evidência             |
-| ------------- | ---------------------------- |
-| Next.js       | `^16.2.3` (`package.json`)   |
-| React         | `19.1.0` (`package.json`)    |
-| React DOM     | `19.1.0` (`package.json`)    |
-| TypeScript    | `^5` (`package.json`)        |
-| ESLint        | `^9` (`package.json`)        |
-| Prettier      | `^3.6.2` (`package.json`)    |
-| Tailwind CSS  | `^3.4.17` (`package.json`)   |
-| Framer Motion | `^12.23.12` (`package.json`) |
-| Swiper        | `^12.1.2` (`package.json`)   |
-| next-seo      | `^6.8.0` (`package.json`)    |
+# Code validation
+npm run format           # Prettier: write formatted code
+npm run format:check     # Prettier: check (without writing)
+npm run lint             # ESLint: check
+npm run lint:fix         # ESLint: auto-fix
 
-Regras de compatibilidade:
+# Build & production
+npm run build            # Static build/prerender (Next.js managed)
+npm run start            # Start production server
+```
 
-- Não use APIs/funções que dependam de versões superiores às listadas.
-- Em dúvida, prefira o padrão já utilizado nos arquivos existentes.
-- Versão exata de Node.js: **Não evidenciado no repositório**.
+**Recommended workflow before completing changes**:
 
-## Context Files
+```bash
+npm run format && npm run lint && npm run build
+```
 
-Se houver conflito de orientação, siga esta ordem:
+**No automated test framework is evidenced in the repository.** Validation is via lint/build.
 
-1. `.github/copilot/copilot-instructions.md` (este arquivo)
-2. `.github/copilot-instructions.md`
-3. `.github/instructions/error-history.instructions.md`
-4. `.github/instructions/manifest-discovery.instructions.md`
-5. `.github/instructions/markdown-documentation.instructions.md`
-6. Código existente em `src/`
+## Architecture & Technical Stack
 
-Arquivos como `architecture.md`, `tech-stack.md`, `coding-standards.md`, `folder-structure.md` e `exemplars.md` em `.github/copilot/`: **Não evidenciado no repositório**.
+| Aspect    | Evidence                        |
+| --------- | ------------------------------- |
+| Framework | Next.js `^16.2.3` (App Router)  |
+| Language  | TypeScript `^5`, React `19.1.0` |
+| Styling   | Tailwind CSS `^3.4.17`          |
+| Animation | Framer Motion `^12.23.12`       |
+| Carousel  | Swiper `^12.1.2`                |
+| SEO       | next-seo `^6.8.0`               |
+| Linting   | ESLint `^9` + Prettier `^3.6.2` |
 
-## Arquitetura e Estrutura Observadas
+**Folder structure**:
 
-- Projeto **single package** (sem monorepo) com `package.json` na raiz.
-- Frontend em Next.js App Router (`src/app/**`).
-- Organização principal:
-    - `src/app`: rotas, layout global, metadata routes (`robots.ts`, `sitemap.ts`)
-    - `src/components`: componentes visuais da landing e seções
-    - `src/hooks`: hooks de estado/efeitos (`usePromotion`)
-    - `src/config`: configurações centralizadas (preços, promoções, SEO)
-- Alias de import: `@/* -> ./src/*` (`tsconfig.json`).
+```
+src/
+  ├── app/              # Routes (App Router), global layout, metadata (robots.ts, sitemap.ts)
+  ├── components/       # Landing visual components (sections, cards, headers)
+  ├── config/           # Centralized configuration (pricing, promotions, SEO)
+  ├── hooks/            # Reusable React hooks (usePromotion)
+```
 
-## Codebase Scanning Instructions
+**Import alias**: `@/*` → `./src/*` (configured in `tsconfig.json`)
 
-Antes de criar/alterar código:
-
-1. Encontre arquivos similares no mesmo domínio (rota, componente, hook, config).
-2. Reaplique padrões de:
-    - naming (`PascalCase` em componentes, `camelCase` em funções/constantes)
-    - imports com aspas duplas e alias `@/`
-    - tipagem explícita em TypeScript
-    - tratamento de estado com hooks React
-    - classes utilitárias Tailwind inline no JSX
-3. Quando houver múltiplos padrões, prefira os arquivos mais recentes do próprio módulo.
-4. Não introduza bibliotecas novas sem evidência ou pedido explícito.
-
-## Convenções de Código Observadas
+## Code Patterns & Conventions
 
 ### TypeScript/React/Next
 
-- Use `export default function NomeComponente()` para componentes de página/seção.
-- Use `export const metadata: Metadata` em páginas/layout server-side.
-- Use `"use client"` apenas em componentes com hooks/eventos do cliente.
-- Use `next/link` para navegação interna e `<a>` para links externos.
-- Em links externos, mantenha `target="_blank"` + `rel="noopener noreferrer"`.
+- Components: `export default function ComponentName()` (PascalCase)
+- Functions/constants: `camelCase` (named export when auxiliary)
+- Metadata on pages: `export const metadata: Metadata = {...}`
+- `"use client"` only with client hooks/events
+- Internal links: `<Link href="..." />`; External links: `<a href="..." target="_blank" rel="noopener noreferrer" />`
 
-### Estilo e Formatação
+### Styling & Tailwind
 
-- Formatação gerida por Prettier (`npm run format`).
-- Lint com ESLint + `eslint-plugin-prettier` (`npm run lint`).
-- Indentação e quebras devem seguir o padrão já aplicado no repositório.
+- Utility classes inline in JSX (do not use separate CSS files for components)
+- Reuse existing components and visual patterns
+- Preserve breakpoints and class names already in use
 
-### Organização de Configuração
+### Accessibility & SEO
 
-- Centralize constantes de negócio em `src/config/` (ex.: `pricing.config.ts`, `promotions.config.ts`, `seo.config.ts`).
-- Prefira funções auxiliares de config em vez de duplicar lógica em componentes.
+- Preserve/add `aria-*` attributes and heading hierarchy (`h1` unique, followed by `h2/h3`)
+- Images with descriptive `alt` text and careful use of `next/image` with `priority`
+- SEO: Next.js metadata + JSON-LD + `robots.ts` + `sitemap.ts` (project standard)
 
-### Acessibilidade
+### Formatting
 
-- Preserve/adicione `aria-label` em controles interativos quando necessário.
-- Mantenha hierarquia semântica de headings (`h1` único por página, seguido de `h2/h3`).
-- Use `alt` descritivo em imagens relevantes.
+- Indentation: 4 spaces (Prettier `tabWidth: 4`)
+- Double quotes for strings
+- Prettier auto-manages formatting → run `npm run format` before completing work
 
-## Code Quality Standards
+## Development Workflow
 
-### Maintainability
+1. **Before making changes**: locate similar files in the domain (route, component, hook, config)
+2. **Make surgical changes**: only touch what's necessary, maintain contracts and behavior
+3. **Replicate patterns**: naming, imports, typing, hook usage, Tailwind classes
+4. **Validate**:
+    ```bash
+    npm run format && npm run lint && npm run build
+    ```
+5. **If bugs are fixed**: incrementally update `.github/instructions/error-history.instructions.md` with context, root cause, fix, and prevention
 
-- Priorize funções e componentes coesos.
-- Evite duplicação de texto/configuração quando já houver fonte central.
-- Mantenha nomes claros e contextuais ao domínio fitness/consultoria.
+## Non-Negotiable Rules
 
-### Performance
+1. **Do not assume** stack, commands, architecture, or patterns without repository evidence
+2. **Treat as primary sources**: `package.json`, lockfiles, versioned code
+3. **Never invent commands** — only use those listed above
+4. **Prioritize consistency** with existing code over generic "best practices"
+5. **Portuguese pt-BR** for all final output (content, project context comments)
+6. **Do not introduce new libraries** without evidence or explicit request
 
-- Siga padrões existentes de `next/image` e uso cuidadoso de `priority`.
-- Evite efeitos/intervalos desnecessários; use lógica condicional como em `usePromotion`.
-- Não aumente complexidade de render sem necessidade funcional.
+## Related Contexts
 
-### Security
+If there is conflicting guidance, follow this order:
 
-- Não introduza secrets no código.
-- Preserve padrões de links externos seguros (`noopener noreferrer`).
-- Valide e normalize URLs de ambiente quando aplicável (como em `siteUrl`).
+1. `.github/copilot-instructions.md` ← **you are here**
+2. `AGENTS.md` (behavior & philosophy)
+3. `.github/instructions/error-history.instructions.md` (error history)
+4. Existing code in `src/`
 
-### Accessibility
+## Project Customizations
 
-- Preserve atributos ARIA já existentes.
-- Mantenha textos de CTA compreensíveis e contraste visual consistente com padrão atual.
+- **Specialized agents** in `.github/agents/`: frontend-next-tailwind-engineer, code-refactor-engineer, etc.
+- **Skills** in `.github/skills/`: Emil design philosophy, Karpathy guidelines, etc.
+- **Business configuration**: `src/config/` centralizes pricing, promotions, SEO, plans
 
-### Testability
-
-- Framework de testes automatizados: **Não evidenciado no repositório**.
-- Escreva código com responsabilidades separadas para facilitar testes futuros.
-- Não adicione ferramenta de teste sem solicitação explícita.
-
-## Testing and Validation Commands (scripts reais)
-
-Use apenas comandos existentes na raiz:
-
-- `npm run dev`
-- `npm run build`
-- `npm run start`
-- `npm run lint`
-- `npm run lint:fix`
-- `npm run format`
-- `npm run format:check`
-
-Quando alterar código, priorize o fluxo:
-
-1. `npm run format`
-2. `npm run lint`
-3. `npm run build`
-
-## Versioning Guidelines
-
-- O projeto usa versionamento em `package.json` (`2.0.0`) compatível com estilo semântico.
-- Estratégia formal de release/tag: **Não evidenciado no repositório**.
-
-## Regras de Geração para Copilot
-
-- Sempre prefira consistência com o código existente sobre “best practices” genéricas.
-- Não assumir CI/CD, testes E2E, backend, banco de dados ou infraestrutura externa quando não houver evidência.
-- Em tarefas de SEO, seguir padrão já adotado: metadata do Next, JSON-LD, `robots.ts`, `sitemap.ts`, links internos relevantes.
-- Em tarefas de UI, manter stack atual: Tailwind + Framer Motion + componentes em `src/components`.
-- Em tarefas de conteúdo, manter português pt-BR como padrão textual do produto.
-- **SEMPRE** que um erro for corrigido, atualizar incrementalmente o arquivo `.github/instructions/error-history.instructions.md` com contexto, causa raiz, correção e prevenção para manter o histórico do que não fazer e como resolver reincidências.
+Prefer using the `frontend-next-tailwind-engineer` agent for UI/frontend tasks in Next.js and the `frontend-design` skill when you need help with the design system.

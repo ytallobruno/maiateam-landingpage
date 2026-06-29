@@ -12,6 +12,9 @@ export const siteUrl = (() => {
     }
 })();
 
+// URL de login da plataforma de alunos do Coach Maia
+export const studentPlatformUrl = "https://maia-squad.vercel.app/";
+
 export const siteMetadata = {
     siteName: "Lucas Maia Consultoria",
     defaultTitle: "Lucas Maia | Personal Trainer Online para Mulheres",

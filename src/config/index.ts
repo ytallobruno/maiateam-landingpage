@@ -9,3 +9,7 @@ export * from "./pricing.config";
 
 // Planos
 export * from "./plans.config";
+
+export * from "./results.config";
+
+export * from "./seo.config";

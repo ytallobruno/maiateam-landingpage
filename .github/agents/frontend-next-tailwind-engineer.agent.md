@@ -1,7 +1,7 @@
 ---
 name: frontend-next-tailwind-engineer
 description: "Implementa e refatora interfaces em Next.js com TypeScript e Tailwind CSS, respeitando a arquitetura, os padrões visuais e a organização real do repositório."
-tools: ["read", "search", "edit", "execute"]
+tools: ["vscode", "execute", "read"]
 ---
 
 # Frontend Next Tailwind Engineer

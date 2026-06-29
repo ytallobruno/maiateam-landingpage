@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X, User } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { studentPlatformUrl } from "@/config/seo.config";
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
@@ -73,22 +74,38 @@ export default function Header() {
                     ))}
                 </nav>
 
-                {/* CTA Button Desktop */}
-                <a
-                    href="#final"
-                    className="hidden md:block bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-4 lg:px-6 py-2 lg:py-3 rounded-full shadow-[0_20px_45px_rgba(34,197,94,0.25)] border border-green-300/40 transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 text-sm lg:text-base"
-                >
-                    Começar Agora
-                </a>
+                {/* Botões de Ação */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                    {/* Área do Aluno (Sempre Visível) */}
+                    <a
+                        href={studentPlatformUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-10 w-10 items-center justify-center rounded-xl border border-green-500/30 bg-green-500/10 text-green-300 shadow-[0_12px_30px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 hover:border-green-400 hover:text-green-200 md:h-auto md:w-auto md:gap-1.5 md:rounded-full md:border-white/10 md:bg-white/[0.03] md:px-5 md:py-2.5 md:text-sm md:font-semibold md:text-white/90 md:shadow-none md:backdrop-blur-none md:hover:border-green-400/45 md:hover:bg-green-400/[0.08] md:hover:text-green-300"
+                        title="Área do Aluno"
+                        aria-label="Área do Aluno"
+                    >
+                        <User className="h-5 w-5 md:h-4 md:w-4 text-green-400" />
+                        <span className="hidden md:inline">Área do Aluno</span>
+                    </a>
 
-                {/* Menu Mobile Button */}
-                <button
-                    className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-black/35 text-white shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-300 hover:border-green-400/50 hover:text-green-300 md:hidden md:h-11 md:w-11 md:rounded-2xl"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </button>
+                    {/* CTA Button Desktop */}
+                    <a
+                        href="#final"
+                        className="hidden md:block bg-gradient-to-br from-green-400 to-green-600 text-black font-bold px-4 lg:px-6 py-2 lg:py-3 rounded-full shadow-[0_20px_45px_rgba(34,197,94,0.25)] border border-green-300/40 transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 text-sm lg:text-base"
+                    >
+                        Começar Agora
+                    </a>
+
+                    {/* Menu Mobile Button */}
+                    <button
+                        className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-black/35 text-white shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-300 hover:border-green-400/50 hover:text-green-300 md:hidden md:h-11 md:w-11 md:rounded-2xl"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
+                </div>
             </div>
 
             {/* Menu Mobile */}
