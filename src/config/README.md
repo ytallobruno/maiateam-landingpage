@@ -1,240 +1,137 @@
-# 📁 Configurações do Projeto
+# 📁 Central Project Configurations (`src/config/`)
 
-Esta pasta contém todas as configurações centralizadas do projeto, organizadas por domínio.
+This directory houses all the centralized configuration files for the landing page. Modifying these configurations updates the content, pricing, active marketing campaigns, SEO metadata, and social proof sections of the website dynamically.
 
 ---
 
-## 📂 Estrutura
+## 📂 Directory Structure
 
 ```
 src/config/
-├── promotions.config.ts   # Configurações de promoções (Black Friday, Price Countdown)
-├── pricing.config.ts      # Preços normais e promocionais
-├── plans.config.ts        # Estrutura e conteúdo dos planos
-└── index.ts              # Barrel export (facilita imports)
+├── plans.config.ts        # Plan details, benefits, WhatsApp messages, and component themes
+├── pricing.config.ts      # Active normal and promotional (Black Friday) prices
+├── promotions.config.ts   # Campaign flags and dates (Black Friday, countdown timers)
+├── results.config.ts      # Before & After student transformations and testimonial quotes
+├── seo.config.ts          # Page title, meta tags, student login URLs, FAQPage & Offer list
+├── index.ts               # Barrel export facilitating centralized imports
+└── README.md              # Documentation (You are here)
 ```
 
 ---
 
-## 🎯 Guia de Uso
+## 🎯 Config Files Overview
 
-### 1️⃣ **promotions.config.ts**
+### 1️⃣ `promotions.config.ts`
 
-**Responsabilidade:** Controla Black Friday, Price Countdown e outras promoções.
+**Responsibility:** Controls the active promotion campaigns (such as Black Friday discount modes and price countdown sticky bars).
 
-**Como ativar/desativar promoções:**
+**Campaign controls:**
 
 ```typescript
 export const promotionsConfig = {
     blackFriday: {
-        enabled: true, // ← Liga Black Friday
-        startDate: new Date("2025-11-25T00:00:00"),
-        endDate: new Date("2025-12-01T23:59:59"), // data que desabilita automaticamente
+        enabled: true, // Toggles Black Friday mode on/off
+        startDate: new Date("2026-11-01T00:00:00"),
+        endDate: new Date("2026-11-30T23:59:59"),
     },
     priceCountdown: {
-        enabled: false, // ← Liga countdown de preços
-        endDate: new Date("2025-12-31T23:59:59"), // data que desabilita automaticamente
+        enabled: false, // Toggles a sticky urgency countdown bar
+        endDate: new Date("2026-12-31T23:59:59"),
         message: "Preços sobem em:",
     },
-};
-```
-
-**Funções disponíveis:**
-
-- `isBlackFridayActive()` - Verifica se Black Friday está ativa
-- `isPriceCountdownActive()` - Verifica se countdown está ativo
-- `getPromotionDates()` - Retorna datas formatadas
-
-**Comportamento do Hook `usePromotion`:**
-
-- **Verificação Automática:**
-    - O hook verifica automaticamente o status das promoções ao ser inicializado.
-    - Caso nenhuma promoção esteja ativa, não há verificações adicionais para evitar overhead.
-- **Countdown Preciso:**
-    - Quando faltam 5 minutos ou menos para o término de uma promoção, o hook realiza verificações a cada 1 segundo.
-    - Caso falte mais de 5 minutos, o hook agenda uma verificação para o momento em que restarem 5 minutos.
-- **Desativação Automática:**
-    - Promoções são desativadas automaticamente ao atingir a data de término configurada.
-
----
-
-### 2️⃣ **pricing.config.ts**
-
-**Responsabilidade:** Define todos os preços (normais e promocionais).
-
-**Como alterar preços:**
-
-```typescript
-export const pricingConfig = {
-    blackFriday: {
-        prata: {
-            original: 329.9, // ← Preço "de"
-            discount: 295.0, // ← Preço "por"
-        },
-        // ...
-    },
-    normal: {
-        prata: {
-            vista: 295.9, // ← Preço PIX
-            credito: 329.9, // ← Preço parcelado
-        },
-        // ...
+    protocoloAvulso: {
+        enabled: false, // Toggles visual urgency badge for single protocol
+        message: "APENAS 5 VAGAS",
     },
 };
 ```
 
-**Funções disponíveis:**
+**Key Utilities:**
 
-- `getCurrentPrices(isBlackFriday)` - Retorna preços baseado no modo ativo
-- `getBlackFridaySavings()` - Calcula economias da Black Friday
-
----
-
-### 3️⃣ **plans.config.ts**
-
-**Responsabilidade:** Define estrutura e conteúdo dos planos.
-
-**Como editar planos:**
-
-```typescript
-export const plansConfig = {
-    prata: {
-        id: "prata",
-        name: "PLANO PRATA",
-        description: "...",
-        features: ["Feature 1", "Feature 2"],
-        whatsappMessage: "...",
-        theme: {
-            normal: "gray",
-            blackFriday: "gold",
-        },
-    },
-    // ...
-};
-```
-
-**Configurações adicionais:**
-
-- `badgesConfig` - Badges dos planos (Black Friday e Normal)
-- `planOrderConfig` - Ordem de exibição dos planos
-- `highlightedPlansConfig` - Planos destacados
-
-**Funções disponíveis:**
-
-- `getWhatsAppLink(planId, isBlackFriday)` - Gera link do WhatsApp
-- `getPaymentLink(planId)` - Retorna link de pagamento
-- `getPlanBadge(planId, isBlackFriday)` - Retorna badge do plano
-- `getPlanTheme(planId, isBlackFriday)` - Retorna tema do plano
-- `isPlanHighlighted(planId, isBlackFriday)` - Verifica se plano é destacado
-- `getPlanOrder(isBlackFriday)` - Retorna ordem dos planos
+- `isBlackFridayActive()`: Checks if the current date is within the Black Friday campaign period.
+- `isPriceCountdownActive()`: Checks if the countdown is enabled and still running.
+- `getPromotionDates()`: Returns localized formatted date strings for display.
 
 ---
 
-## 🔄 Como Importar
+### 2️⃣ `pricing.config.ts`
 
-### Import Individual (quando precisa de poucas coisas)
+**Responsibility:** Maps normal and Black Friday pricing schemas for all plans.
+
+- **Black Friday Mode:** Original prices (de) and discounted prices (por).
+- **Normal Mode:** Cash/PIX price (vista) and Credit Card installment price (credito).
+
+**Key Utilities:**
+
+- `getCurrentPrices(isBlackFriday)`: Returns the current pricing objects depending on the active campaign mode.
+- `getBlackFridaySavings()`: Computes original vs discount savings for marketing copy.
+
+---
+
+### 3️⃣ `plans.config.ts`
+
+**Responsibility:** Defines the contents, benefits, WhatsApp redirect messages, and visual styling themes of the plans.
+
+**Plan Structure:**
+
+- `id`: Unique identifier (matches pricing keys).
+- `name`: Display title of the plan.
+- `description`: Subtitle/summary.
+- `features`: Array of features included.
+- `whatsappMessage`: Personalized message sent by the user when redirecting to WhatsApp.
+- `theme`: Tailwind style themes mapping for normal and Black Friday modes.
+
+---
+
+### 4️⃣ `results.config.ts`
+
+**Responsibility:** Centralizes before-and-after transformation metrics and quotes from former/active students displayed in the `ResultsSection`.
+
+**Student Transformation Object:**
 
 ```typescript
-import { promotionsConfig } from "@/config/promotions.config";
-import { pricingConfig } from "@/config/pricing.config";
-import { plansConfig } from "@/config/plans.config";
-```
-
-### Barrel Import (quando precisa de várias coisas)
-
-```typescript
-import { promotionsConfig, pricingConfig, plansConfig, isBlackFridayActive, getCurrentPrices } from "@/config";
+export interface Result {
+    image: string; // Image path under /public
+    name: string; // Student name
+    result: string; // Period or change summary (e.g. "Evolução em 8 semanas")
+    quote: string; // Direct quote or testimonial
+    featured?: boolean; // Highlighted card flag
+}
 ```
 
 ---
 
-## 📝 Exemplos Práticos
+### 5️⃣ `seo.config.ts`
 
-### Exemplo 1: Ativar Black Friday
+**Responsibility:** Centralizes SEO configurations, page metadata, keywords, platform links, and structured data schemas (JSON-LD) for index pages.
 
-```typescript
-// 1. Ir em promotions.config.ts
-blackFriday: {
-    enabled: true, // ← Mudar para true
-    startDate: new Date("2025-11-25T00:00:00"),
-    endDate: new Date("2025-11-30T23:59:59"),
-}
+**Key exports:**
 
-// 2. Ajustar preços em pricing.config.ts (se necessário)
-blackFriday: {
-    prata: {
-        original: 329.9,
-        discount: 249.0, // ← Novo preço
-    },
-}
-```
-
-### Exemplo 2: Adicionar novo plano
-
-```typescript
-// Em plans.config.ts
-export const plansConfig = {
-    // ... planos existentes
-
-    diamante: {
-        id: "diamante",
-        name: "PLANO DIAMANTE",
-        description: "Plano VIP completo",
-        features: [
-            "Todos os benefícios anteriores",
-            "Suporte 24/7",
-            "Consultoria individual",
-        ],
-        whatsappMessage: "Oii%20Lucas%21%20Gostaria%20do%20Plano%20Diamante",
-        theme: {
-            normal: "blue",
-            blackFriday: "gold",
-        },
-    },
-}
-
-// Adicionar preços em pricing.config.ts
-normal: {
-    // ...
-    diamante: {
-        vista: 799.9,
-        credito: 899.9,
-    },
-}
-
-// Adicionar à ordem de exibição
-export const planOrderConfig = {
-    blackFriday: ["prata", "ouro", "platinum", "diamante", "protocolo"],
-    normal: ["prata", "protocolo", "ouro", "platinum", "diamante"],
-}
-```
-
-### Exemplo 3: Mudar plano destacado
-
-```typescript
-// Em plans.config.ts
-export const highlightedPlansConfig = {
-    blackFriday: "platinum", // ← Mudar de "ouro" para "platinum"
-    normal: "ouro", // ← Mudar de "protocolo" para "ouro"
-};
-```
-
-## 🎨 Temas Disponíveis
-
-Os planos podem usar os seguintes temas:
-
-- `gray` - Cinza (plano básico)
-- `green` - Verde (destaque médio)
-- `yellow` - Amarelo (destaque alto)
-- `purple` - Roxo (premium)
-- `gold` - Dourado (Black Friday)
+- `siteMetadata`: Web page Title, template, default description, and social sharing image.
+- `homeFaqs`: List of FAQs used both in UI rendering and in `FAQPage` JSON-LD schema.
+- `homeOfferCatalog`: List of offers used in `OfferCatalog` schema.
 
 ---
 
-## 📞 Dúvidas?
+## 🔄 Imports & Best Practices
 
-Se tiver dúvidas sobre como usar as configurações, consulte:
+### Centralized Barrel Import (Recommended)
 
-1. Este README
-2. Os comentários nos próprios arquivos de config
-3. O hook `usePromotion.ts` para ver exemplos de uso
+You should import configurations and utilities directly from `@/config` to keep imports clean:
+
+```typescript
+import { promotionsConfig, plansConfig, resultsConfig, getCurrentPrices } from "@/config";
+```
+
+### Component Consumption (Prices & Promo Hook)
+
+Always use the `usePromotion` hook in client components to read pricing and campaign states dynamically. **Never hardcode price values or percentages in JSX components.**
+
+```tsx
+import { usePromotion } from "@/hooks/usePromotion";
+
+export default function PricingCard() {
+    const { isBlackFriday, prices } = usePromotion();
+    // Use prices.prata, prices.ouro, etc.
+}
+```

@@ -1,66 +1,66 @@
 ---
-description: "Instrução incremental para registrar erros corrigidos, causas e prevenção."
+description: "Incremental instruction to record resolved errors, root causes, and prevention steps."
 applyTo: "**/*"
 ---
 
-# Histórico Incremental de Erros Corrigidos
+# Incremental History of Resolved Errors
 
-Sempre que um erro for identificado e corrigido no repositório, registre de forma incremental:
+Whenever an error is identified and fixed in the repository, record it incrementally:
 
-1. **Contexto do erro**
-    - arquivo(s) afetado(s)
-    - sintoma observado
-2. **Causa raiz**
-    - motivo técnico confirmado após investigação
-3. **Correção aplicada**
-    - o que foi alterado para resolver
-4. **Como evitar recorrência**
-    - checklist curto e acionável
-    - comando(s) de validação usados no repositório (quando existirem)
+1. **Error Context**
+    - affected file(s)
+    - observed symptom
+2. **Root Cause**
+    - confirmed technical reason after investigation
+3. **Applied Fix**
+    - what was changed to resolve it
+4. **How to Prevent Recurrence**
+    - short and actionable checklist
+    - validation command(s) used in the repository (if any exist)
 
-## Formato recomendado de entrada incremental
+## Recommended Incremental Entry Format
 
 ```md
-## [YYYY-MM-DD] Título curto do erro
+## [YYYY-MM-DD] Short title of the error
 
-### Evidências
-
-- ...
-
-### Causa raiz
+### Evidence
 
 - ...
 
-### Correção
+### Root Cause
 
 - ...
 
-### Prevenção
+### Fix
+
+- ...
+
+### Prevention
 
 - ...
 ```
 
-## Regras
+## Rules
 
-- Não remover histórico anterior.
-- Acrescentar novos registros no final do arquivo.
-- Separar fato observado de inferência quando necessário.
-- Quando faltar evidência, escrever: `Não evidenciado no repositório`.
+- Do not remove previous history.
+- Add new records to the end of the file.
+- Separate observed fact from inference when necessary.
+- When evidence is missing, write: `Not evidenced in the repository`.
 
-## [2026-05-24] Cards de preço espremidos no breakpoint de laptop (1024px)
+## [2026-05-24] Pricing cards squeezed at laptop breakpoint (1024px)
 
-### Evidências
+### Evidence
 
-- `src/components/PricingSection.tsx` estava utilizando `lg:grid-cols-4`, o que causava a renderização de 4 colunas com pouca largura útil por card em larguras a partir de 1024px.
+- `src/components/PricingSection.tsx` was using `lg:grid-cols-4`, which caused rendering of 4 columns with very little useful width per card at widths starting from 1024px.
 
-### Causa raiz
+### Root Cause
 
-- O uso do breakpoint `lg:grid-cols-4` limitava a largura de cada card a ~220px, dificultando a legibilidade e espremendo o conteúdo interno dos cards em telas de 1024px (tamanho laptop padrão).
+- Using the `lg:grid-cols-4` breakpoint limited the width of each card to ~220px, making readability difficult and squeezing the internal content of the cards on standard 1024px laptops.
 
-### Correção
+### Fix
 
-- Alterado de `lg:grid-cols-4` para `lg:grid-cols-3` em `src/components/PricingSection.tsx` para apresentar no máximo 3 cards por linha nos formatos desktop e laptop (lg e superiores), proporcionando uma largura confortável de ~309px por card.
+- Changed from `lg:grid-cols-4` to `lg:grid-cols-3` in `src/components/PricingSection.tsx` to display a maximum of 3 cards per row on desktop and laptop layouts (lg and higher), providing a comfortable width of ~309px per card.
 
-### Prevenção
+### Prevention
 
-- Validar a responsividade e legibilidade de seções com muitos cards em larguras limítrofes como 1024px (laptop) antes de finalizar alterações de layout ou grid.
+- Validate the responsiveness and legibility of sections containing multiple cards at boundary widths like 1024px (laptop) before finalizing layout or grid changes.

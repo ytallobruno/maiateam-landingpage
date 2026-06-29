@@ -1,55 +1,55 @@
 ---
-description: "Regras para criar ou atualizar Markdown baseado em evidências reais do repositório, comandos reais e arquitetura sem alucinação."
+description: "Rules to create or update Markdown based on real repository evidence, actual commands, and architecture without hallucination."
 applyTo: "**/*.md"
 ---
 
-# Regras para Documentação em Markdown
+# Rules for Markdown Documentation
 
-Ao criar ou atualizar arquivos Markdown neste repositório:
+When creating or updating Markdown files in this repository:
 
-1. Documente o repositório como ele existe agora.
-2. Use comandos exatos descobertos em scripts ou em docs versionados.
-3. Não invente arquitetura, variáveis de ambiente, fluxos de deploy nem ownership de serviços.
-4. Se faltar um detalhe, escreva `Não evidenciado no repositório`.
-5. Em monorepos, sempre especifique o path relevante do package/app.
-6. Mantenha as seções curtas, estáveis e fáceis de atualizar depois.
-7. Prefira tabelas e templates repetíveis para inventários como:
-    - apps e packages
-    - funções Lambda
-    - comandos
-    - variáveis de ambiente
-8. Separe fatos de inferências.
-9. Todo output final deve ser em português pt-BR.
+1. Document the repository as it exists now.
+2. Use exact commands discovered in scripts or versioned docs.
+3. Do not invent architecture, environment variables, deploy flows, or service ownership.
+4. If a detail is missing, write `Not evidenced in the repository`.
+5. In monorepos, always specify the relevant path of the package/app.
+6. Keep sections short, stable, and easy to update later.
+7. Prefer tables and repeatable templates for inventories such as:
+    - apps and packages
+    - Lambda functions
+    - commands
+    - environment variables
+8. Separate facts from inferences.
+9. All final output must be in Portuguese pt-BR (unless specified otherwise).
 
-## Para documentação de Lambda
+## For Lambda documentation
 
-Ao documentar funções Lambda, prefira este template:
+When documenting Lambda functions, prefer this template:
 
-- Visão Geral
-- Objetivo
-- Estrutura Técnica
-- Fluxo de Execução
-- Regras de Negócio
-- Contratos
-- Integrações
-- Tratamento de Erros
-- Observabilidade
-- Exemplo Prático
-- Flowchart Mermaid
-- Sequence Diagram Mermaid
-- Lacunas de Entendimento
-- Resumo Final
+- Overview
+- Goal
+- Technical Structure
+- Execution Flow
+- Business Rules
+- Contracts
+- Integrations
+- Error Handling
+- Observability
+- Practical Example
+- Mermaid Flowchart
+- Mermaid Sequence Diagram
+- Gaps in Understanding
+- Final Summary
 
-## Para documentação do repositório
+## For repository documentation
 
-Prefira:
+Prefer:
 
-- O que este repositório faz
-- Estrutura do repositório
-- Aplicações e packages
-- Resumo da stack
-- Desenvolvimento local
-- Scripts e comandos
-- Testes e validação
-- Notas de deploy ou runtime
-- Lacunas conhecidas
+- What this repository does
+- Repository structure
+- Applications and packages
+- Stack summary
+- Local development
+- Scripts and commands
+- Tests and validation
+- Deploy or runtime notes
+- Known gaps

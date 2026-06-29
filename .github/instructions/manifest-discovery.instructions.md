@@ -1,44 +1,44 @@
 ---
-description: "Regras para descoberta de stack e tooling a partir de manifests, lockfiles, configs e infraestrutura versionada."
+description: "Rules for stack and tooling discovery from manifests, lockfiles, configs, and versioned infrastructure."
 applyTo: "**/{package.json,package-lock.json,pnpm-lock.yaml,yarn.lock,bun.lock,bun.lockb,tsconfig*.json,next.config.*,vite.config.*,vitest.config.*,jest.config.*,eslint.config.*,.eslintrc*,.prettierrc*,prettier.config.*,serverless*.yml,template*.yml,template*.yaml,samconfig.toml,cdk.json,Dockerfile*,.github/workflows/*}"
 ---
 
-# Regras de Descoberta por Manifest
+# Discovery Rules by Manifest
 
-Ao analisar manifests e configs neste repositório:
+When analyzing manifests and configurations in this repository:
 
-1. Trate os arquivos versionados como fonte primária de verdade.
-2. Em monorepos, faça descoberta recursiva em todos os `package.json` relevantes.
-3. Extraia stack, tooling e comandos a partir de evidência direta.
-4. Diferencie claramente evidência direta de inferência.
-5. Não reporte tecnologia baseada apenas em dependências transitivas.
-6. Quando faltar evidência, escreva `Não evidenciado no repositório`.
-7. Todo output final deve ser em português pt-BR.
+1. Treat versioned files as the primary source of truth.
+2. In monorepos, perform recursive discovery in all relevant `package.json` files.
+3. Extract stack, tooling, and commands from direct evidence.
+4. Clearly distinguish direct evidence from inference.
+5. Do not report technologies based solely on transitive dependencies.
+6. When evidence is missing, write `Not evidenced in the repository`.
+7. All final output must be in Portuguese pt-BR (unless specified otherwise).
 
-## O que levantar a partir destes arquivos
+## What to extract from these files
 
 - package manager
 - workspaces/packages/apps
-- linguagem e runtime
+- language and runtime
 - frameworks
-- tooling de testes
-- tooling de lint e formatting
-- tooling de build/bundling
-- tooling serverless ou de infraestrutura
-- comandos definidos em `scripts`
-- sinais de observabilidade e automação operacional, quando existirem
+- testing tooling
+- linting and formatting tooling
+- build/bundling tooling
+- serverless or infrastructure tooling
+- commands defined in `scripts`
+- observability signals and operational automation, when they exist
 
-## Regras para scripts e comandos
+## Rules for scripts and commands
 
-- copie os scripts exatamente como definidos
-- preserve o escopo correto (raiz ou package)
-- não normalize para comandos inventados
-- não assuma que um config implica automaticamente um script correspondente
+- copy scripts exactly as defined
+- preserve the correct scope (root or package)
+- do not normalize to invented commands
+- do not assume that a configuration automatically implies a corresponding script
 
-## Regras para confiança
+## Confidence Rules
 
-Use apenas:
+Only use:
 
-- `direto` para evidência explicitamente presente
-- `inferência de alta confiança` quando múltiplas evidências convergirem
-- `inferência de baixa confiança` quando houver sinal fraco
+- `direct` for explicitly present evidence
+- `high confidence inference` when multiple evidences converge
+- `low confidence inference` when there is a weak signal
